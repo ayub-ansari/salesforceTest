@@ -1,0 +1,118 @@
+<apex:page controller="RiskAppetiteStatementController" showHeader="false" sidebar="false">
+    <style>
+        table{
+           border-collapse:collapse;
+        }
+        th {
+            background-color: #47659D;
+            color: white;
+        }
+        tr{
+           border-bottom: 1px solid #47659D;
+        }
+        tr:last-child{
+           border-bottom: none;
+        }
+        a:link {
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <apex:form id="frm">
+    <apex:pageBlock >
+        <table width="100%">
+            <tr>
+                <td width="38%"><apex:image url="{!$Resource.MillimanGRCLogo}" width="154" height="49"/></td>
+                <td>
+                    <apex:commandButton style="width:60px;" value="View All" rendered="{!(!editable)}" action="{!viewAll}"/>
+                    <apex:commandButton style="width:60px;" value="Print" rendered="{!(!editable)}" onClick="window.open('/apex/RiskAppetiteStatementPrintable','_blank','width=800,height=800,left=200'); return null;"/>
+                    <apex:commandButton style="width:60px;" value="Edit" action="{!showEditable}" rendered="{!(!editable)}"/>
+                    <apex:commandButton style="width:60px;" value="Save" action="{!saveData}" rendered="{!editable}"/>
+                    <apex:commandButton style="width:60px;" value="Cancel" action="{!hideEditable}" rendered="{!editable}"/>
+                    <apex:commandButton style="width:60px;" value="Back" action="{!back}" rendered="{!(!editable)}"/>
+                </td>
+            </tr>
+        </table>
+        <apex:outputPanel >
+            <p>
+                Risk appetite articulates the level of risk an organization is willing to accept in pursuit of value creation, as well as its capacity to bear that risk. RAS Global considers qualitative and quantitative measures to be part of setting risk appetite, and it focuses on risk based capital as a primary measure. 
+                RAS Global manages its financial operations to attain a reasoned risk/return relationship, which serves as a guideline for acceptable risk. The organization tracks and manages risks related to strategic, financial, reporting, compliance, and operations objectives. 
+                RAS Global plans to start with fewer measures for risk appetite in the early years of the ERM program and consider expanding in the future.
+                A formal risk appetite statement and associated risk tolerances and limits are foundational elements of enterprise risk management for RAS Global, which
+            <ul>
+                <li>Provides overall principles that RAS Global follow with respect to risk-taking given its business strategy, financial soundness objectives, capital resources and dynamic circumstances in the marketplace, as it serves as a guidepost when a new market opportunity or significant risk emerges.</li>
+                <li>Defines how RAS Global weighs strategic decisions and communicates its risk taking strategies. A well-articulated risk appetite statement that is communicated effectively to operating units in the form of risk tolerances and limit structures can provide clarity and focus to the resource allocation process and surface the need for dialogue as market conditions change.</li>
+                <li>Provides a forward-looking process that establishes expectations and tolerance levels for the firm&#39;s overall risk profile.</li>
+            </ul>
+            </p>
+        </apex:outputPanel>
+        <apex:outputPanel rendered="{!(!editable)}">
+            <table width="100%" cellspacing="0" cellpadding="0" frame="box" bordercolor="#47659D">
+                <thead>
+                    <th width="12%;">Risk Appetite Category</th>
+                    <th width="20%;">Risk Appetite Statement</th>
+                    <th>
+                        <table width="100%">
+                            <thead>
+                                <th width="20%">Key Risk Metrics</th>
+                                <th>Risk Tolerance and Limits</th>
+                            </thead>
+                        </table>
+                    </th> 
+                </thead>
+                <apex:repeat value="{!riskAppetiteList}" var="risk">
+                    <tr>
+                        <td>{!risk.RecordType.Name}</td>
+                        <td>{!risk.Risk_Appetite_Statement__c}</td>
+                        <td>
+                            <table width="100%">
+                                <apex:repeat value="{!risk.Key_Risk_Metrics__r}" var="krm">
+                                    <tr>
+                                        <td width="20%"><a href="/{!krm.Id}" target="_blank">{!krm.Name}</a></td>
+                                        <td>{!krm.Description__c}</td>
+                                    </tr>
+                                </apex:repeat>
+                            </table>
+                        </td>
+                    </tr>
+                </apex:repeat>
+            </table>
+        </apex:outputPanel>
+        
+        <apex:outputPanel rendered="{!editable}">
+            <table width="100%" cellspacing="0" cellpadding="0" frame="box" bordercolor="#47659D">
+                <thead>
+                    <th width="150px;">Risk Appetite Category</th>
+                    <th width="200px;">Risk Appetite Statement</th>
+                    <th>
+                        <table width="100%">
+                            <thead>
+                                <th width="160px;">Key Risk Metrics</th>
+                                <th>Risk Tolerance and Limits</th>
+                            </thead>
+                        </table>
+                    </th> 
+                </thead>
+                <apex:repeat value="{!riskAppetiteList}" var="risk">
+                    <tr>
+                        <td>{!risk.RecordType.Name}</td>
+                        <td><apex:inputTextarea rows="5" cols="50" value="{!risk.Risk_Appetite_Statement__c}"/></td>
+                        <td>
+                            <table width="100%">
+                                <apex:repeat value="{!risk.Key_Risk_Metrics__r}" var="krm">
+                                    <tr>
+                                        <td width="160px"><apex:inputText value="{!krm.Name}"/></td>
+                                        <td><apex:inputTextarea cols="120" value="{!krm.Description__c}"/></td>
+                                    </tr>
+                                </apex:repeat>
+                            </table>
+                        </td>
+                    </tr>
+                </apex:repeat>
+            </table>
+        </apex:outputPanel>
+    </apex:pageBlock>
+    </apex:form>
+</apex:page>

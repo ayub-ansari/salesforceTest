@@ -1,0 +1,89 @@
+<apex:page standardController="UGI_Process__c" extensions="Process_IA_Controller">
+    <style>
+        .heading{
+            width:110px;
+            color:white;
+            background-color:#0099CC;
+        }
+        table, th, td {
+            border: 1px solid #0099CC;
+        }
+        
+    </style>
+    <apex:form id="frm">
+        <apex:pageMessages />
+        <apex:outputPanel style="margin-left:325px;" rendered="{!showEdit}">
+            <apex:commandButton style="width:70px;" value="Add Row" action="{!addSubsidiary}" rerender="frm"/>
+            <apex:commandButton style="width:70px;" value="Save" action="{!saveSubsidiary}" rerender="frm"/>
+            <apex:commandButton style="width:70px;" value="Cancel" action="{!disableEdit}" rerender="frm"/>
+        </apex:outputPanel>
+        <!--<apex:outputPanel style="margin-left:370px;" rendered="{!Not(showEdit)}">
+            <apex:commandButton style="width:70px;" value="Edit" action="{!enableEdit}" rerender="frm"/>
+        </apex:outputPanel>
+        <br/><br/>-->
+        <!-- Non Editable section -->
+        <apex:outputPanel id="readonly" rendered="{!Not(showEdit)}">
+            <center>
+            <table cellpadding="3" cellSpacing="0">
+                <tr>
+                    <th class="heading" style="width:200px;"><center>Function</center></th>
+                    <th class="heading"><center>AmeriGas</center></th>
+                    <th class="heading"><center>UGI Energy<br/>Services</center></th>
+                    <th class="heading"><center>UGI<br/>Utilities</center></th>
+                    <th class="heading"><center>Holding<br/>Company</center></th>
+                    <th class="heading"><center>Antargaz<br/>/Finagaz</center></th>
+                    <th class="heading"><center>Avantigas</center></th>
+                    <th class="heading"><center>Flaga</center></th>
+                </tr>
+                <apex:repeat value="{!processWrapperList}" var="sub">
+                    <tr>
+                        <td>{!sub.subsidiary.Name}</td>
+                        <td style="background-color:{!IF(sub.subsidiary.AmeriGas__c == 'Low','green',If(sub.subsidiary.AmeriGas__c == 'Medium','yellow',IF(sub.subsidiary.AmeriGas__c == 'High','red','')))}"><center>{!sub.subsidiary.AmeriGas__c}</center></td>
+                        <td style="background-color:{!IF(sub.subsidiary.UGI_Energy_Services__c == 'Low','green',If(sub.subsidiary.UGI_Energy_Services__c == 'Medium','yellow',IF(sub.subsidiary.UGI_Energy_Services__c == 'High','red','')))}"><center>{!sub.subsidiary.UGI_Energy_Services__c}</center></td>
+                        <td style="background-color:{!IF(sub.subsidiary.UGI_Utilities__c == 'Low','green',If(sub.subsidiary.UGI_Utilities__c == 'Medium','yellow',IF(sub.subsidiary.UGI_Utilities__c == 'High','red','')))}"><center>{!sub.subsidiary.UGI_Utilities__c}</center></td>
+                        <td style="background-color:{!IF(sub.subsidiary.Holding_Company__c == 'Low','green',If(sub.subsidiary.Holding_Company__c == 'Medium','yellow',IF(sub.subsidiary.Holding_Company__c == 'High','red','')))}"><center>{!sub.subsidiary.Holding_Company__c}</center></td>
+                        <td style="background-color:{!IF(sub.subsidiary.Antargaz_Finagaz__c == 'Low','green',If(sub.subsidiary.Antargaz_Finagaz__c == 'Medium','yellow',IF(sub.subsidiary.Antargaz_Finagaz__c == 'High','red','')))}"><center>{!sub.subsidiary.Antargaz_Finagaz__c}</center></td>
+                        <td style="background-color:{!IF(sub.subsidiary.Avantigas__c == 'Low','green',If(sub.subsidiary.Avantigas__c == 'Medium','yellow',IF(sub.subsidiary.Avantigas__c == 'High','red','')))}"><center>{!sub.subsidiary.Avantigas__c}</center></td>
+                        <td style="background-color:{!IF(sub.subsidiary.Flaga__c == 'Low','green',If(sub.subsidiary.Flaga__c == 'Medium','yellow',IF(sub.subsidiary.Flaga__c == 'High','red','')))}"><center>{!sub.subsidiary.Flaga__c}</center></td>
+                    </tr>
+                </apex:repeat>
+            </table>
+            </center>
+        </apex:outputPanel>
+        <!-- Editable section -->
+        <apex:outputPanel id="editable" rendered="{!showEdit}">
+            <table cellpadding="3" cellSpacing="0">
+                <tr>
+                    <th class="heading" style="width:30px;"><center>&nbsp;</center></th>
+                    <th class="heading" style="width:170px;"><center>Function</center></th>
+                    <th class="heading"><center>AmeriGas</center></th>
+                    <th class="heading"><center>UGI Energy<br/>Services</center></th>
+                    <th class="heading"><center>UGI<br/>Utilities</center></th>
+                    <th class="heading"><center>Holding<br/>Company</center></th>
+                    <th class="heading"><center>Antargaz<br/>/Finagaz</center></th>
+                    <th class="heading"><center>Avantigas</center></th>
+                    <th class="heading"><center>Flaga</center></th>
+                </tr>
+                <apex:repeat value="{!processWrapperList}" var="sub">
+                    <tr>
+                        <td>
+                            <center>
+                                <apex:commandLink value="Del" action="{!removeSubsidiary}" rerender="editable">
+                                    <apex:param name="p1" value="{!sub.index}" assignTo="{!deleteIdx}"/>
+                                </apex:commandLink>
+                            </center>
+                        </td>
+                        <td><apex:inputField value="{!sub.subsidiary.Name}" style="width:170px;"/></td>
+                        <td><apex:inputField value="{!sub.subsidiary.AmeriGas__c}" style="width:110px;"/></td>
+                        <td><apex:inputField value="{!sub.subsidiary.UGI_Energy_Services__c}" style="width:110px;"/></td>
+                        <td><apex:inputField value="{!sub.subsidiary.UGI_Utilities__c}" style="width:110px;"/></td>
+                        <td><apex:inputField value="{!sub.subsidiary.Holding_Company__c}" style="width:110px;"/></td>
+                        <td><apex:inputField value="{!sub.subsidiary.Antargaz_Finagaz__c}" style="width:110px;"/></td>
+                        <td><apex:inputField value="{!sub.subsidiary.Avantigas__c}" style="width:110px;"/></td>
+                        <td><apex:inputField value="{!sub.subsidiary.Flaga__c}" style="width:110px;"/></td>
+                    </tr>
+                </apex:repeat>
+            </table>
+        </apex:outputPanel>
+    </apex:form>
+</apex:page>

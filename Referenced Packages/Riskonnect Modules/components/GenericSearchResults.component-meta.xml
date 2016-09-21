@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApexComponent xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>28.0</apiVersion>
+    <description>Uses a GenericSearch as its data model; may associate with the rkl:GenericSearchFilters component</description>
+    <label>GenericSearchResults</label>
+    <packageVersions>
+        <majorNumber>1</majorNumber>
+        <minorNumber>18</minorNumber>
+        <namespace>al</namespace>
+    </packageVersions>
+</ApexComponent>

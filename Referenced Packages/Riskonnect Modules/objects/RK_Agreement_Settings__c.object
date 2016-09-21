@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>Hierarchy</customSettingsType>
+    <customSettingsVisibility>Public</customSettingsVisibility>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>Agreed_Profile_Name__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Name of the profile that a user is switched to once they accept the click through agreement.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Name of the profile that a user is switched to once they accept the click through agreement.</inlineHelpText>
+        <label>Agreed Profile Name</label>
+        <length>64</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Agreement_Accepted_Field_Name__c</fullName>
+        <deprecated>false</deprecated>
+        <description>API name of the field on User that keeps track of when that user accepted the click through agreement.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>API name of the field on User that keeps track of when that user accepted the click through agreement.</inlineHelpText>
+        <label>Agreement Accepted Field Name</label>
+        <length>64</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>RK Agreement Settings</label>
+</CustomObject>

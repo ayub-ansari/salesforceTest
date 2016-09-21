@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <fullName>Agreement_Accepted_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <description>DateTime that the click through agreement was accepted.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>DateTime that the click through agreement was accepted.</inlineHelpText>
+        <label>Agreement Accepted Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>DateTime</type>
+    </fields>
+</CustomObject>

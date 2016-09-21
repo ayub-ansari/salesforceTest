@@ -1,0 +1,81 @@
+<apex:page standardController="Compliance__c" showHeader="true"  tabStyle="Compliance__c" showChat="false"  >
+    <apex:stylesheet value="/sCSS/21.0/sprites/1297816277000/Theme3/default/gc/versioning.css" />   
+
+   <style>
+      .activeTab {background-color: white; color:black; font-weight:bold; font-size:9pt;
+         background-image:none}
+      .inactiveTab { background-color: #f0f3f7; color:black; font-weight:normal; font-size:9pt;
+         background-image:none}
+      .barPanel{background-color: #f0f3f7; color:Black; font-weight:bold; font-size:10pt;
+         background-image:none}
+   </style>
+
+   <apex:tabPanel switchType="client" selectedTab="tabdetails" id="RiskTabPanel" tabClass="activeTab" inactiveTabClass="inactiveTab">
+   
+      <apex:tab label="Details" name="GovernanceDetails" id="tabdetails" style="background-color: white; font-size:9pt;">
+         <apex:detail showChatter="false" inlineEdit="true" relatedList="false" title="true"/>
+      </apex:tab>
+      
+      <apex:tab label="Notes and Attachments"  name="NotesAndAttachments" id="tabNoteAtt" style="background-color: white; font-size:9pt;">
+         <apex:relatedList subject="{!Compliance__c}"  list="NotesAndAttachments" />
+      </apex:tab>
+      
+      <apex:tab label="Activities" name="Activities" id="tabAct" style="background-color: white; font-size:9pt;">
+             <apex:relatedList subject="{!Compliance__c}" list="OpenActivities" />
+             <apex:relatedList subject="{!Compliance__c}" list="ActivityHistories" />
+      </apex:tab>
+
+      <apex:tab label="Relationships" name="Relationships" id="tabRel" style="background-color: white; font-size:9pt;">
+      <apex:tabPanel switchType="client" selectedTab="tabdetails" id="RisksTabPanel" tabClass="activeTab" inactiveTabClass="inactiveTab">
+         
+          <apex:tab label="Controls" name="Control_Compliance_Association" id="tabControlCompliance" style="background-color: white; font-size:9pt;">
+             <apex:relatedList subject="{!Compliance__c}" list="Control_Compliance_Associations__r" />
+          </apex:tab>
+     
+          <apex:tab label="Projects" name="Project_Compliance_Association" id="tabAssProject" style="background-color: white; font-size:9pt;">
+             <apex:relatedList subject="{!Compliance__c}" list="Project_Compliance_Association__r" />
+          </apex:tab>
+    
+          <apex:tab label="Processes" name="Process_Compliance_Association" id="tabAssProcesses" style="background-color: white; font-size:9pt;">
+             <apex:relatedList subject="{!Compliance__c}" list="Process_Compliance_Associations__r" />
+          </apex:tab>      
+                
+          <apex:tab label="Locations" name="Location_Compliance_Association" id="tabLocationCompliance" style="background-color: white; font-size:9pt;">
+             <apex:relatedList subject="{!Compliance__c}" list="Location_Compliance_Associations__r" />
+          </apex:tab>    
+                
+          <apex:tab label="Governance" name="Governance_Compliance_Association" id="tabGovernanceCompliance" style="background-color: white; font-size:9pt;">
+             <apex:relatedList subject="{!Compliance__c}" list="Governance_Compliance_Associations__r" />
+          </apex:tab>   
+          
+          <apex:tab label="Contacts" name="Contact_Compliance_Association" id="tabContactCompliance" style="background-color: white; font-size:9pt;">
+             <apex:relatedList subject="{!Compliance__c}" list="Compliance_Contact_Associations__r" />
+          </apex:tab>      
+          
+          <apex:tab label="Violations" name="Compliance_Violations" id="tabComplianceViolations" style="background-color: white; font-size:9pt;">
+             <apex:relatedList subject="{!Compliance__c}" list="Violations__r" />
+          </apex:tab>    
+          
+          <apex:tab label="Litigation" name="Litigation_Compliance_Association" id="tabAssLit" style="background-color: white; font-size:9pt;">
+             <apex:relatedList subject="{!Compliance__c}" list="Litigation_Compliance_Associations__r" />
+          </apex:tab>
+          
+          <!--
+          <apex:tab label="Facility" name="Facility" id="tabFacility" style="background-color: white; font-size:9pt;">
+             <apex:pageBlock title="Facility"><apex:pageBlockSection columns="1">
+                <apex:outputField value="{!Compliance__c.Facility_Lookup__c}"/>
+                <apex:outputField value="{!Compliance__c.Location_State__c}"/>
+             </apex:pageBlockSection></apex:pageBlock>
+          </apex:tab> 
+          -->
+          
+      </apex:tabPanel>
+      </apex:tab>
+      
+      <apex:tab label="Chatter"  name="Chatter" id="Chatter" style="background-color: white; font-size:9pt;">
+         <chatter:feedWithFollowers entityId="{!Compliance__c.id}"/>
+      </apex:tab>
+      
+
+   </apex:tabPanel>
+</apex:page>

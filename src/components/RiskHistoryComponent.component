@@ -1,0 +1,42 @@
+<apex:component controller="RiskHistoryComponentController">
+    <!-- Attribute Definition -->
+    <apex:attribute name="myObject" description="Object we wish to view the history of" type="SObject" required="true" assignTo="{!myObject}" /> 
+
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+   
+      function drawChart() {
+         var c1 = 0;
+         
+         var d = new Array();
+         d.push (['Year', 'Inherent Risk Score', 'Current Risk Score', 'Target Risk Score']);                      
+         <apex:repeat value="{!CustomHistory}" var="object">
+            var s1 = '{!object.valuationDate}'.split(" ");
+            var s2 = s1[2]+ ' ' + s1[1] + ' ' + s1[5];
+            var i1 =({!object.currentRiskScore});
+            <!-- if (i1 == 0) i1 = 1; -->
+            var i2 =({!object.currentRiskScoreInherent});
+            <!-- if (i2 == 0) i2 = 1; -->
+            var i3 =({!object.currentRiskScoreTarget});   
+            <!-- if (i3 == 0) i3 = 1; -->        
+            d.push([s2, i2, i1, i3]);           
+        </apex:repeat>   
+                
+        var data = google.visualization.arrayToDataTable(d);
+
+        var options = {
+          title: 'Impact and Likelihood History',
+          curveType: 'function',
+          pointSize: 5,
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+    </script>
+
+    <div id="chart_div" style="width: 900px; height: 300px; margin:0 auto;"></div>
+
+</apex:component>

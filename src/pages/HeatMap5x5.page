@@ -1,0 +1,602 @@
+<apex:page id="heatMapPage" controller="HeatMapController" sidebar="false"  standardStylesheets="true" showheader="true" tabStyle="Risk_Heat_Map__tab">
+
+<style>
+.circleBase {
+        -webkit-border-radius: 999px;
+        -moz-border-radius: 999px;
+        border-radius: 999px;
+        behavior: url(PIE.htc);
+        line-height:1.7em;
+}
+.type1 {
+        width: 25px;
+        height: 25px;
+        background: #ffffff;
+        border: 1px solid black
+}
+.fontStyle1   {font-size:13px; 
+                             font-family :Verdana, sans-serif;
+                             font-weight:bold;} 
+.fontStyle2   {font-size:20px; 
+                             font-family :Verdana, sans-serif;}
+.fontVertical {font-size:13px; 
+                             font-family :Verdana, sans-serif;
+                             width:1em;}
+.fontStyle3   {font-size:13px; 
+                             font-family :Verdana, sans-serif;}
+#cursorShape1 { cursor: pointer; } 
+
+.odd { background-color:#f0f3f7;}
+.even { background-color:#FFF;}
+
+
+    <!--td.borderOk{  
+        border-style: solid;
+        border-width: 1px;
+        border-color: #A5C3E0;
+            }-->
+</style>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.js"/> 
+<script type="text/javascript">
+    $.noConflict();
+
+    var heatMapGradientHandler;
+
+    (function($) {
+
+        if (typeof console === "undefined") {
+            console = {};
+        }
+        if (!console.log) {
+            console.log = function (data) {
+                // IE users deserve a little flak, plus they should be used to annoying popups anyways:
+                window.alert("" + data);
+            };
+        }
+        if (!console.error) {
+            console.error = function (data) {
+                console.log("ERROR: " + data);
+            }
+        }
+
+        heatMapGradientHandler = {
+            detectBrowser: function() {
+                var N= navigator.appName, ua= navigator.userAgent, tem;
+                var M= ua.match(/(opera|chrome|safari|firefox|msie)\/?\s*(\.?\d+(\.\d+)*)/i);
+                if(M && (tem= ua.match(/version\/([\.\d]+)/i))!= null) M[2]= tem[1];
+                M= M? [M[1], M[2]]: [N, navigator.appVersion,'-?'];
+                return M;
+            },
+
+            supportsGradient: function() {
+                var browserSpecs = heatMapGradientHandler.detectBrowser();
+                //console.log(browserSpecs);
+                if (browserSpecs[0] != 'MSIE' || (browserSpecs[0] == 'MSIE' && browserSpecs[1] > 9.99)) {
+                    return true;
+                }
+                return false;
+            },
+
+            getGradientColorStopsString: function() {
+                var colorString = "{!customColorsSetting}";
+                var gradientColorStops = "";
+                if (colorString.length < 1) {
+                    gradientColorStops = "NOT ENABLED";
+                } else {
+                    var uniformChangeFactor = 100.0 / (colorString.split(',').length - 1);
+                    gradientColorStops += "45deg";
+                    var stopPositionCounter = 0;
+                    for (var colorStopCounter = 0; colorStopCounter < colorString.split(',').length; colorStopCounter++) {
+                        var colorStop = colorString.split(',')[colorStopCounter];
+                        gradientColorStops += ", #" + colorStop + " " + stopPositionCounter + "%";
+                        stopPositionCounter += uniformChangeFactor;
+                    }
+                }
+
+                return gradientColorStops;
+            },
+
+            createHeatMapGrid: function(left, top, width, height, columns, rows) {
+                var grid = $("<div/>");
+                var xCellChange = width / columns;
+                var yCellChange = height / rows;
+                for (var xCounter = 0; xCounter < columns; xCounter++) {
+                    for (var yCounter = 0; yCounter < rows; yCounter++) {
+                        grid.append($("<div/>").css("position", "absolute")
+                                .css("border", "1px solid #333333")
+                                .css("left", left - 1 + xCellChange * xCounter)
+                                .css("top", top - 1 + yCellChange * yCounter)
+                                .css("width", xCellChange)
+                                .css("height", yCellChange)
+                            );
+                    }
+                }
+                grid.css("position", "absolute")
+                    .css("left", left)
+                    .css("top", top)
+                    .css("width", width)
+                    .css("height", height)
+                    .css("z-index", 2);
+
+                $("#tableContainer").append(grid);
+                
+                $("#circles").children().css("z-index", 3);
+            }
+        };
+
+        $(document).ready(function() {
+            if (heatMapGradientHandler.supportsGradient()) {
+                //console.log($("#tableContainer"));
+                var gradientDimensions = {};
+                gradientDimensions["top"] = $("#matrix").position().top;
+                gradientDimensions["left"] = $("#matrix").position().left;
+                gradientDimensions["width"] = $("#matrix").width();
+                gradientDimensions["height"] = $("#matrix").height();
+                
+                var gradientColorStops = heatMapGradientHandler.getGradientColorStopsString();
+
+                if (gradientColorStops != "NOT ENABLED") {
+
+                    heatMapGradientHandler.createHeatMapGrid($("#matrix").position().left, $("#matrix").position().top, $("#matrix").width(), $("#matrix").height(), 5, 5);
+                    $("#matrix").hide();
+
+                    var gradientDivStyleString = "position: absolute; left: " + gradientDimensions["left"] + "; top: " + gradientDimensions["top"] + "; width: " + gradientDimensions["width"] + "px; height: " + 
+                            gradientDimensions["height"] + "px; background: -moz-linear-gradient(" + gradientColorStops + ");" + 
+                            " background: -webkit-linear-gradient(" + gradientColorStops + ");" + 
+                            " background: -o-linear-gradient(" + gradientColorStops + ");" + 
+                            " background: -ms-linear-gradient(" + gradientColorStops + ");" + 
+                            " background: linear-gradient(" + gradientColorStops + ");";
+
+                    $("#tableContainer").append($("<div/>").attr("style", gradientDivStyleString));
+                }
+            }
+        });
+    })(jQuery);
+</script>
+
+
+<apex:messages />
+<apex:form id="heatMapForm">
+<div id="topContainer" style="background:#f0f3f7;position:absolute;top:0px;left:0px;width:100%;height:700px;">
+<div id="titleDiv" class="fontStyle2" style="position:absolute;top:15px;left:50px">Risk Heat Map</div>
+<div id="bottomLabelDiv1" style="position:absolute;top:315px;left:30px"><font class="fontStyle3">0</font></div>
+<div id="bottomLabelDiv2" style="position:absolute;top:315px;left:150px"><font class="fontStyle3">Likelihood</font></div>
+<div id="bottomLabelDiv3" style="position:absolute;top:315px;left:315px"><font class="fontStyle3">5</font></div>
+<div id="leftLabelDiv" style="position:absolute;top:50px;left:30px"><div class="fontVertical" align="center">5</div></div>
+<div id="leftLabelDiv" style="position:absolute;top:130px;left:30px"><div class="fontVertical" align="center">I m p a c t</div></div>
+<div id="titleRiskList" class="fontStyle2" style="position:absolute;top:15px;left:345px;">{!riskListTitle}</div>
+<div id="riskListContainer" style="position:absolute;top:50px;left:345px;height:555px;width:64%;background:#fff;overflow:auto;padding:2px;border:1px solid #bbb">
+         <apex:dataTable value="{!riskList}" style="border-style: solid dotted dashed" width="100%" var="r" id="theRiskTable"  cellspacing="1" cellpadding="3" rowClasses="odd,even">
+
+                                <apex:column >
+                                                <apex:facet name="header"  >Name</apex:facet>
+                                                <apex:outputLink target="_blank" value="/{!r.id}">{!r.name}</apex:outputLink>
+                                </apex:column>
+                                <apex:column >
+                                                <apex:facet name="header">Description</apex:facet>
+                                                <apex:outputText value="{!r.Risk_Description__c}"/>
+                                </apex:column>                
+                                <apex:column style="text-align: center;">
+                                                <apex:facet name="header">Imp.</apex:facet>
+                                                <apex:outputText value="{!IF(ValueFilter="Current",r.Expected_Residual_Impact_Number__c,IF(ValueFilter="Target",r.Expected_Target_Impact_Number__c,r.Expected_Inherent_Impact_Number__c))}"/>
+                                </apex:column>
+                                <apex:column style="text-align: center;">
+                                                <apex:facet name="header">Lik.</apex:facet>
+                                                <apex:outputText value="{!IF(ValueFilter="Current",r.Expected_Residual_Likelihood_Number__c,IF(ValueFilter="Target",r.Expected_Target_Likelihood_Number__c,r.Expected_Inherent_Likelihood_Number__c))}"/>
+                                </apex:column>  
+                             
+                                <apex:column >
+                                                <apex:facet name="header">Category</apex:facet>
+                                                <apex:outputText value="{!r.Risk_Category__c}"/>
+                                </apex:column>                
+                             
+                                <apex:column >
+                                                <apex:facet name="header">Status</apex:facet>
+                                                <apex:outputText value="{!r.Risk_Status__c}"/>
+                                </apex:column>  
+
+                                <apex:column >
+                                                <apex:facet name="header">Direction</apex:facet>
+                                                <apex:outputText value="{!r.Risk_Direction__c}"/>
+                                </apex:column>   
+
+                                <apex:column >
+                                                <apex:facet name="header">Velocity</apex:facet>
+                                                <apex:outputText value="{!r.Risk_Clockspeed__c}"/>
+                                </apex:column>   
+                                
+                                <apex:column style="text-align: center;">
+                                                <apex:facet name="header">IRS</apex:facet>
+                                                <apex:outputText value="{!r.Inherent_Risk_Score__c}"/>
+                                </apex:column> 
+                                                                
+                                <apex:column style="text-align: center;">
+                                                <apex:facet name="header">CRS</apex:facet>
+                                                <apex:outputText value="{!r.Current_Risk_Score__c}"/>
+                                </apex:column>   
+                                
+                                <apex:column style="text-align: center;">
+                                                <apex:facet name="header">TRS</apex:facet>
+                                                <apex:outputText value="{!r.Target_Risk_Score__c}"/>
+                                </apex:column>
+                                
+                                <apex:column >
+                                                <apex:facet name="header">Risk Owner</apex:facet>
+                                                <apex:outputText value="{!r.Risk_Owner__r.Name}"/>
+                                </apex:column> 
+                                
+<!--            <apex:column >
+                                                <apex:facet name="header">Risk Owner Dept</apex:facet>
+                                                <apex:outputText value="{!r.Risk_Owner__r.Department}"/>
+                                </apex:column>   
+                                                             
+                                <apex:column >
+                                                <apex:facet name="header">Exec. Owner</apex:facet>
+                                                <apex:outputText value="{!r.Executive_Owner__r.Name}"/>
+                                </apex:column>
+-->                                                                                                                                   
+                </apex:dataTable>
+     
+</div>
+<div id="titleFilters" class="fontStyle2" style="position:absolute;top:345px;left:50px">Filters</div>
+
+<div id="filtersContainer" style="position:absolute;top:385px;left:50px;background:#f0f3f7;margin:0px;width:270px;height:230px;padding:3px;border:0px solid #bbb;">
+
+        <apex:pageBlock id="pgBlock1" mode="maindetail" >
+             
+             <div style="margin:0px;width:270px;">
+                <table id="theGrid" >
+                <!--
+                    <tr>
+                            <td><apex:outputLabel style="width:100px">Risk Score:&nbsp;  </apex:outputLabel></td>
+                            <td><apex:selectList value="{!riskScore}"  size="1" multiselect="false">
+                                    <apex:selectOptions value="{!scoreItems}"/>
+                            </apex:selectList></td>
+                    </tr>
+                 -->        
+         
+                    <tr>
+                        <td><apex:outputLabel style="width:100px">Heat Map Values:&nbsp;  </apex:outputLabel></td>
+                        <td><apex:selectList value="{!ValueFilter}" multiselect="False" size="0">
+                                <apex:selectOptions value="{!ValueOptions}"/>
+                            </apex:selectList></td>
+                    </tr>                    
+                    <tr>
+                            <td><apex:outputLabel style="width:100px">Risk Status:&nbsp;  </apex:outputLabel></td>
+                            <td><apex:inputField id="riskStatus" value="{!risk.Risk_Status__c}"/></td>  
+                    </tr> 
+
+                    <tr>
+                            <td><apex:outputLabel style="width:100px">Risk Category:&nbsp;  </apex:outputLabel></td>
+                            <td><apex:inputField value="{!risk.Risk_Category__c}"/></td>
+                    </tr> 
+                                                        
+                    <tr>
+                            <td><apex:outputLabel style="width:100px">Exec. Owner:&nbsp;  </apex:outputLabel></td>
+                            <td><apex:inputField style="align:left" value="{!risk.Executive_Owner__c}"/></td>
+                    </tr> 
+                    
+                    <tr>
+                            <td><apex:outputLabel style="width:100px">Risk Owner:&nbsp;  </apex:outputLabel></td>
+                            <td><apex:inputField style="align:left" value="{!risk.Risk_Owner__c}"/></td>
+                    </tr>
+             
+                    <tr>
+                            <td><apex:outputLabel >Risk Owner Dept:&nbsp;  </apex:outputLabel></td>
+                            <td><apex:inputText value="{!getRiskOwnerDept}"/></td>
+                    </tr>        
+                    
+                    <tr>
+                            <td><apex:outputLabel >Risk Direction:&nbsp;  </apex:outputLabel></td>
+                            <td><apex:inputField value="{!risk.Risk_Direction__c}"/></td>
+                    </tr> 
+                    
+                    <tr>
+                            <td><apex:outputLabel >Risk Velocity:&nbsp;  </apex:outputLabel></td>
+                            <td><apex:inputField value="{!risk.Risk_Clockspeed__c}"/></td>
+                    </tr>  
+                                             
+                </table> 
+                </div>                      
+            
+            <apex:pageBlockButtons id="pgBlockButtons" location="bottom">
+                            <apex:commandButton id="refreshListButton" onclick="" value="Refresh" action="{!refreshRiskList}" title="Filter"/>
+                            <!--<apex:commandButton id="printPage" disabled="true" onclick="window.print();return false;"   value="Print" action="null" title="Print"/>-->
+                            <apex:commandButton id="printable" disabled="false" onclick="window.open('/apex/HeatMapPrintable');return false;"   value="Print" action="null" title="Print"/>
+                            <a id="help" onmouseover="document.getElementById('helpDiv').style.display = 'block'" onmouseout="document.getElementById('helpDiv').style.display = 'none'" href="#">Help</a>     
+            </apex:pageBlockButtons>
+            
+        </apex:pageBlock>
+</div>   
+
+<div id="helpDiv" style="padding:10px;border:1px solid #000;position:absolute;top:500px;left:330px;display:none;background-color:#D9DEE5">
+        - Filter the risks by selecting from all or any of the filters. <br/>
+        - Click on “Refresh” and the relevant risks will be displayed in the Heat Map. <br/>
+        - The numbers in the Heat Map reflect the number of risks that are in that cell. <br/>
+        - Click on any cell with a number in it and the corresponding risks will appear in the table on the right of the Heat Map. <br/>
+        - If you want to get more detail about one of the risks displayed, click on the Risk Name and the full record will be displayed. <br/><br/>
+        Note: The current set of filters are for demonstration purposes and can be modified as needed.</div>
+
+<div id="hiddenRefresh" style="position:absolute;top:500px;left:150px;z-index:-1"><input style="z-index:-1" id="refreshListButtonWithCoordinates" type="submit" name="refreshListButtonWithCoordinates"/></div>
+
+<!-- grid heat map -->
+<div id="tableContainer" style="position:absolute; left:50px; top: 50px">
+<table id="matrix" style="width:250; height:270; border:#bbb solid 0px; padding:0px; cellpadding:0px; cellspacing:0px; background-color:#333333">   
+        <tr height="50">
+            <td class="borderOk" width="50" bgcolor="#FFFF55">&nbsp;</td>
+            <td class="borderOk" width="50" bgcolor="#FFFF55">&nbsp;</td>
+            <td class="borderOk" width="50" bgcolor="#ff4444">&nbsp;</td>
+            <td class="borderOk" width="50" bgcolor="#ff4444">&nbsp;</td>
+            <td class="borderOk" width="50" bgcolor="#ff4444">&nbsp;</td>
+        </tr>    
+        <tr height="50">
+            <td class="borderOk" width="50" bgcolor="#FFFF55">&nbsp;</td>
+            <td class="borderOk" width="50" bgcolor="#FFFF55">&nbsp;</td>
+            <td class="borderOk" width="50" bgcolor="#FFFF55">&nbsp;</td>
+            <td class="borderOk" width="50" bgcolor="#ff4444">&nbsp;</td>
+            <td class="borderOk" width="50" bgcolor="#ff4444">&nbsp;</td>
+        </tr>    
+        <tr height="50">
+            <td class="borderOk" width="50" bgcolor="#44bb44">&nbsp;</td>
+            <td class="borderOk" width="50" bgcolor="#FFFF55">&nbsp;</td>
+            <td class="borderOk" width="50" bgcolor="#FFFF55">&nbsp;</td>
+            <td class="borderOk" width="50" bgcolor="#FFFF55">&nbsp;</td>
+            <td class="borderOk" width="50" bgcolor="#ff4444">&nbsp;</td>
+        </tr>
+        <tr height="50">
+            <td class="borderOk" width="50" bgcolor="#44bb44">&nbsp;</td>
+            <td class="borderOk" width="50" bgcolor="#44bb44">&nbsp;</td>
+            <td class="borderOk" width="50" bgcolor="#FFFF55">&nbsp;</td>
+            <td class="borderOk" width="50" bgcolor="#FFFF55">&nbsp;</td>
+            <td class="borderOk" width="50" bgcolor="#FFFF55">&nbsp;</td>
+        </tr>
+        <tr height="50">
+            <td class="borderOk" width="50" bgcolor="#44bb44">&nbsp;</td>
+            <td class="borderOk" width="50" bgcolor="#44bb44">&nbsp;</td>
+            <td class="borderOk" width="50" bgcolor="#44bb44">&nbsp;</td>
+            <td class="borderOk" width="50" bgcolor="#FFFF55">&nbsp;</td>
+            <td class="borderOk" width="50" bgcolor="#FFFF55">&nbsp;</td>
+        </tr>       
+</table>
+</div>
+
+<!-- risks count circles -->
+<div id="circles">
+    <div id="circle0-0"
+             class="circleBase type1 fontStyle1" 
+             style="position:absolute; top:298px; left:37px;{!circle00Display}" 
+             align="center"  
+             onmouseover="this.style.cursor='pointer'" 
+             onmouseout="this.style.cursor='arrow'"
+             onclick="setCoordinates('0','0');">{!circle00Count}</div> 
+
+    <div id="circle1-1"
+             class="circleBase type1 fontStyle1" 
+             style="position:absolute; top:272px; left:65px;{!circle11Display}" 
+             align="center"  
+             onmouseover="this.style.cursor='pointer'" 
+             onmouseout="this.style.cursor='arrow'"     
+             onclick="setCoordinates('1','1');">{!circle11Count}</div> 
+
+    <div id="circle1-2"
+             class="circleBase type1 fontStyle1" 
+             style="position:absolute; top:272px; left:119px;{!circle12Display}" 
+             align="center"  
+             onmouseover="this.style.cursor='pointer'" 
+             onmouseout="this.style.cursor='arrow'"     
+             onclick="setCoordinates('1','2');">{!circle12Count}</div> 
+                                                                                                                                    
+     <div id="circle1-3"
+             class="circleBase type1 fontStyle1" 
+             style="position:absolute; top:272px; left:173px;{!circle13Display}" 
+             align="center"  
+             onmouseover="this.style.cursor='pointer'" 
+             onmouseout="this.style.cursor='arrow'"     
+             onclick="setCoordinates('1','3');">{!circle13Count}</div> 
+            
+     <div id="circle1-4"
+             class="circleBase type1 fontStyle1" 
+             style="position:absolute; top:272px; left:227px;{!circle14Display}" 
+             align="center"  
+             onmouseover="this.style.cursor='pointer'" 
+             onmouseout="this.style.cursor='arrow'"     
+             onclick="setCoordinates('1','4');">{!circle14Count}</div> 
+
+     <div id="circle1-5"
+             class="circleBase type1 fontStyle1" 
+             style="position:absolute; top:272px; left:281px;{!circle15Display}" 
+             align="center"  
+             onmouseover="this.style.cursor='pointer'" 
+             onmouseout="this.style.cursor='arrow'"     
+             onclick="setCoordinates('1','5');">{!circle15Count}</div> 
+
+    <div id="circle2-1"
+             class="circleBase type1 fontStyle1" 
+             style="position:absolute; top:220px; left:65px;{!circle21Display}" 
+             align="center"  
+             onmouseover="this.style.cursor='pointer'" 
+             onmouseout="this.style.cursor='arrow'"     
+             onclick="setCoordinates('2','1');">{!circle21Count}</div> 
+
+    <div id="circle2-2"
+             class="circleBase type1 fontStyle1" 
+             style="position:absolute; top:220px; left:119px;{!circle22Display}" 
+             align="center"  
+             onmouseover="this.style.cursor='pointer'" 
+             onmouseout="this.style.cursor='arrow'"     
+             onclick="setCoordinates('2','2');">{!circle22Count}</div> 
+     
+     <div id="circle2-3"
+             class="circleBase type1 fontStyle1" 
+             style="position:absolute; top:220px; left:173px;{!circle23Display}" 
+             align="center"  
+             onmouseover="this.style.cursor='pointer'" 
+             onmouseout="this.style.cursor='arrow'"     
+             onclick="setCoordinates('2','3');">{!circle23Count}</div> 
+            
+     <div id="circle2-4"
+             class="circleBase type1 fontStyle1" 
+             style="position:absolute; top:220px; left:227px;{!circle24Display}" 
+             align="center"  
+             onmouseover="this.style.cursor='pointer'" 
+             onmouseout="this.style.cursor='arrow'"     
+             onclick="setCoordinates('2','4');">{!circle24Count}</div> 
+
+     <div id="circle2-5"
+             class="circleBase type1 fontStyle1" 
+             style="position:absolute; top:220px; left:281px;{!circle25Display}" 
+             align="center"  
+             onmouseover="this.style.cursor='pointer'" 
+             onmouseout="this.style.cursor='arrow'"     
+             onclick="setCoordinates('2','5');">{!circle25Count}</div>    
+
+    <div id="circle3-1"
+             class="circleBase type1 fontStyle1" 
+             style="position:absolute; top:168px; left:65px;{!circle31Display}" 
+             align="center"  
+             onmouseover="this.style.cursor='pointer'" 
+             onmouseout="this.style.cursor='arrow'"     
+             onclick="setCoordinates('3','1');">{!circle31Count}</div> 
+
+    <div id="circle3-2"
+             class="circleBase type1 fontStyle1" 
+             style="position:absolute; top:168px; left:119px;{!circle32Display}" 
+             align="center"  
+             onmouseover="this.style.cursor='pointer'" 
+             onmouseout="this.style.cursor='arrow'"     
+             onclick="setCoordinates('3','2');">{!circle32Count}</div> 
+     
+     <div id="circle3-3"
+             class="circleBase type1 fontStyle1" 
+             style="position:absolute; top:168px; left:173px;{!circle33Display}" 
+             align="center"  
+             onmouseover="this.style.cursor='pointer'" 
+             onmouseout="this.style.cursor='arrow'"     
+             onclick="setCoordinates('3','3');">{!circle33Count}</div> 
+            
+     <div id="circle3-4"
+             class="circleBase type1 fontStyle1" 
+             style="position:absolute; top:168px; left:227px;{!circle34Display}" 
+             align="center"  
+             onmouseover="this.style.cursor='pointer'" 
+             onmouseout="this.style.cursor='arrow'"     
+             onclick="setCoordinates('3','4');">{!circle34Count}</div> 
+
+     <div id="circle3-5"
+             class="circleBase type1 fontStyle1" 
+             style="position:absolute; top:168px; left:281px;{!circle35Display}" 
+             align="center"  
+             onmouseover="this.style.cursor='pointer'" 
+             onmouseout="this.style.cursor='arrow'"     
+             onclick="setCoordinates('3','5');">{!circle35Count}</div>     
+             
+    <div id="circle4-1"
+             class="circleBase type1 fontStyle1" 
+             style="position:absolute; top:116px; left:65px;{!circle41Display}" 
+             align="center"  
+             onmouseover="this.style.cursor='pointer'" 
+             onmouseout="this.style.cursor='arrow'"     
+             onclick="setCoordinates('4','1');">{!circle41Count}</div> 
+
+    <div id="circle4-2"
+             class="circleBase type1 fontStyle1" 
+             style="position:absolute; top:116px; left:119px;{!circle42Display}" 
+             align="center"  
+             onmouseover="this.style.cursor='pointer'" 
+             onmouseout="this.style.cursor='arrow'"     
+             onclick="setCoordinates('4','2');">{!circle42Count}</div> 
+     
+     <div id="circle4-3"
+             class="circleBase type1 fontStyle1" 
+             style="position:absolute; top:116px; left:173px;{!circle43Display}" 
+             align="center"  
+             onmouseover="this.style.cursor='pointer'" 
+             onmouseout="this.style.cursor='arrow'"     
+             onclick="setCoordinates('4','3');">{!circle43Count}</div> 
+            
+     <div id="circle4-4"
+             class="circleBase type1 fontStyle1" 
+             style="position:absolute; top:116px; left:227px;{!circle44Display}" 
+             align="center"  
+             onmouseover="this.style.cursor='pointer'" 
+             onmouseout="this.style.cursor='arrow'"     
+             onclick="setCoordinates('4','4');">{!circle44Count}</div> 
+
+     <div id="circle4-5"
+             class="circleBase type1 fontStyle1" 
+             style="position:absolute; top:116px; left:281px;{!circle45Display}" 
+             align="center"  
+             onmouseover="this.style.cursor='pointer'" 
+             onmouseout="this.style.cursor='arrow'"     
+             onclick="setCoordinates('4','5');">{!circle45Count}</div>  
+             
+    <div id="circle5-1"
+             class="circleBase type1 fontStyle1" 
+             style="position:absolute; top:64px; left:65px;{!circle51Display}" 
+             align="center"  
+             onmouseover="this.style.cursor='pointer'" 
+             onmouseout="this.style.cursor='arrow'"     
+             onclick="setCoordinates('5','1');">{!circle51Count}</div> 
+
+    <div id="circle5-2"
+             class="circleBase type1 fontStyle1" 
+             style="position:absolute; top:64px; left:119px;{!circle52Display}" 
+             align="center"  
+             onmouseover="this.style.cursor='pointer'" 
+             onmouseout="this.style.cursor='arrow'"     
+             onclick="setCoordinates('5','2');">{!circle52Count}</div> 
+     
+     <div id="circle5-3"
+             class="circleBase type1 fontStyle1" 
+             style="position:absolute; top:64px; left:173px;{!circle53Display}" 
+             align="center"  
+             onmouseover="this.style.cursor='pointer'" 
+             onmouseout="this.style.cursor='arrow'"     
+             onclick="setCoordinates('5','3');">{!circle53Count}</div> 
+            
+     <div id="circle5-4"
+             class="circleBase type1 fontStyle1" 
+             style="position:absolute; top:64px; left:227px;{!circle54Display}" 
+             align="center"  
+             onmouseover="this.style.cursor='pointer'" 
+             onmouseout="this.style.cursor='arrow'"     
+             onclick="setCoordinates('5','4');">{!circle54Count}</div> 
+
+     <div id="circle5-5"
+             class="circleBase type1 fontStyle1" 
+             style="position:absolute; top:64px; left:281px;{!circle55Display}" 
+             align="center"  
+             onmouseover="this.style.cursor='pointer'" 
+             onmouseout="this.style.cursor='arrow'"     
+             onclick="setCoordinates('5','5'); ">{!circle55Count}</div>  
+                
+    </div>
+</div>
+
+<apex:inputHidden id="impact" value="{!cImpact}"/>
+<apex:inputHidden id="likelihood" value="{!cLikelihood}"/>
+
+<script>
+        function setCoordinates(i,l) {
+                //document.getElementById('heatMapPage:heatMapForm:impact').value = i;
+                //document.getElementById('heatMapPage:heatMapForm:likelihood').value = l;   
+                //document.getElementById('refreshListButtonWithCoordinates').click();
+                
+                
+                //impact and likelihood were ID's given in VisualForce.
+                //When the page is generated, those ID's are altered.
+                //Use {!$Component.ElementID} to get the generated ID for
+                //an element where ElementID is the ID of the VisualForce element in the VF page's source.
+                
+                document.getElementById('{!$Component.impact}').value = i;
+                document.getElementById('{!$Component.likelihood}').value = l;  
+                document.getElementById('refreshListButtonWithCoordinates').click();
+        }
+</script>
+
+
+</apex:form>
+
+
+</apex:page>

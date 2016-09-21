@@ -1,0 +1,145 @@
+<apex:page standardController="UGI_Risk__c" extensions="OverrideUGIRisk">
+    <apex:sectionHeader title="UGI Risk" subtitle="{!UGI_Risk__c.name}"/>
+    <apex:form id="frm">
+        <apex:pageBlock id="consolidated" title="UGI Risk Edit" mode="edit" rendered="{!IF(UGI_Risk__c.RecordTypeId == '012M00000000m02IAA',true,IF(UGI_Risk__c.RecordTypeId == '012M00000000m02',true,false))}">
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Save" action="{!save}"/>
+                <!--<apex:commandButton value="Save & New" action="{!save}"/>-->
+                <apex:commandButton value="Cancel" action="{!cancel}"/>
+            </apex:pageBlockButtons>
+            <apex:actionFunction name="showDetails" rerender="details" status="counterStatus">
+                <apex:param name="source" value="" assignTo="{!riskSource}"/>
+            </apex:actionFunction>
+            <apex:pageBlockSection collapsible="false" title="Information" id="info">
+                <apex:inputField value="{!UGI_Risk__c.Name__c}"/>
+                <apex:inputField value="{!UGI_Risk__c.Risk_Source__c}" onchange="getSource();return false;"/>
+                <apex:inputField value="{!UGI_Risk__c.Risk_Category__c}"/>
+            </apex:pageBlockSection>
+            <br/>
+            <apex:outputPanel id="details">
+                <apex:pageBlockSection rendered="{!IF(riskSource =='IA',true,false)}" title="IA Details" collapsible="false">
+                    <apex:repeat value="{!IAFields}" var="field">
+                        <apex:inputField value="{!UGI_Risk__c[field]}" />
+                    </apex:repeat>
+                </apex:pageBlockSection>
+                <apex:pageBlockSection rendered="{!IF(riskSource =='SOX',true,false)}" title="UGI Energy Services">
+                    <apex:repeat value="{!SOX_UGI_Energy_ServicesFields}" var="field">
+                        <apex:inputField value="{!UGI_Risk__c[field]}" />
+                    </apex:repeat>
+                </apex:pageBlockSection>
+                <apex:pageBlockSection rendered="{!IF(riskSource =='SOX',true,false)}" title="AmeriGas Partners, L.P.">
+                    <apex:repeat value="{!SOXAmeriGasPartnersFields}" var="field">
+                        <apex:inputField value="{!UGI_Risk__c[field]}" />
+                    </apex:repeat>
+                </apex:pageBlockSection>
+                <apex:pageBlockSection rendered="{!IF(riskSource =='SERC',true,false)}" title="SERC Details" collapsible="false">
+                    <apex:repeat value="{!SERCFields}" var="field">
+                        <apex:inputField value="{!UGI_Risk__c[field]}" />
+                    </apex:repeat>
+                </apex:pageBlockSection>
+            </apex:outputPanel>
+            <apex:pageBlockSection title="Assessment">
+                <apex:repeat value="{!AssessmentFields}" var="field">
+                    <apex:inputField value="{!UGI_Risk__c[field]}" />
+                </apex:repeat>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        
+        <apex:pageBlock id="IA" title="UGI Risk Edit" mode="edit" rendered="{!IF(UGI_Risk__c.RecordTypeId == '012M00000000lzsIAA',true,IF(UGI_Risk__c.RecordTypeId == '012M00000000lzs',true,false))}"> 
+            <apex:pageBlockButtons location="top"> 
+                <apex:commandButton value="Save" action="{!save}"/> 
+                <!--<apex:commandButton value="Save & New" action="{!save}" /> -->
+                <apex:commandButton value="Cancel" action="{!cancel}"/> 
+            </apex:pageBlockButtons> 
+            <apex:pageBlockButtons location="bottom"> 
+                <apex:commandButton value="Save" action="{!save}"/> 
+                <apex:commandButton value="Save & New" action="{!save}" /> 
+                <apex:commandButton value="Cancel" action="{!cancel}"/> 
+            </apex:pageBlockButtons> 
+            <apex:pageBlockSection title="Information" columns="2"> 
+                <apex:inputField value="{!UGI_Risk__c.Name__c}" required="false"/> 
+                <apex:inputField value="{!UGI_Risk__c.Risk_Source__c}" required="false"/> 
+                <apex:inputField value="{!UGI_Risk__c.Subsidiary__c}" required="false"/> 
+                <apex:inputField value="{!UGI_Risk__c.Risk_Category__c}" required="false"/> 
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Assessment" columns="2"> 
+                <apex:inputField value="{!UGI_Risk__c.Risk_Status__c}" required="false"/> 
+                <apex:inputField value="{!UGI_Risk__c.Quarterly_Review_Status_Track__c}" required="false"/> 
+                <apex:inputField value="{!UGI_Risk__c.Current_Likelihood_Level__c}" required="false"/> 
+                <apex:inputField value="{!UGI_Risk__c.Quarterly_Review_With_Changes__c}" required="false"/>
+                <apex:inputField value="{!UGI_Risk__c.Current_Impact_Level__c}" required="false"/> 
+                <apex:inputField value="{!UGI_Risk__c.Quarterly_Review_No_Changes__c}" required="false"/> 
+                <apex:inputField value="{!UGI_Risk__c.Control_Effectiveness_Level__c}" required="false"/> 
+                <apex:inputField value="{!UGI_Risk__c.Comments__c}" required="false"/>  
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        
+        <apex:pageBlock id="SOX" title="UGI Risk Edit" mode="edit" rendered="{!IF(UGI_Risk__c.RecordTypeId == '012M00000000m07IAA',true,IF(UGI_Risk__c.RecordTypeId == '012M00000000m07',true,false))}"> 
+            <apex:pageBlockButtons > 
+                <apex:commandButton value="Save" action="{!save}"/> 
+                <!--<apex:commandButton value="Save & New" action="{!save}" /> -->
+                <apex:commandButton value="Cancel" action="{!cancel}"/> 
+            </apex:pageBlockButtons> 
+            <apex:pageBlockSection title="Information" columns="2"> 
+                <apex:inputField value="{!UGI_Risk__c.Name__c}" required="false"/> 
+                <apex:inputField value="{!UGI_Risk__c.Risk_Source__c}" required="false"/> 
+                <apex:inputField value="{!UGI_Risk__c.Risk_Category__c}" required="false"/> 
+            </apex:pageBlockSection> 
+            <apex:pageBlockSection title="UGI Energy Services" columns="2"> 
+                <apex:inputField value="{!UGI_Risk__c.Cash_and_cash_equivalents_ES__c}" required="false"/> 
+                <apex:inputField value="{!UGI_Risk__c.Accounts_receivable_net_ES__c}" required="false"/> 
+                <apex:inputField value="{!UGI_Risk__c.Accrued_utility_revenues_ES__c}" required="false"/> 
+                <apex:inputField value="{!UGI_Risk__c.Inventories_ES__c}" required="false"/> 
+                <apex:inputField value="{!UGI_Risk__c.Deferred_income_taxes_ES__c}" required="false"/> 
+            </apex:pageBlockSection> 
+            <apex:pageBlockSection title="AmeriGas Partners, L.P." columns="2"> 
+                <apex:inputField value="{!UGI_Risk__c.Cash_and_cash_equivalents_APU__c}" required="false"/> 
+                <apex:inputField value="{!UGI_Risk__c.Accounts_receivable_net_APU__c}" required="false"/> 
+                <apex:inputField value="{!UGI_Risk__c.Accounts_receivable_related_parties__c}" required="false"/> 
+                <apex:inputField value="{!UGI_Risk__c.Inventories_apu__c}" required="false"/> 
+                <apex:inputField value="{!UGI_Risk__c.Deferred_income_taxes_APU__c}" required="false"/> 
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Assessment" columns="2"> 
+                <apex:inputField value="{!UGI_Risk__c.Risk_Status__c}" required="false"/> 
+                <apex:inputField value="{!UGI_Risk__c.Quarterly_Review_Status_Track__c}" required="false"/> 
+                <apex:inputField value="{!UGI_Risk__c.Current_Likelihood_Level__c}" required="false"/> 
+                <apex:inputField value="{!UGI_Risk__c.Quarterly_Review_With_Changes__c}" required="false"/>
+                <apex:inputField value="{!UGI_Risk__c.Current_Impact_Level__c}" required="false"/> 
+                <apex:inputField value="{!UGI_Risk__c.Quarterly_Review_No_Changes__c}" required="false"/> 
+                <apex:inputField value="{!UGI_Risk__c.Control_Effectiveness_Level__c}" required="false"/> 
+                <apex:inputField value="{!UGI_Risk__c.Comments__c}" required="false"/>  
+            </apex:pageBlockSection> 
+        </apex:pageBlock>
+        
+        <apex:pageBlock id="SERC" title="UGI Risk Edit" mode="edit" rendered="{!IF(UGI_Risk__c.RecordTypeId == '012M00000000lzxIAA',true,IF(UGI_Risk__c.RecordTypeId == '012M00000000lzx',true,false))}"> 
+            <apex:pageBlockButtons > 
+                <apex:commandButton value="Save" action="{!save}"/> 
+                <!--<apex:commandButton value="Save & New" action="{!save}" /> -->
+                <apex:commandButton value="Cancel" action="{!cancel}"/> 
+            </apex:pageBlockButtons> 
+            <apex:pageBlockSection title="Information" columns="2"> 
+                <apex:inputField value="{!UGI_Risk__c.Name__c}" required="false"/> 
+                <apex:inputField value="{!UGI_Risk__c.Risk_Source__c}" required="false"/> 
+                <apex:inputField value="{!UGI_Risk__c.Subsidiary__c}" required="false"/> 
+                <apex:inputField value="{!UGI_Risk__c.Risk_Category__c}" required="false"/> 
+                <apex:inputField value="{!UGI_Risk__c.Ranking__c}" required="false"/> 
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Assessment" columns="2"> 
+                <apex:inputField value="{!UGI_Risk__c.Risk_Status__c}" required="false"/> 
+                <apex:inputField value="{!UGI_Risk__c.Quarterly_Review_Status_Track__c}" required="false"/> 
+                <apex:inputField value="{!UGI_Risk__c.Current_Likelihood_Level__c}" required="false"/> 
+                <apex:inputField value="{!UGI_Risk__c.Quarterly_Review_With_Changes__c}" required="false"/>
+                <apex:inputField value="{!UGI_Risk__c.Current_Impact_Level__c}" required="false"/> 
+                <apex:inputField value="{!UGI_Risk__c.Quarterly_Review_No_Changes__c}" required="false"/> 
+                <apex:inputField value="{!UGI_Risk__c.Control_Effectiveness_Level__c}" required="false"/> 
+                <apex:inputField value="{!UGI_Risk__c.Comments__c}" required="false"/>  
+            </apex:pageBlockSection> 
+        </apex:pageBlock>
+        
+        <script>
+            function getSource(){
+                showDetails(document.getElementById('j_id0:frm:consolidated:info:j_id8').value);
+            }
+        </script>
+    </apex:form>
+</apex:page>

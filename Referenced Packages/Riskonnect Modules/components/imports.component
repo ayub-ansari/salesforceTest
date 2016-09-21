@@ -1,0 +1,67 @@
+<apex:component access="global">
+    <apex:attribute name="init" type="String" access="global" description="." />
+    <apex:attribute name="minified" type="Boolean" default="true" access="global" description="." />
+    <apex:attribute name="noGrid" type="Boolean" default="false" access="global" description="." />
+    <apex:attribute name="noUiManagerCss" type="Boolean" default="false" access="global" description="." />
+
+    <apex:outputPanel layout="none" rendered="{!minified}">
+        <apex:stylesheet value="{!URLFOR($Resource.rkl__aristo,'Aristo.css')}" />
+        <apex:stylesheet value="{!URLFOR($Resource.rkl__im_resources_zip, '/css/forms_css.css')}" />
+        <apex:stylesheet value="{!IF(noGrid && noUiManagerCss, $Resource.rkl__rklang_css_no_uimanager_grid, IF(noGrid, $Resource.rkl__rklang_css_no_grid, IF(noUiManagerCss, $Resource.rkl__rklang_css_no_uimanager, $Resource.rkl__rklang_css)))}" />
+        <apex:includeScript value="{!IF(noGrid, $Resource.rkl__rklang_js_no_grid, $Resource.rkl__rklang_js)}" />
+    </apex:outputPanel>
+
+    <apex:outputPanel layout="none" rendered="{!NOT(minified)}">
+        <apex:stylesheet value="{!URLFOR($Resource.rkl__aristo,'Aristo.css')}" />
+        <apex:stylesheet value="{!$Resource.rkl__aristo_overrides}" />
+        <apex:stylesheet value="{!URLFOR($Resource.rkl__im_resources_zip, '/css/forms_css.css')}" />
+        <apex:outputPanel layout="none" rendered="{!NOT(noUiManagerCss)}">
+            <apex:stylesheet value="{!$Resource.rkl__ui_manager_css}" />
+        </apex:outputPanel>
+        <apex:outputPanel layout="none" rendered="{!NOT(noGrid)}">
+            <apex:stylesheet value="{!$Resource.rkl__sortable_column_header_css}" />
+            <apex:stylesheet value="{!$Resource.rkl__paginator_css}" />
+            <apex:stylesheet value="{!$Resource.rkl__selection_model_css}" />
+        </apex:outputPanel>
+        <apex:stylesheet value="{!$Resource.rkl__inline_dialog_css}" />
+        <apex:stylesheet value="{!$Resource.rkl__blocking_pane_css}" />
+        
+        <apex:includeScript value="{!$Resource.rkl__modernizr}" />
+        <apex:includeScript value="{!$Resource.rkl__jquery_1_8}" />
+        <apex:includeScript value="{!$Resource.rkl__jquery_ui}" />
+        <apex:includeScript value="{!$Resource.rkl__json2_js}" />
+        <apex:includeScript value="{!$Resource.rkl__jQuery_scrollTo}" />
+        <apex:includeScript value="{!$Resource.rkl__jqueryTools_tooltip_js}" />
+        <apex:includeScript value="{!$Resource.rkl__jqueryTools_tooltip_slide_js}" />
+        <apex:includeScript value="{!$Resource.rkl__jqueryTools_tooltip_dynamic_js}" />
+        <apex:includeScript value="{!$Resource.rkl__jQuery_jController_js}" />
+        <apex:outputPanel layout="none" rendered="{!NOT(noGrid)}">
+            <apex:includeScript value="{!$Resource.rkl__jQuery_lkpSearchManager}" />
+            <apex:includeScript value="{!$Resource.rkl__paginator_js}" />
+            <apex:includeScript value="{!$Resource.rkl__selection_model_js}" />
+        </apex:outputPanel>
+        <apex:includeScript value="{!$Resource.rkl__jQuery_color_js}" />
+        <apex:includeScript value="{!$Resource.rkl__dojo_build_js}" />
+        <apex:includeScript value="{!$Resource.rkl__string_utils_js}" />
+        <apex:includeScript value="{!$Resource.rkl__resource_locator_js}" />
+        <apex:includeScript value="{!$Resource.rkl__visualforce_utils_js}" />
+        <apex:includeScript value="{!$Resource.rkl__smart_layout_container_js}" />
+        <apex:includeScript value="{!$Resource.rkl__inline_dialog_js}" />
+        <apex:includeScript value="{!$Resource.rkl__ui_manager_js}" />
+        <apex:includeScript value="{!$Resource.rkl__driverTree_js}" />
+        <apex:includeScript value="{!$Resource.rkl__undoable_js}" />
+    </apex:outputPanel>
+    
+    <style type="text/css">
+        .tooltip {
+            background:transparent url({!URLFOR($Resource.rkl__jqueryTools_media, 'black_big.png')});
+        }
+    </style>
+    
+    <script type="text/javascript">
+        var STATIC_RESOURCE_URL = "{!URLFOR($Resource.rkl__im_resources_zip)}";
+        <apex:outputPanel layout="none" rendered="{!NOT(ISBLANK(init))}">
+        {!init}
+        </apex:outputPanel>
+    </script>
+</apex:component>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>Hierarchy</customSettingsType>
+    <customSettingsVisibility>Public</customSettingsVisibility>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>HeatMapColorStops__c</fullName>
+        <description>Comma separated list of hex values specifying the colors used in the heatmap from the bottom left to the top right. For example: FF0000,00FF00,33FF00</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Comma separated list of hex values specifying the colors used in the heatmap from the bottom left to the top right. For example: FF0000,00FF00,33FF00</inlineHelpText>
+        <label>HeatMapColorStops</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>HeatMapDimensions__c</fullName>
+        <description>Enter a 1 or 2 digit number to represent the number of cells on both the x and y axes of the Heat Map. The default value is 5. Supported values are 3, 5 and 10. If an unsupported value is used, the Heat Map will revert to 5x5.</description>
+        <externalId>false</externalId>
+        <label>HeatMapDimensions</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>OpportunityHeatMapColorStops__c</fullName>
+        <description>Comma separated list of hex values specifying the colors used in the heatmap from the bottom left to the top right. For example: FF0000,00FF00,33FF00</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Comma separated list of hex values specifying the colors used in the heatmap from the bottom left to the top right. For example: FF0000,00FF00,33FF00</inlineHelpText>
+        <label>OpportunityHeatMapColorStops</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <label>HeatMapSettings</label>
+</CustomObject>

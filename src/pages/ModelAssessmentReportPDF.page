@@ -1,0 +1,211 @@
+<apex:page controller="ModelAssessmentReportController" showHeader="false" sidebar="false" applyHtmlTag="false" applyBodyTag="false" renderAs="pdf" readOnly="true">
+	<head>
+	    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+	    <style type="text/css">
+		    @page {
+		        size:A4 portrait; 
+		        margin: 15mm;
+		    }
+		    td{
+		    	font-family: Calibri;
+		        font-size:11px;
+		    }
+		    th{
+		    	font-family: Calibri;
+		        font-size:11px;
+		    }
+		    p{
+		    	font-family: Calibri;
+		        font-size:14px;
+		    }
+		    .secLevel{
+		    	font-family: Calibri;
+		        font-size:11px;
+		    }
+		    .disclaimer{
+		    	font-family: Calibri;
+    			font-size:10px;
+		    }
+		</style>
+	</head>
+	<apex:form >
+		<table width="100%">
+			<tr>
+				<td rowspan="2">
+					<apex:image url="{!$Resource.ModelGRCLogo}" width="158px" height="52px"/>
+				</td>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td width="65;" valign="bottom"><b>Date:</b></td>
+				<td valign="bottom">{!preparedDate}</td>
+			</tr>
+			<tr>
+				<td width="65%"><b>MODEL MANAGEMENT SCORING</b></td>
+				<td><b>Prepared By:</b></td>
+				<td>{!preparedBy}</td>
+			</tr>
+			<tr>
+				<td><b>PROVIDED BY MILLIMAN RISK ADVISORY SERVICES</b></td>
+				<td><b>Model:</b></td>
+				<td>{!modelValuesMap['Name']}</td>
+			</tr>
+		</table>
+		<br/>
+		<p>
+			This model management scoring workbook was created to provide a quick, high-level assessment of the model management process that governs an individual model. 
+			Some components of a model management framework are more critical to the success of the overall model management effort. 
+			The "Section Level" assigns a category to the model management effort based on both the number of critical components in place and the number of other components in place.
+		</p><br/>
+		<table width="100%" style="border-collapse: collapse;">
+			<tr>
+				<th style="border: 1px solid black;" align="center" width="80px;">SECTION</th>
+				<th style="border: 1px solid black;" align="center">#</th>
+				<th style="border: 1px solid black;" align="center">QUESTION</th>
+				<th style="border: 1px solid black;" align="center">YES/NO</th>
+				<th style="border: 1px solid black;" align="center">SECTION LEVEL</th>
+			</tr>
+			<tr>
+				<td style="border: 1px solid black;" align="center">Governance</td>
+				<td style="border: 1px solid black;" align="right">
+					<div style="background-color:#e9e9e9">1</div>
+					<div style="background-color:#ffffff">2</div>
+					<div style="background-color:#e9e9e9">3</div>
+					<div style="background-color:#ffffff">4</div>
+					<div style="background-color:#e9e9e9">5</div>
+					<div style="background-color:#ffffff">6</div>
+				</td>
+				<td style="border: 1px solid black;">
+					<div style="background-color:#e9e9e9">Does the model have an assigned model owner?</div>
+					<div style="background-color:#ffffff">Does the model have a clearly defined purpose and scope?</div>
+					<div style="background-color:#e9e9e9">Are there required qualifications &amp; trainings for users of the model?</div>
+					<div style="background-color:#ffffff">Are security protocols in place to protect the model contents?</div>
+					<div style="background-color:#e9e9e9">Does the model have an assigned executive sponsor?</div>
+					<div style="background-color:#ffffff">Is effective model management a component of relevant performance reviews?</div>
+				</td>
+				<td style="border: 1px solid black;" align="center">
+					<div style="background-color:#e9e9e9">{!modelValuesMap['Model_Owner__c']}</div>
+					<div style="background-color:#ffffff">{!modelValuesMap['Defined_Purpose_and_Scope__c']}</div>
+					<div style="background-color:#e9e9e9">{!modelValuesMap['Model_User_Training__c']}</div>
+					<div style="background-color:#ffffff">{!modelValuesMap['Security_confidentiality__c']}</div>
+					<div style="background-color:#e9e9e9">{!modelValuesMap['Executive_Sponsor__c']}</div>
+					<div style="background-color:#ffffff">{!modelValuesMap['Model_Management_Tied_to_Performance__c']}</div>
+				</td>
+				<td style="border: 1px solid black; background-color:{!modelValuesMap[modelValuesMap['Governance_Section_Level']]}" align="center" >
+					{!modelValuesMap['Governance_Section_Level']}
+				</td>
+			</tr>
+			<tr>
+				<td style="border: 1px solid black;" align="center">Validation</td>
+				<td style="border: 1px solid black;" align="right">
+					<div style="background-color:#e9e9e9">1</div>
+					<div style="background-color:#ffffff">2</div>
+					<div style="background-color:#e9e9e9">3</div>
+					<div style="background-color:#ffffff">4</div>
+					<div style="background-color:#e9e9e9">5</div>
+					<div style="background-color:#ffffff">6</div>
+					<div style="background-color:#e9e9e9">7</div>
+					<div style="background-color:#ffffff">8</div>
+					<div style="background-color:#e9e9e9">9</div>
+					<div style="background-color:#ffffff">10</div>
+					<div style="background-color:#e9e9e9">11</div>
+					<div style="background-color:#ffffff">12</div>
+				</td>
+				<td style="border: 1px solid black;">
+					<div style="background-color:#e9e9e9">Is the data used for the model relevant and reasonable?</div>
+					<div style="background-color:#ffffff">Are the assumptions used for the model relevant and reasonable?</div>
+					<div style="background-color:#e9e9e9">Are the concepts and methodologies used for the model supported by best practices or research?</div>
+					<div style="background-color:#ffffff">Are the model calculations independently validated?</div>
+					<div style="background-color:#e9e9e9">Has the model architecture been independently tested against the intended design?</div>
+					<div style="background-color:#ffffff">Have results been checked against control totals?</div>
+					<div style="background-color:#e9e9e9">Is the model subjected to a regular independent review process?</div>
+					<div style="background-color:#ffffff">Are all relevant segments, statements, and metrics reflected in the model?</div>
+					<div style="background-color:#e9e9e9">Are there required qualifications &amp; trainings for reviewers of the model?</div>
+					<div style="background-color:#ffffff">Is there a formal model monitoring process in place?</div>
+					<div style="background-color:#e9e9e9">Are there event based (major changes, financial results, etc.) model validation triggers?</div>
+					<div style="background-color:#ffffff">Do model modifications require a formal testing and sign off procedure?</div>
+				</td>
+				<td style="border: 1px solid black;" align="center" valign="top">
+					<div style="background-color:#e9e9e9">{!modelValuesMap['Data__c']}</div>
+					<div style="background-color:#ffffff">{!modelValuesMap['Assumptions__c']}</div>
+					<div style="background-color:#e9e9e9">{!modelValuesMap['Methodology__c']}<br/></div>
+					<div style="background-color:#ffffff">{!modelValuesMap['Calculation__c']}</div>
+					<div style="background-color:#e9e9e9">{!modelValuesMap['Model_Architecture__c']}<br/></div>
+					<div style="background-color:#ffffff">{!modelValuesMap['Model_Results__c']}</div>
+					<div style="background-color:#e9e9e9">{!modelValuesMap['Independent_Model_Review__c']}</div>
+					<div style="background-color:#ffffff">{!modelValuesMap['Model_Integrity__c']}<br/></div>
+					<div style="background-color:#e9e9e9">{!modelValuesMap['Reviewer_Qualifications_Trainings__c']}<br/></div>
+					<div style="background-color:#ffffff">{!modelValuesMap['Monitoring_Procedure__c']}</div>
+					<div style="background-color:#e9e9e9">{!modelValuesMap['Model_Validation_Triggers__c']}<br/></div>
+					<div style="background-color:#ffffff">{!modelValuesMap['Model_Modification_Procedure__c']}<br/></div>
+				</td>
+				<td style="border: 1px solid black; background-color:{!modelValuesMap[modelValuesMap['Validation_Section_Level']]}" align="center">
+					{!modelValuesMap['Validation_Section_Level']}
+				</td>
+			</tr>
+			<tr>
+				<td style="border: 1px solid black;" align="center">Procedures &amp; Documentation</td>
+				<td style="border: 1px solid black;" align="right">
+					<div style="background-color:#e9e9e9">1</div>
+					<div style="background-color:#ffffff">2</div>
+					<div style="background-color:#e9e9e9">3</div>
+					<div style="background-color:#ffffff">4</div>
+					<div style="background-color:#e9e9e9">5</div>
+					<div style="background-color:#ffffff">6</div>
+				</td>
+				<td style="border: 1px solid black;">
+					<div style="background-color:#e9e9e9">Have model limitations and risks been identified, documented, and made available to users?</div>
+					<div style="background-color:#ffffff">Is there a formal model change and override process?</div>
+					<div style="background-color:#e9e9e9">Have the model's purpose, owners, validation results, incident history been documented?</div>
+					<div style="background-color:#ffffff">Is there a formal process to ensure appropriate communication of results to management?</div>
+					<div style="background-color:#e9e9e9">Are supporting materials (best practices, research, etc.) archived and available for review?</div>
+					<div style="background-color:#ffffff">Are records kept of past incidents where the model did not perform as expected?</div>
+				</td>
+				<td style="border: 1px solid black;" align="center">
+					<div style="background-color:#e9e9e9">{!modelValuesMap['Limitation_of_Model__c']}</div>
+					<div style="background-color:#ffffff">{!modelValuesMap['ChangeManagement_Overrides']}</div>
+					<div style="background-color:#e9e9e9">{!modelValuesMap['Model_Documentation__c']}</div>
+					<div style="background-color:#ffffff">{!modelValuesMap['Model_Results_Communication__c']}</div>
+					<div style="background-color:#e9e9e9">{!modelValuesMap['Supporting_Materials__c']}<br/></div>
+					<div style="background-color:#ffffff">{!modelValuesMap['Incident_Records__c']}<br/></div>
+				</td>
+				<td style="border: 1px solid black; background-color:{!modelValuesMap[modelValuesMap['Proc_Doc_Section_Level']]}" align="center">
+					{!modelValuesMap['Proc_Doc_Section_Level']}
+				</td>
+			</tr>
+			<tr>
+				<td colspan="4" style="border: 1px solid black; font-weight:bold;">OVERALL MODEL MANAGEMENT ASSESSMENT</td>
+				<td style="border: 1px solid black; font-weight:bold; background-color:{!modelValuesMap[modelValuesMap['Overall_Section_Level']]}" align="center">
+					{!modelValuesMap['Overall_Section_Level']}
+				</td>
+			</tr>
+		</table>
+		<br/><br/>
+		<table width="100%" style="border-collapse: collapse;">
+			<tr><td style="border: 1px solid black; background-color:#e9e9e9;">
+				<u><b>SECTION LEVEL EXPLANATION:</b></u>
+				<p class="secLevel">
+					<b>INITIAL - </b>
+					This is the starting point with little to no model management in place. Models at this score in model management will not produce accurate results that are in line with the intended module purpose &amp; scope. 
+				</p>
+				<p class="secLevel">
+					<b>INTERMEDIATE - </b>
+					This level requires a minimum number of critical and other model management components. Models at this score do have formal model management in place, which leads to greater reliability of the model results in achieving the intended purpose &amp; scope. 
+				</p>
+				<p class="secLevel">
+					<b>MATURE - </b>
+					This level requires all of the critical components and almost all of the other model management components. Models at this score have strong model management in place, and  there is a strong connection between the model results and their ability to influence decision-making. 
+				</p>
+			</td>
+		</tr></table>
+		<br/>
+		<p class="disclaimer" style="font-style: italic;">
+			This model management scoring workbook is one way to assess model management frameworks, and it ONLY provides a quick, high-level assessment of model management frameworks. 
+			It is useful as a foundational assessment of a model management framework and should not be used for other purposes. There are components of a model management framework that may 
+			not considered in this scoring workbook. A thought, in-depth assessment of a model management framework is strongly recommended in order in order to provide the most complete understanding 
+			of the effectiveness of in-place model management. The assessment provided in this workbook is dependent on the answers provided by the preparer. If the preparer answers incorrectly or is 
+			unsure of the response, the assessment will be inaccurate. Please contact Milliman's Risk Advisory Services at risk.advisory@milliman.com for more information.  
+		</p>
+		
+	</apex:form>
+</apex:page>

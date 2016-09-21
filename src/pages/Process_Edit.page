@@ -1,0 +1,111 @@
+<apex:page standardController="UGI_Process__c" extensions="Process_Edit_Controller">
+    <apex:sectionHeader title="Process Edit" subtitle="{!process.Name} Edit"/>
+    <style>
+        .heading{
+            width:90px;
+            color:white;
+            background-color:#0099CC;
+        }
+        .borderS {
+            border: 1px solid #0099CC;
+        }
+        
+    </style>
+    <apex:form >
+        <apex:pageBlock >
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Save" action="{!save}"/>
+                <apex:commandButton value="Cancel" action="{!cancel}"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection title="Information" collapsible="false">
+                <apex:inputField value="{!process.Name__c}" required="true"/>
+                <apex:inputField value="{!process.Risk__c}"/>
+                <apex:inputField value="{!process.Category__c}"/>
+                <apex:inputField value="{!process.Source__c}"/>
+            </apex:pageBlockSection>
+            <br/>
+            <apex:pageBlockSection columns="1" title="Process Risk Assessment" collapsible="false"/>
+            <apex:outputPanel id="SOXEditable" rendered="{!isSOX}">
+                <center>
+                <table class="borderS" cellpadding="3" cellSpacing="0">
+                    <tr class="borderS">
+                        <th class="heading" style="width:50px;"><center>&nbsp;</center></th>
+                        <th class="heading" style="width:200px;"><center>Process</center></th>
+                        <th class="heading"><center>Overall<br/>Complexity</center></th>
+                        <th class="heading"><center>Degree of<br/>Centralization</center></th>
+                        <th class="heading"><center>Extent of<br/>Automation</center></th>
+                        <th class="heading"><center>Transaction<br/>Volume</center></th>
+                        <th class="heading"><center>History of<br/>Deficiencies</center></th>
+                        <th class="heading"><center>Degree of<br/>Process or<br/>Systems<br/>Change</center></th>
+                        <th class="heading"><center>Extent of<br/>External<br/>Party<br/>Involvement</center></th>
+                        <th class="heading"><center>System<br/>Adequacy</center></th>
+                        <!-- <th class="heading"><center>Overall<br/>Risk Score</center></th> -->
+                    </tr>
+                    <apex:repeat value="{!processWrapperList}" var="sub">
+                        <tr class="borderS">
+                            <td class="borderS">
+                                <center>
+                                    <apex:commandLink value="Add" action="{!addSubsidiary}" rerender="SOXEditable"/>
+                                         | 
+                                    <apex:commandLink value="Del" action="{!removeSubsidiary}" rerender="SOXEditable">
+                                        <apex:param name="p1" value="{!sub.index}" assignTo="{!deleteIdx}"/>
+                                    </apex:commandLink>
+                                </center>
+                            </td>
+                            <td class="borderS"><apex:inputField value="{!sub.subsidiary.Name}" style="width:200px;"/></td>
+                            <td class="borderS"><apex:inputField value="{!sub.subsidiary.Overall_Complexity__c}" style="width:90px;"/></td>
+                            <td class="borderS"><apex:inputField value="{!sub.subsidiary.Degree_of_Centralization__c}" style="width:90px;"/></td>
+                            <td class="borderS"><apex:inputField value="{!sub.subsidiary.Extent_of_Automation__c}" style="width:90px;"/></td>
+                            <td class="borderS"><apex:inputField value="{!sub.subsidiary.Transaction_Volume__c}" style="width:90px;"/></td>
+                            <td class="borderS"><apex:inputField value="{!sub.subsidiary.History_of_Deficiencies__c}" style="width:90px;"/></td>
+                            <td class="borderS"><apex:inputField value="{!sub.subsidiary.Degree_of_Process_or_Systems_Change__c}" style="width:90px;"/></td>
+                            <td class="borderS"><apex:inputField value="{!sub.subsidiary.Extent_of_External_Party_Involvement__c}" style="width:90px;"/></td>
+                            <td class="borderS"><apex:inputField value="{!sub.subsidiary.System_Adequacy__c}" style="width:90px;"/></td>
+                            <!-- <td><apex:inputField value="{!sub.subsidiary.Overall_Risk_Score__c}" style="width:80px;"/></td> -->
+                        </tr>
+                    </apex:repeat>
+                </table>
+                </center>
+            </apex:outputPanel>
+            
+            <apex:outputPanel id="IAEditable" rendered="{!Not(isSOX)}">
+            <center>
+            <table cellpadding="3" cellSpacing="0">
+                <tr>
+                    <th class="heading" style="width:50px;"><center>&nbsp;</center></th>
+                    <th class="heading" style="width:170px;"><center>Function</center></th>
+                    <th class="heading"><center>AmeriGas</center></th>
+                    <th class="heading"><center>UGI Energy<br/>Services</center></th>
+                    <th class="heading"><center>UGI<br/>Utilities</center></th>
+                    <th class="heading"><center>Holding<br/>Company</center></th>
+                    <th class="heading"><center>Antargaz<br/>/Finagaz</center></th>
+                    <th class="heading"><center>Avantigas</center></th>
+                    <th class="heading"><center>Flaga</center></th>
+                </tr>
+                <apex:repeat value="{!processWrapperList}" var="sub">
+                    <tr>
+                        <td class="borderS">
+                            <center>
+                                <apex:commandLink value="Add" action="{!addSubsidiary}" rerender="IAEditable"/>
+                                         | 
+                                <apex:commandLink value="Del" action="{!removeSubsidiary}" rerender="IAEditable">
+                                    <apex:param name="p1" value="{!sub.index}" assignTo="{!deleteIdx}"/>
+                                </apex:commandLink>
+                            </center>
+                        </td>
+                        <td class="borderS"><apex:inputField value="{!sub.subsidiary.Name}" style="width:170px;"/></td>
+                        <td class="borderS"><apex:inputField value="{!sub.subsidiary.AmeriGas__c}" style="width:110px;"/></td>
+                        <td class="borderS"><apex:inputField value="{!sub.subsidiary.UGI_Energy_Services__c}" style="width:110px;"/></td>
+                        <td class="borderS"><apex:inputField value="{!sub.subsidiary.UGI_Utilities__c}" style="width:110px;"/></td>
+                        <td class="borderS"><apex:inputField value="{!sub.subsidiary.Holding_Company__c}" style="width:110px;"/></td>
+                        <td class="borderS"><apex:inputField value="{!sub.subsidiary.Antargaz_Finagaz__c}" style="width:110px;"/></td>
+                        <td class="borderS"><apex:inputField value="{!sub.subsidiary.Avantigas__c}" style="width:110px;"/></td>
+                        <td class="borderS"><apex:inputField value="{!sub.subsidiary.Flaga__c}" style="width:110px;"/></td>
+                    </tr>
+                </apex:repeat>
+            </table>
+            </center>
+        </apex:outputPanel>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

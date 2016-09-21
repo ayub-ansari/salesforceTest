@@ -1,0 +1,50 @@
+<!-- Mike Ulveling -->
+<apex:component access="global" layout="block">
+    <apex:attribute access="global" name="paginator" type="rkl.ListPaginator" required="true" description="." />
+    <apex:attribute access="global" name="setPageActionFunctionName" type="String" required="true" description="Name of the 1-param actionFunction to be called to change the active page index" />
+    <apex:attribute access="global" name="setPageSizeActionFunctionName" type="String" required="true" description="Name of the 1-param actionFunction to be called to change the active page size" />
+    <apex:attribute access="global" name="rerender" type="String" required="true" description="Comma-delimited list of Visualforce Ids to rerender upon return from a pageNumber/pageSize action" />
+    <apex:attribute access="global" name="sizeOptionList" type="String" required="true" description="Javascript array of page sizes that are to appear as options in this component." />
+    <apex:attribute access="global" name="selectionModel" type="String" description="Javascript Object reference to an rk.SelectionModel -- pass null if you do not need to track selections" />
+    <apex:attribute access="global" name="onBeforeSetPage" type="String" required="true" description="Javascript to be executed at the start of a setPage action. The variable 'pageNum' will be available in local scope." />
+    <apex:attribute access="global" name="onBeforeSetPageSize" type="String" required="true" description="Javascript to be executed at the start of a setPageSize action. The variable 'pageSize' will be available in local scope." />
+    <div class="listViewport">
+        <apex:outputPanel layout="block" id="paginatorAttachPoint" styleClass="bottomNav" style="padding-bottom:6px;" />
+    </div>
+    <apex:outputPanel id="scriptBlock" layout="block" style="display:none">
+	    <script type="text/javascript">
+	    	// use a closure to avoid writing into the global scope:
+	    	(function () {
+		        var paginator = new PaginationController('{!$Component.paginatorAttachPoint}', 
+		        	// push the "rerender" attribute onto the arguments array for the action functions:
+		        	function () { 
+		        		var args = Array.prototype.slice.call(arguments);
+		        		args.push('{!rerender}');
+		        		{!setPageActionFunctionName}.apply(window, args); 
+		        	},
+		        	function () { 
+		        		var args = Array.prototype.slice.call(arguments);
+		        		args.push('{!rerender}');
+		        		{!setPageSizeActionFunctionName}.apply(window, args); 
+		        	},
+		        	{
+			            rowsPerPage:{!paginator.pageSize}, 
+			            totalRowCount:{!paginator.resultSize}, 
+			            page:{!paginator.pageNumber},
+			            opts:{!sizeOptionList},
+			            selectionModel:{!selectionModel}
+		            });
+		        paginator.onBeforeSetPage = function (pageNumber) {
+		            {!onBeforeSetPage};
+		        };
+		        paginator.onBeforeSetPageSize = function (pageSize) {
+		            {!onBeforeSetPageSize};
+		        };
+		        if (_uiManager) {
+		        	// invoke the initial draw, but wait until it's "safe" to do so:
+		        	_uiManager.queueOnSfdcPageReady(function() {paginator.draw();});
+		        }
+	        })();
+	    </script>
+    </apex:outputPanel>
+</apex:component>

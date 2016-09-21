@@ -1,0 +1,88 @@
+<apex:page controller="RiskAppetiteStatementController" showHeader="false" sidebar="false" applyHtmlTag="false" applyBodyTag="false" renderAs="pdf" readOnly="true">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+        <style type="text/css">
+            @page {
+                size:A4 portrait; 
+                margin: 5mm;  
+            }
+            table{
+               border-collapse:collapse;
+            }
+            th {
+                font-family: Arial,Helvetica,sans-serif;
+                font-size:11px;
+                background-color: #47659D;
+                color: white;
+            }
+            tr{
+                font-family: Arial,Helvetica,sans-serif;
+                font-size:11px;
+                border-bottom: 1px solid #47659D;
+            }
+            
+            .lastRow{
+                border-style:none none none none; 
+            }
+            .allRow{
+                border-style:none none solid none; 
+                border-width:thin;
+                border-color:#47659D;
+            }
+            
+            p,ul{
+                font-family: Arial,Helvetica,sans-serif;
+                font-size:12px;
+            }
+        </style>
+    </head>
+    <apex:form id="frm">
+        <apex:pageBlock >
+            <apex:image url="{!$Resource.MillimanGRCLogo}" width="154" height="49"/>
+            <p>
+                Risk appetite articulates the level of risk an organization is willing to accept in pursuit of value creation, as well as its capacity to bear that risk. RAS Global considers qualitative and quantitative measures to be part of setting risk appetite, and it focuses on risk based capital as a primary measure. 
+                RAS Global manages its financial operations to attain a reasoned risk/return relationship, which serves as a guideline for acceptable risk. The organization tracks and manages risks related to strategic, financial, reporting, compliance, and operations objectives. 
+                RAS Global plans to start with fewer measures for risk appetite in the early years of the ERM program and consider expanding in the future.
+                A formal risk appetite statement and associated risk tolerances and limits are foundational elements of enterprise risk management for RAS Global, which
+                <ul>
+                    <li>Provides overall principles that RAS Global follow with respect to risk-taking given its business strategy, financial soundness objectives, capital resources and dynamic circumstances in the marketplace, as it serves as a guidepost when a new market opportunity or significant risk emerges.</li>
+                    <li>Defines how RAS Global weighs strategic decisions and communicates its risk taking strategies. A well-articulated risk appetite statement that is communicated effectively to operating units in the form of risk tolerances and limit structures can provide clarity and focus to the resource allocation process and surface the need for dialogue as market conditions change.</li>
+                    <li>Provides a forward-looking process that establishes expectations and tolerance levels for the firm&#39;s overall risk profile.</li>
+                </ul>
+            </p>
+        
+            <table width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse;">
+                <thead>
+                    <th width="100px;">Risk Appetite Category</th>
+                    <th width="170px;">Risk Appetite Statement</th>
+                    <th style="border-style:none solid solid none; border-width:thin; border-color:#47659D">
+                        <table width="100%">
+                            <thead>
+                                <th width="110px;">Key Risk Metrics</th>
+                                <th>Risk Tolerance and Limits</th>
+                            </thead>
+                        </table>
+                    </th> 
+                </thead>
+                <apex:repeat value="{!riskAppetiteList}" var="risk">
+                    <tr>
+                        <td style="border-style:none none solid solid; border-width:thin; border-color:#47659D">{!risk.RecordType.Name}</td>
+                        <td style="border-style:none none solid none; border-width:thin; border-color:#47659D">{!risk.Risk_Appetite_Statement__c}</td>
+                        <td style="border-style:none solid solid none; border-width:thin; border-color:#47659D">
+                            <table width="100%" style="border-collapse:collapse;" cellspacing="0" cellpadding="0">
+                                <apex:variable value="{!1}" var="cnt1"/>
+                                <apex:repeat value="{!risk.Key_Risk_Metrics__r}" var="krm">
+                                    <tr id="krmtd">
+                                        <td class="{!IF(cnt1==risk.Key_Risk_Metrics__r.size,'lastRow','allRow')}" width="110px;">{!krm.Name}</td>
+                                        <td class="{!IF(cnt1==risk.Key_Risk_Metrics__r.size,'lastRow','allRow')}">{!krm.Description__c}</td>
+                                    </tr>
+                                    <apex:variable value="{!cnt1+1}" var="cnt1"/>
+                                </apex:repeat>
+                            </table>
+                        </td>
+                    </tr>
+                </apex:repeat>
+            </table>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

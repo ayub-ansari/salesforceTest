@@ -1,0 +1,168 @@
+<apex:page standardController="ERM_to_FM__c" extensions="ReconciliationMemoController" id="pg">    
+    <apex:includeScript value="{!URLFOR($Resource.assets, 'assets/js/jquery.js')}"/>
+    <style>
+        .col2, .col4, .col6{
+        background-color:#F2F2F2;
+        }
+        .col3, .col5, .col7{
+        background-color:#FAFAFA;
+        }
+        .centerHeader{
+        text-align:center;
+        }
+        
+        #newRF, #addListRF{
+        display:none;
+        }
+    </style>
+    
+    <apex:outputPanel id="main">
+        <div id="mainPanel">
+            <apex:form id="frm">
+                <apex:pageBlock title="ERM to Financial Model Reconciliation Memo" id="pb">
+                    
+                    <apex:pageBlockButtons location="top">
+                        <apex:commandButton action="{!save}" id="saveButton" value="Save Detail" />
+                        <apex:commandButton action="{!delete}" id="deleteButton" value="Delete Memo" />
+                        <apex:commandButton onclick="resetInlineEdit()" id="cancelButton" value="Cancel Detail Changes"/>
+                        <apex:outputLink value="/apex/PrintReconciliation?id={!ERM_to_FM__c.id}" target="_blank" >Print Reconciliation</apex:outputLink>
+                    </apex:pageBlockButtons>
+                    
+                    <apex:pageBlockSection columns="1">
+                        <apex:outputField value="{!ERM_to_FM__c.Name}"/>
+                        <apex:outputField value="{!ERM_to_FM__c.Memo_Date__c}"/>
+                        <apex:outputField value="{!ERM_to_FM__c.Memo_Description__c}">
+                            <apex:inlineEditSupport showOnEdit="saveButton, cancelButton" 
+                            hideOnEdit="editButton" event="ondblclick" 
+                            changedStyleClass="myBoldClass" resetFunction="resetInlineEdit"/>
+                        </apex:outputField>
+                        <apex:outputField value="{!ERM_to_FM__c.Memo_Created_By__c}"/>
+                    </apex:pageBlockSection>
+                    
+                    <div style="padding-left:525px;margin-top:30px;">
+                        <apex:commandButton action="{!saveChanges}" value="Save List" rerender="main" status="counterStatus"/>
+                        <apex:actionStatus startText="Saving..." id="counterStatus" />
+                        <input type="button" value="Add Risk" class="btn" id="addRF"/>
+                    </div>
+                    
+                    <table style="margin-left:60px;">
+                        <tr>
+                            <td style="width:150px;background-color:#99CCFF;text-align:center;font-size:14px;font-weight:bold;">Risk</td>
+                            <td style="width:256px;background-color:#B8DBFF;text-align:center;font-size:14px;font-weight:bold;">Risk Source</td>
+                            <td style="width:520px;background-color:#D6EBFF;text-align:center;font-size:14px;font-weight:bold;">Model Approach</td>
+                        </tr>
+                    </table>
+                    <apex:pageBlockTable id="pbt" value="{!EList}" var="e" columnClasses="col0, col1, col2, col3, col4, col5, col6, col7, col8, col9" headerClass="centerHeader" style="width:1200px;">
+                        <apex:column headerValue="Action" width="55px" style="border-right:1px solid #e0e3e5">
+                            <apex:outputLink value="/{!e.id}/e?retURL={!ERM_to_FM__c.id}"> Edit </apex:outputLink>
+                            |
+                            <a href="javascript:if (window.confirm('Are you sure?')) DeleteRF('{!e.Id}');">Del</a>
+                        </apex:column>
+                        <apex:column headerValue="Risk" width="150px">
+                            <apex:outputText ><a href="/{!e.Risk__c}" target="_blank">{!e.Risk__r.Name}</a></apex:outputText>
+                        </apex:column>
+                        <apex:column headerValue="ERM Risk" width="125px" style="text-align:center">
+                            <apex:facet name="header" >ERM Risk</apex:facet>
+                            <apex:inputField value="{!e.ERM_Risks__c}"/>
+                        </apex:column>
+                        <apex:column headerValue="FM Specific" width="125px" style="text-align:center">
+                            <apex:facet name="header">FM Specific<br/>Risk</apex:facet>
+                            <apex:inputField value="{!e.FM_Specific_Risks__c}"/>
+                        </apex:column>
+                        <apex:column headerValue="Detailed Structural Stochastic Model in FM" width="125px" style="text-align:center">
+                            <apex:facet name="header" >Detailed Structural<br/> Stochastic Model<br/> in FM</apex:facet>
+                            <apex:inputField value="{!e.Detailed_Structural_Stochastic_Model__c }" id="chk1" onChange="unCheckOtherOptions(this.id,this.checked);return false;"/>
+                        </apex:column>
+                        <apex:column headerValue="Simple Stochastic Model in FM" width="125px" style="text-align:center">
+                            <apex:facet name="header">Simple Stochastic<br/> Model in FM</apex:facet>
+                            <apex:inputField value="{!e.Simple_Stochastic_Model__c}" id="chk2" onChange="unCheckOtherOptions(this.id,this.checked);return false;"/>
+                        </apex:column>
+                        <apex:column headerValue="Risk Distribution Derived from ERM Risk Assessment" width="125px" style="text-align:center">
+                            <apex:facet name="header">Risk Distribution<br/> Derived from ERM<br/> Risk Assessment</apex:facet>
+                            <apex:inputField value="{!e.ERM_Program_Identified_Risks__c}" id="chk3" onChange="unCheckOtherOptions(this.id,this.checked);return false;"/>
+                        </apex:column>
+                        <apex:column headerValue="Reflected via Residual Standard Deviation" width="125px" style="text-align:center">
+                            <apex:facet name="header">Reflected via Residual<br/> Standard Deviation</apex:facet>
+                            <apex:inputField value="{!e.Residual_Standard_Deviation__c}" id="chk4" onChange="unCheckOtherOptions(this.id,this.checked);return false;"/>
+                        </apex:column>
+                        <apex:column headerValue="Explanation" width="200px">
+                            <apex:inputField value="{!e.Explanation__c}" style="width:95%;"/>
+                        </apex:column>                        
+                    </apex:pageBlockTable> 
+                </apex:pageBlock> 
+                <apex:actionFunction action="{!DeleteRiskFactor}" name="DeleteRF" reRender="main" >
+                    <apex:param name="rfID" value="" assignTo="{!selectedRFId}"/>
+                </apex:actionFunction>
+            </apex:form>
+        </div>
+        
+        <!-- Add new ECR to FM Risk -->
+        <div id="addListRF" style="width:500px">
+            <apex:form >            
+                <apex:pageBlock >
+                    <apex:pageBlockSection columns="1" title="Add Risk to List" collapsible="false">
+                        <apex:inputField value="{!addRiskFactor.Risk__c}" style="width:75%"/>                        
+                    </apex:pageBlockSection>
+                    <apex:commandButton action="{!addNewRF}" value="Add Risk to List" rerender="main" status="counterStatus"/>
+                    <input type="button" value="Cancel" class="btn" id="cancelAddRF"/>
+                    <input type="button" value="Create New Risk" class="btn" id="newRFButton"/>
+                </apex:pageBlock>            
+            </apex:form>
+        </div>
+        
+        <!-- Create new Risk factor -->
+        <div id="newRF" style="width:500px">
+            <apex:form >            
+                <apex:pageBlock title="New Risk">
+                    <apex:pageBlockSection columns="1">
+                        <apex:inputField label="Risk" value="{!newRiskFactor.Name}"/>
+                        <apex:inputField value="{!newRiskFactor.Description__c}" style="width:100%"/>
+                    </apex:pageBlockSection>
+                    <apex:commandButton action="{!saveNewRF}" value="Save New Risk" rerender="main" status="counterStatus"/>
+                    <input type="button" value="Cancel" class="btn" id="cancelNewRF"/>
+                </apex:pageBlock>            
+            </apex:form>
+        </div>
+        
+        
+        <script type="text/javascript">
+        
+        function unCheckOtherOptions(chkId,isChecked){
+        	if(isChecked){
+        		var str = chkId.substr(0,19);
+        		var num = parseInt(chkId.substr(19,1));
+        		for(i = 1 ; i <= 4 ; i++){
+        			if(i != num){
+        				document.getElementById(str.concat(i)).checked = false;
+        			}
+        		}
+            }
+        }
+        
+        $j = jQuery.noConflict();
+        
+        $j(window).ready(function(){
+            $j('th.centerHeader').css('vertical-align', 'bottom');
+            $j('th.centerHeader').css('background-color', '#CCCCCC');
+        });
+        
+        $j("#addRF").click(function() {
+            $j('#mainPanel').css('display', 'none');
+            $j('#addListRF').css('display', 'block');
+        });
+        
+        $j("#newRFButton").click(function() {
+            $j('#newRF').css('display', 'block');
+            $j('#mainPanel').css('display', 'none');
+            $j('#addListRF').css('display', 'none');
+        });
+        
+        $j("#cancelNewRF, #cancelAddRF").click(function() {
+            $j('#newRF').css('display', 'none');
+            $j('#mainPanel').css('display', 'block');
+            $j('#addListRF').css('display', 'none');
+        });
+        </script>
+        
+    </apex:outputPanel>
+</apex:page>

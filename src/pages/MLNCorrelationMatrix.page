@@ -1,0 +1,438 @@
+<apex:page controller="CorrelationMatrixController" title="Correlation Matrix" >
+    <apex:includeScript value="{!URLFOR($Resource.assets, 'assets/js/jquery.js')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.assets, 'assets/css/bootstrap.css')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.assets, 'assets/css/bootstrap-responsive.css')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.assets, 'assets/js/bootstrap-alert.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.assets, 'assets/js/bootstrap-button.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.assets, 'assets/js/bootstrap-carousel.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.assets, 'assets/js/bootstrap-collapse.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.assets, 'assets/js/bootstrap-dropdown.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.assets, 'assets/js/bootstrap-modal.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.assets, 'assets/js/bootstrap-tooltip.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.assets, 'assets/js/bootstrap-popover.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.assets, 'assets/js/bootstrap-scrollspy.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.assets, 'assets/js/bootstrap-tab.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.assets, 'assets/js/bootstrap-transition.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.assets, 'assets/js/bootstrap-typeahead.js')}"/>
+    
+    <style>
+        #phHeaderLogoImage{
+        max-width: 259px;
+        width: 259px;
+        height: 50px;
+        }
+        
+        .skew, .table th
+        {
+        <!--transform:rotate(-90deg);
+        -ms-transform:rotate(-90deg); /* IE 9 */
+        -moz-transform:rotate(-90deg); /* Firefox */
+        -webkit-transform:rotate(-90deg); /* Safari and Chrome */
+        -o-transform:rotate(-90deg); /* Opera */-->
+        vertical-align:bottom;
+        white-space:normal;
+        word-wrap:break-word;
+        word-break:normal;
+        }
+        
+        .table th, .table td{
+        word-wrap:break-word;
+        width:75px;
+        font-size:80%;
+        }
+        
+        .green1 input, .green1 output{
+        color:black;
+        background-color: #E0FFE0;
+        }
+        
+        .green2 input, .green2 output{
+        color:black;
+        background-color: #99FF99;
+        }
+        
+        .green3 input, .green3 output{
+        color:black;
+        background-color: #33CC33;
+        }
+        
+        .green4 input, .green4 output{
+        color:black;
+        background-color: #248F24;
+        }
+        
+        td.black, td.red, td.none{
+        font-size:125%;
+        }
+        
+        .red1 input, .red1 output{
+        color:black;
+        background-color: #FFF0E6;
+        }
+        
+        .red2 input, .red2 output{
+        color:black;
+        background-color: #FF7373;
+        }
+        
+        .red3 input, .red3 output{
+        color:black;
+        background-color: #FF0000;
+        }
+        
+        .red4 input, .red4 output{
+        color:black;
+        background-color: #CC0000;
+        }
+        
+        .cmHeader {
+        font-size:16px;
+        font-weight:bold;
+        }
+        
+        .btnlbl {
+        font-size:14px;
+        }
+        
+        .accordion-inner{
+        padding: 0px 0px;
+        }
+        
+        a .btn{
+        height:30px;
+        }
+        
+        
+        
+        
+        
+        .stickyheader {
+        z-index:2000;
+        background-color: #f8f8f8;
+        }
+        
+        .stickyheader table{
+            margin-bottom:0;
+        }
+        
+        #stickyalias {
+        display: none;
+        height: 10px;
+        }
+        #unstickyheader {
+        margin-bottom: 15px;
+        }
+        #othercontent {
+        margin-top: 20px;
+        }
+        
+        #legGre1{
+        font-size: 15px;
+        height: 15px;
+        width: 125px;
+        background-color:#E0FFE0;
+        border-top: 4px solid #E0FFE0;
+        border-bottom: 4px solid #E0FFE0;
+        text-align: center;
+        vertical-align:middle;
+        }
+        
+        #legGre2{
+        font-size: 15px;
+        height: 15px;
+        width: 125px;
+        background-color:#99FF99;
+        border-top: 4px solid #99FF99;
+        border-bottom: 4px solid #99FF99;
+        text-align: center;
+        vertical-align:middle;
+        }
+        
+        #legGre3{
+        font-size: 15px;
+        height: 15px;
+        width: 125px;
+        background-color:#33CC33;
+        border-top: 4px solid #33CC33;
+        border-bottom: 4px solid #33CC33;
+        text-align: center;
+        vertical-align:middle;
+        }
+        
+        #legGre4{
+        font-size: 15px;
+        height: 15px;
+        width: 125px;
+        background-color:#248F24;
+        border-top: 4px solid #248F24;
+        border-bottom: 4px solid #248F24;
+        text-align: center;
+        vertical-align:middle;
+        }
+        
+        #legred1{
+        font-size: 15px;
+        height: 15px;
+        width: 125px;
+        background-color:#FFF0E6;
+        border-top: 4px solid #FFF0E6;
+        border-bottom: 4px solid #FFF0E6;
+        text-align: center;
+        vertical-align:middle;
+        }
+        
+        #legred2{
+        font-size: 15px;
+        height: 15px;
+        width: 125px;
+        background-color:#FF7373;
+        border-top: 4px solid #FF7373;
+        border-bottom: 4px solid #FF7373;
+        text-align: center;
+        vertical-align:middle;
+        }
+        
+        #legred3{
+        font-size: 15px;
+        height: 15px;
+        width: 125px;
+        background-color:#FF0000;
+        border-top: 4px solid #FF0000;
+        border-bottom: 4px solid #FF0000;
+        text-align: center;
+        vertical-align:middle;
+        }
+        
+        #legred4{
+        font-size: 15px;
+        height: 15px;
+        width: 125px;
+        background-color:#CC0000;
+        border-top: 4px solid #CC0000;
+        border-bottom: 4px solid #CC0000;
+        text-align: center;
+        vertical-align:middle;
+        }
+        
+        #white{
+        font-size: 15px;
+        height: 15px;
+        width: 125px;
+        background-color:white;
+        border-top: 4px solid white;
+        border-bottom: 4px solid white;
+        text-align: center;
+        vertical-align:middle;
+        }
+        
+        
+        #myModal{
+        z-index:5000;
+        }
+        
+    </style>
+    
+    <apex:form >
+        <div class="accordion" id="accordion2">
+            <div class="accordion-group">
+                <div class="accordion-heading">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+                        <span class="cmHeader">Risk Profile Inventory</span>
+                    </a>
+                </div>
+                <div id="collapseOne" class="accordion-body collapse in">
+                    <div class="accordion-inner">
+                        
+                        <apex:pageBlock >
+                            <div class="row-fluid">
+                                <div class="span5">
+                                    <apex:outputPanel id="group" >                                        
+                                        <apex:outputPanel id="riskinv" >
+                                            <span class="btnlbl">Risk Type Filter:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>  <apex:inputField value="{!filterRisk.Risk_Status__c}" /><br/><!--onchange="getRL();"-->
+                                            <!-- <span class="btnlbl">Organization Category:&nbsp;</span>  <apex:inputField value="{!filterRisk.Parent_Category__c}"/><br/> -->
+                                            <apex:commandButton value="Filter" onclick="getRL();"/><br/>
+                                            <apex:actionFunction name="getRL" reRender="matrix, extMat, riskinv" status="ajaxStatus" action="{!RisksWithFilter}" />
+                                            <span class="btnlbl">Select a set of Risks for the Correlation Matrix:&nbsp;</span>
+                                            <apex:commandButton value="Create Matrix" reRender="matrix, extMat" status="ajaxStatus" action="{!filterRiskList}" title="Create Matrix"/>
+                                            <apex:selectList value="{!rIds}" multiselect="True" size="15" style="width:100%;">
+                                                <apex:selectOptions value="{!RFoptions}"/>
+                                            </apex:selectList>
+                                        </apex:outputPanel>
+                                    </apex:outputPanel>
+                                </div>
+                                
+                                <div class="span7">
+                                    <apex:outputPanel id="extMat" >
+                                        <span class="btnlbl">Select an existing Matrix:&nbsp;</span>
+                                        <!--<apex:commandButton value="Select Matrix" reRender="group, matrix" status="ajaxStatus" action="{!filterEXTMX}" title="Get Risk Inventory"/><br/>-->
+                                        <apex:outputpanel id="selectextMX">
+                                        <apex:selectList value="{!selCurMat}" multiselect="false" size="1" style="width:50%;" onchange="gsMatrix();">
+                                            <apex:selectOptions value="{!MXoptions}"/>
+                                        </apex:selectList><br/>
+                                            <!--<apex:actionSupport event="onclick" reRender="group, matrix" status="ajaxStatus" action="{!filterEXTMX}"/>-->
+                                        </apex:outputpanel>
+                                        <apex:actionFunction action="{!filterEXTMX}" name="gsMatrix" reRender="group, matrix" status="ajaxStatus">
+                                        </apex:actionFunction>
+                                        <span class="cmHeader">Correlation Legend:</span>
+                                        <div id="legend" style="border: 2px solid black;width:125px;">
+                                            <div id="legGre4"><apex:outputText value="-1.00 <= x < -0.75"/></div>
+                                            <div id="legGre3"><apex:outputText value="-0.75 <= x < -0.50"/></div>
+                                            <div id="legGre2"><apex:outputText value='-0.50 <= x > -0.25'/></div>
+                                            <div id="legGre1"><apex:outputText value="-0.25 <= x < 0.00"/></div>
+                                            <div id="white"><apex:outputText value="x = 0.00"/></div>
+                                            <div id="legred1"><apex:outputText value="0.00 < x <= 0.25"/></div>
+                                            <div id="legred2"><apex:outputText value="0.25 < x <= 0.50"/></div>
+                                            <div id="legred3"><apex:outputText value="0.50 < x <= 0.75"/></div>
+                                        <div id="legred4"><apex:outputText value="0.75 < x <= 1.00"/></div>
+                                        </div>
+                                    </apex:outputPanel>
+                                </div>
+                                
+                            </div>
+                        </apex:pageBlock>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <apex:outputPanel id="matrix" >
+                <apex:outputPanel rendered="{!if(rlist.size != null && rlist.size != 0,  true, false)}">
+                    <div class="accordion-group">
+                        <div class="accordion-heading">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
+                                <span class="cmHeader">Correlation Matrix<apex:outputText rendered="{!if(matrix.Name != null, true, false)}" value=" - {!matrix.Type_of_Matrix__c} {!matrix.Name} created by {!matrix.CreatedBy.FirstName} {!matrix.CreatedBy.LastName} on "/>&nbsp;<apex:outputField value="{!matrix.CreatedDate}"/></span>
+                            </a>
+                        </div>
+                        <div id="collapseTwo" class="accordion-body collapse in">
+                            <apex:pageBlock >
+                                <!--<a href="#" class="btn" data-toggle="popover" data-placement="right" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." title="" data-original-title="Popover on right">Popover on right</a>
+                                <a href="#" class="btn" data-toggle="popover" data-html="true" data-trigger="hover" title="" data-content="<p>Complete the correlation values in the data fields to the  left of the red <span class='red'>1.00</span> correlations.</p>
+                                <p>Correlation values are estimated from +1.00 to -1.00 with a value of 0.00 being neutral.</p>
+                                <p>Click <b>SAVE</b> after you enter all the correlations</p>" data-original-title="Instructions">Instructions</a>-->
+                                
+                                <div class="row-fluid">
+                                    <div class="span5">
+                                        <a href="#myModal" role="button" class="btn" data-backdrop="false" data-toggle="modal">Click for Instructions</a> <apex:outputLink target="_blank" value="/apex/CorrelationMatrixExcel?matrixID={!selCurMat}" styleClass="btn" rendered="{!if(selCurMat != null, true, false)}">Export to Excel</apex:outputLink><br/><br/>
+                                        <span class="cmHeader">Type of Matrix: &nbsp;</span><apex:inputField value="{!matrix.Type_of_Matrix__c}"/>
+                                    </div>
+                                    <div class="span7">
+                                        <span class="cmHeader">Description: &nbsp;</span><apex:inputTextArea rows="3" value="{!matDesc}" style="width:75%;"/>
+                                    </div>                              
+                                </div>
+                                
+                                <!-- Modal -->
+                                <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">�</button>
+                                        <h1 id="myModalLabel">Instructions</h1>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>
+                                            <ul>
+                                                <li>A Correlation Matrix reflects how each pair of risks move together.</li>
+                                                <li>Correlation refers to any risk relationship involving dependence. However, statistical dependence does not always indicate a causal relationship.</li>
+                                                <li>A correlation coefficient is used for <u>measuring</u> it, ranging from -1 to 1. A correlation of 1 means that if a risk increase, the related risk will also increase; while a correlation of 0 means that risks are independent.</li>
+                                                <li>Correlation coefficients should be entered in the intersection of each pair of risks, in the lower part of the matrix. </li>
+                                                <li>The correlation of a risk with itself is represented by the downward diagonal filled with 1s.</li>
+                                                <li>Correlations can be viewed in an <u>impact</u> and a <u>likelihood</u> matrix</li>
+
+                                            </ul>
+                                        </p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                                    </div>
+                                </div>
+                                <apex:pageBlockButtons location="bottom">
+                                    <apex:commandButton value="Save" action="{!saveMatrix}" reRender="matrix, group, main, extMat" status="ajaxStatus"/>
+                                    <apex:commandButton value="Reset Matrix" action="{!resetMatrix}" reRender="matrix, group, main, extMat" status="ajaxStatus"/>
+                                    <apex:commandButton value="Delete Matrix" action="{!deleteMatrix}" reRender="matrix, group, main, extMat" status="ajaxStatus"/>
+                                </apex:pageBlockButtons>
+                                <apex:pageMessages />
+                                <apex:actionStatus id="ajaxStatus" startText="Updating Matrix..." onstop="myFunction();">
+                                    <apex:facet name="stop">
+                                        <apex:outputPanel id="main" >
+                                            <!--<h3 class="red">Fill in the section below and to the left of the red correlations</h3>-->
+                                            <div class="stickyheader" id="stickytable">
+                                            <table class="table table-condensed" >
+                                                <caption class="cmHeader" >is related to...</caption>
+                                                <tr>
+                                                    <th><span class="cmHeader">This Risk...</span></th>
+                                                    <apex:repeat var="th" value="{!rlist}"><th class="skew"><apex:outputField style="width:75px;padding:4px 6px;" value="{!th.Name}"/></th></apex:repeat>
+                                                </tr>
+                                                <apex:repeat var="fC" value="{!rlist}"><tr style="display:none;">
+                                                    <td><b><apex:outputField value="{!fC.Name}"/></b></td>
+                                                    <apex:repeat var="sC" value="{!CorrMap[fC.id]}"><td class='none'><apex:outputField style="width:50px;" value="{!sC.Correlation__c}" /></td></apex:repeat>
+                                                    </tr></apex:repeat>
+                                            </table> 
+                                            </div>
+                                            <table class="table table-condensed table-hover" id="notstickytable">
+                                                <caption class="cmHeader" style="display:none;">Results in...</caption >
+                                                <tr style="display:none;">
+                                                    <th><span class="cmHeader">These Risks...</span></th>
+                                                    <apex:repeat var="th" value="{!rlist}"><th class="skew"><apex:outputField style="width:75px;font-size:125%;" value="{!th.Name}"/></th></apex:repeat>
+                                                </tr>
+                                                <apex:repeat var="fC" value="{!rlist}"><tr>
+                                                    <td><b><apex:outputField value="{!fC.Name}"/></b></td>
+                                                    <apex:repeat var="sC" value="{!CorrMap[fC.id]}"><td class='{!tableStyle[sC.Risk1__c][sC.Risk1__c+sC.Risk2__c]}'><apex:inputField style="width:50px;" value="{!sC.Correlation__c}" rendered="{!IF(tableStyle[sC.Risk1__c][sC.Risk1__c+sC.Risk2__c] != 'notrendered', true, false)}"/></td></apex:repeat>
+                                                    </tr></apex:repeat>
+                                            </table> 
+                                        </apex:outputPanel>
+                                    </apex:facet>
+                                </apex:actionStatus>
+                            </apex:pageBlock>
+                        </div>
+                    </div>
+                    <script>
+        $j = jQuery.noConflict();
+        // Check the initial Poistion of the Sticky Header
+        var leftInit = $j(".stickyheader").offset().left;
+        
+        var leftInit2 = $j("#notstickytable").offset().left;
+        
+        var stickyHeaderTop = $j('.stickyheader').offset().top;
+        
+        function myFunction(){
+        leftInit = $j(".stickyheader").offset().left;
+        
+        leftInit2 = $j("#notstickytable").offset().left;
+        
+        stickyHeaderTop = $j('.stickyheader').offset().top;
+        }
+        
+        $j(window).scroll(function(){
+        
+        var x = (0 - $j(this).scrollLeft());
+        
+        if( $j(window).scrollTop() > stickyHeaderTop ) {
+        $j('.stickyheader').css({position: 'fixed', top: '0px'});
+        $j('#stickyalias').css('display', 'block');
+        
+        } else {
+        $j('.stickyheader').css({position: 'relative', top: '0px'});
+        $j('#stickyalias').css('display', 'none');
+        
+        }
+        
+        
+        
+        $j(".stickyheader").offset({
+        left: x + leftInit
+        });
+        
+        $j("#notstickytable").offset({
+        left: x + leftInit2
+        });
+        
+        var unwidth = $j('#notstickytable').width();
+        $j('#stickytable').width(unwidth).addClass('stickyheader')
+        $j('#stickytable').css('min-width', unwidth);
+        
+        });
+    </script>
+                </apex:outputPanel>
+            </apex:outputPanel>
+            
+        </div>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,36 @@
+<apex:page standardController="Key_Objective__c" extensions="QuarterlyMeasureChartController">
+    
+    <script type="text/javascript" src="//www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Evaluation Date', 'Quarterly Measure', 'Quarterly Goal']
+            <apex:repeat value="{!chartData}" var="data">            
+                <apex:outputText value="{!data}"/>            
+            </apex:repeat>
+        ]);
+
+        var options = {
+            title: 'Quarterly Measure',
+            legend: {position: 'bottom'},
+            colors: ['blue', 'green']
+            <apex:outputText rendered="{!if(Key_Objective__c.Measured_Unit__c != null && Key_Objective__c.Measured_Unit__c != '', true, false)}" >
+                , vAxis: {title: '{!Key_Objective__c.Measured_Unit__c}', {!if(Key_Objective__c.Measured_Unit__c = 'Ratio%', "format:'#%'", "format:'$###,###,###'")} }
+            </apex:outputText>
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+    </script>
+    
+    <apex:outputPanel id="withData" rendered="{!if(chartData.size > 0, true, false)}">
+        <div id="chart_div" style="width: 600px; height: 200px;"></div>
+    </apex:outputPanel>
+    
+    <apex:outputPanel id="noData" rendered="{!if(chartData.size > 0, false, true)}">
+        No quarterly measure data for current year.
+    </apex:outputPanel>
+</apex:page>

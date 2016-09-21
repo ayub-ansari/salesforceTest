@@ -1,0 +1,550 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <content>ControlsTab</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>true</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Action_Category__c</fullName>
+        <description>Controls described in a BowTie  Risk analysis should fall into one of thee categories.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Controls described in a BowTie  Risk analysis should fall into one of these categories. Preventative actions  (including detective) are intended to ensure the risk event does not occur.  Reduction Actions reduce the impact once the event has occurred.</inlineHelpText>
+        <label>Action Category</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Preventative</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Reduction</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Detective</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Annualized_Cost__c</fullName>
+        <description>Annualized Cost of Acquisition and Maintenance of Control</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Calculate Annual Cost</inlineHelpText>
+        <label>Annualized Cost</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Assessment_Frequency__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Select the frequency of review of the Control Effectiveness.</inlineHelpText>
+        <label>Assessment Frequency</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Daily</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Weekly</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Monthly</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Quarterly</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Semiannually</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Annually</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Attestation_Score__c</fullName>
+        <externalId>false</externalId>
+        <label>Attestation Score</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Control_Description__c</fullName>
+        <description>Detailed description of the Control</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Description of Control. Control is anything that is intended to change the Impact or Likelihood of the Risk. Sometimes called a Mitigation.</inlineHelpText>
+        <label>Control Description</label>
+        <required>false</required>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Control_ID__c</fullName>
+        <externalId>false</externalId>
+        <label>Control ID</label>
+        <length>15</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Control_Objective_Short_Description__c</fullName>
+        <description>Short description but not as short as Control name to enable fit into electronic update tool.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Limited text field to provide high level description of Control Objective</inlineHelpText>
+        <label>Control Objective Short Description</label>
+        <length>100</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Control_Objective__c</fullName>
+        <description>Objective of Control - the intended effect on Impact or Likelihood</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Describe what the Control is intended to do. Provide sufficient detail so that a reader can fully understand the intended effect.</inlineHelpText>
+        <label>Control Objective</label>
+        <required>false</required>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Control_Owner_Email__c</fullName>
+        <externalId>false</externalId>
+        <label>Control Owner Email</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Control_Owner__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Person who owns the Control</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Person who has responsibility for ensuring the Control is working as expected</inlineHelpText>
+        <label>Control Owner</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipName>Controls</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Control_Status__c</fullName>
+        <description>Status of this control</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Select from available options.</inlineHelpText>
+        <label>Control Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Expired</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Current</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Future</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Days_since_Last_Assessed__c</fullName>
+        <externalId>false</externalId>
+        <formula>Today() - Last_Assessed__c</formula>
+        <label>Days since Last Assessed</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Impact_or_Likelihood__c</fullName>
+        <description>Select either Impact or Likelihood</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Select what is affected by this Control - Does the Control change the Impact or Likelihood</inlineHelpText>
+        <label>Impact or Likelihood</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Impact</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Likelihood</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Both</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Last_Assessed__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Date last assessed</inlineHelpText>
+        <label>Last Assessed</label>
+        <required>false</required>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Next_Assessed__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Date when the Control is due to be assessed.</inlineHelpText>
+        <label>Next Assessed</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Next_Assessment_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(ISPICKVAL(Assessment_Frequency__c, &quot;Daily&quot;), Last_Assessed__c+1, 
+
+IF(ISPICKVAL(Assessment_Frequency__c, &quot;Weekly&quot;), Last_Assessed__c+7, 
+
+IF(ISPICKVAL(Assessment_Frequency__c, &quot;Monthly&quot;), Last_Assessed__c+ CASE(MONTH(Last_Assessed__c+1),1, 
+IF(MOD(Year(Last_Assessed__c),4)=0,CASE(DAY(Last_Assessed__c),29,31,30,30,31,29,31),CASE(DAY(Last_Assessed__c),30,29,31,28,31)), 
+2,IF(MOD(Year(Last_Assessed__c),4)=0,29,28),3,31,4,30,5,31,6,30,7,31,8,31,9,30,10,31,11,30,12,31,NULL), 
+
+IF(ISPICKVAL(Assessment_Frequency__c, &quot;Quarterly&quot;), Last_Assessed__c+CASE(MONTH(Last_Assessed__c+1), 1,IF(MOD(Year(Last_Assessed__c+1),4)=0,91,90),2,IF(MOD(Year(Last_Assessed__c+1),4)=0,90,89),3,92,4,91,5,92,6,92,7,92,8,92,9,91,10,92,11, 
+IF(MOD(Year(Last_Assessed__c)+1,4)=0,CASE(DAY(Last_Assessed__c),29,92,30,91,92),CASE(DAY(Last_Assessed__c),30,90,92)), 
+12,IF(MOD(Year(Last_Assessed__c+1)+1,4)=0,91,90),NULL), 
+
+IF(ISPICKVAL(Assessment_Frequency__c, &quot;Semiannually&quot;), Last_Assessed__c+CASE(MONTH(Last_Assessed__c+1), 1,IF(MOD(Year(Last_Assessed__c+1),4)=0,182,181),2,IF(MOD(Year(Last_Assessed__c+1),4)=0,182,181),3,184,4,183,5,184,6,183,7,184,8, 
+IF(MOD(Year(Last_Assessed__c)+1,4)=0,CASE(DAY(Last_Assessed__c),29,184,30,183,31,182,184),CASE(DAY(Last_Assessed__c),30,182,31,183,184)), 
+9,IF(MOD(Year(Last_Assessed__c+1)+1,4)=0,182,181),10,IF(MOD(Year(Last_Assessed__c+1)+1,4)=0,183,182),11,IF(MOD(Year(Last_Assessed__c+1)+1,4)=0,182,181),12,IF(MOD(Year(Last_Assessed__c+1)+1,4)=0,183,182),NULL), 
+
+IF(ISPICKVAL(Assessment_Frequency__c, &quot;Annually&quot;), Last_Assessed__c+IF(OR(MONTH(Last_Assessed__c+1)=1,MONTH(Last_Assessed__c+1)=2),IF(MOD(Year(Last_Assessed__c+1),4)=0,366,365),IF(MOD(Year(Last_Assessed__c+1)+1,4)=0,366,365)), 
+NULL)))))) 
+
+/* 
+1 - 31 
+2 - 28/29 
+3 - 31 
+4 - 30 
+5 - 31 
+6 - 30 
+7 - 31 
+8 - 31 
+9 - 30 
+10 - 31 
+11 - 30 
+12 - 31 
+*/</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Next Assessment Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Objective_Achieved__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter the extent to which the Control Objective has been achieved. Enter a value between 0 and 100% where 0 means the Control is totally ineffective, and 100% indicates the control is completely meeting the control objective</inlineHelpText>
+        <label>Objective Achieved</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <label>Control</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Annualized_Cost__c</columns>
+        <columns>Impact_or_Likelihood__c</columns>
+        <columns>Action_Category__c</columns>
+        <columns>Objective_Achieved__c</columns>
+        <columns>Last_Assessed__c</columns>
+        <columns>Assessment_Frequency__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <label>Controls Name</label>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Controls</pluralLabel>
+    <recordTypeTrackFeedHistory>false</recordTypeTrackFeedHistory>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>Control</fullName>
+        <active>true</active>
+        <label>Control</label>
+        <picklistValues>
+            <picklist>Action_Category__c</picklist>
+            <values>
+                <fullName>Detective</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Preventative</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Reduction</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Assessment_Frequency__c</picklist>
+            <values>
+                <fullName>Annually</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Daily</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Monthly</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Quarterly</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Semiannually</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Weekly</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Control_Status__c</picklist>
+            <values>
+                <fullName>Current</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Expired</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Future</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Impact_or_Likelihood__c</picklist>
+            <values>
+                <fullName>Both</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Likelihood</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Master_Control</fullName>
+        <active>true</active>
+        <label>Master Control</label>
+        <picklistValues>
+            <picklist>Action_Category__c</picklist>
+            <values>
+                <fullName>Detective</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Preventative</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Reduction</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Assessment_Frequency__c</picklist>
+            <values>
+                <fullName>Annually</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Daily</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Monthly</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Quarterly</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Semiannually</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Weekly</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Control_Status__c</picklist>
+            <values>
+                <fullName>Current</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Expired</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Future</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Impact_or_Likelihood__c</picklist>
+            <values>
+                <fullName>Both</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Impact</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Likelihood</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts>
+        <customTabListAdditionalFields>Control_Description__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Control_Objective__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Control_Owner__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Objective_Achieved__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Days_since_Last_Assessed__c</customTabListAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+</CustomObject>

@@ -1,0 +1,139 @@
+<apex:page standardController="UGI_Risk__c" extensions="OverrideUGIRisk">
+    <apex:sectionHeader title="UGI Risk" subtitle="{!UGI_Risk__c.name}"/>
+    <apex:form id="frm">
+        <apex:pageBlock id="consolidated" title="UGI Risk" rendered="{!IF(UGI_Risk__c.RecordTypeId == '012M00000000m02IAA',true,IF(UGI_Risk__c.RecordTypeId == '012M00000000m02',true,false))}">
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Edit" action="{!edit}"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection title="Information" id="info">
+                <apex:outputField value="{!UGI_Risk__c.Name}"/>
+                <apex:outputField value="{!UGI_Risk__c.Name__c}"/>
+                <apex:outputField value="{!UGI_Risk__c.Risk_Source__c}"/>
+                <apex:outputField value="{!UGI_Risk__c.Risk_Category__c}"/>
+            </apex:pageBlockSection>
+            <br/>
+            <apex:outputPanel id="details">
+                <apex:pageBlockSection rendered="{!IF(riskSource =='IA',true,false)}" title="IA Details">
+                    <apex:repeat value="{!IAFields}" var="field">
+                        <apex:outputField value="{!UGI_Risk__c[field]}" />
+                    </apex:repeat>
+                </apex:pageBlockSection>
+                <apex:pageBlockSection rendered="{!IF(riskSource =='SOX',true,false)}" title="UGI Energy Services">
+                    <apex:repeat value="{!SOX_UGI_Energy_ServicesFields}" var="field">
+                        <apex:outputField value="{!UGI_Risk__c[field]}" />
+                    </apex:repeat>
+                </apex:pageBlockSection>
+                <apex:pageBlockSection rendered="{!IF(riskSource =='SOX',true,false)}" title="AmeriGas Partners, L.P.">
+                    <apex:repeat value="{!SOXAmeriGasPartnersFields}" var="field">
+                        <apex:outputField value="{!UGI_Risk__c[field]}" />
+                    </apex:repeat>
+                </apex:pageBlockSection>
+                <apex:pageBlockSection rendered="{!IF(riskSource =='SERC',true,false)}" title="SERC Details">
+                    <apex:repeat value="{!SERCFields}" var="field">
+                        <apex:outputField value="{!UGI_Risk__c[field]}" />
+                    </apex:repeat>
+                </apex:pageBlockSection>
+            </apex:outputPanel>
+            <apex:pageBlockSection title="Assessment">
+                <apex:repeat value="{!AssessmentFields}" var="field">
+                    <apex:outputField value="{!UGI_Risk__c[field]}" />
+                </apex:repeat>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        
+        <apex:pageBlock id="IA" title="UGI Risk" rendered="{!IF(UGI_Risk__c.RecordTypeId == '012M00000000lzsIAA',true,IF(UGI_Risk__c.RecordTypeId == '012M00000000lzs',true,false))}"> 
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Edit" action="{!edit}"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection title="Information" columns="2"> 
+                <apex:outputField title="ID" value="{!UGI_Risk__c.Name}"/> 
+                <apex:outputField title="Name" value="{!UGI_Risk__c.Name__c}"/> 
+                <apex:outputField title="Risk Source" value="{!UGI_Risk__c.Risk_Source__c}"/> 
+                <apex:outputField title="Subsidiary" value="{!UGI_Risk__c.Subsidiary__c}"/> 
+                <apex:outputField title="Risk Category" value="{!UGI_Risk__c.Risk_Category__c}"/> 
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Assessment" columns="2"> 
+                <apex:outputField title="Risk Status" value="{!UGI_Risk__c.Risk_Status__c}"/> 
+                <apex:outputField title="Quarterly Review Status Track" value="{!UGI_Risk__c.Quarterly_Review_Status_Track__c}"/> 
+                <apex:outputField title="Current Likelihood Level" value="{!UGI_Risk__c.Current_Likelihood_Level__c}"/> 
+                <apex:outputField title="Quarterly Review With Changes" value="{!UGI_Risk__c.Quarterly_Review_With_Changes__c}"/>
+                <apex:outputField title="Current Impact Level" value="{!UGI_Risk__c.Current_Impact_Level__c}"/> 
+                <apex:outputField title="Quarterly Review No Changes" value="{!UGI_Risk__c.Quarterly_Review_No_Changes__c}"/> 
+                <apex:outputField title="Control Effectiveness Level" value="{!UGI_Risk__c.Control_Effectiveness_Level__c}"/> 
+                <apex:outputField title="Comments" value="{!UGI_Risk__c.Comments__c}"/>  
+            </apex:pageBlockSection> 
+        </apex:pageBlock>
+        
+        <apex:pageBlock id="SOX" title="UGI Risk" rendered="{!IF(UGI_Risk__c.RecordTypeId == '012M00000000m07IAA',true,IF(UGI_Risk__c.RecordTypeId == '012M00000000m07',true,false))}"> 
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Edit" action="{!edit}"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection title="Information" columns="2"> 
+                <apex:outputField title="ID" value="{!UGI_Risk__c.Name}"/> 
+                <apex:outputField title="Name" value="{!UGI_Risk__c.Name__c}"/> 
+                <apex:outputField title="Risk Source" value="{!UGI_Risk__c.Risk_Source__c}"/> 
+                <apex:outputField title="Risk Category" value="{!UGI_Risk__c.Risk_Category__c}"/> 
+            </apex:pageBlockSection> 
+            <apex:pageBlockSection title="UGI Energy Services (as of September 30, 2014)" columns="2"> 
+                <apex:outputField title="Cash and cash equivalents-ES" value="{!UGI_Risk__c.Cash_and_cash_equivalents_ES__c}"/> 
+                <apex:outputField title="Accounts receivable, net-ES" value="{!UGI_Risk__c.Accounts_receivable_net_ES__c}"/> 
+                <apex:outputField title="Accrued utility revenues-ES" value="{!UGI_Risk__c.Accrued_utility_revenues_ES__c}"/> 
+                <apex:outputField title="Inventories-ES" value="{!UGI_Risk__c.Inventories_ES__c}"/> 
+                <apex:outputField title="Deferred income taxes-ES" value="{!UGI_Risk__c.Deferred_income_taxes_ES__c}"/> 
+            </apex:pageBlockSection> 
+            <apex:pageBlockSection title="AmeriGas Partners, L.P. (as of September 30, 2014)" columns="2"> 
+                <apex:outputField title="Cash and cash equivalents-APU" value="{!UGI_Risk__c.Cash_and_cash_equivalents_APU__c}"/> 
+                <apex:outputField title="Accounts receivable, net - APU" value="{!UGI_Risk__c.Accounts_receivable_net_APU__c}"/> 
+                <apex:outputField title="Accounts receivable- related parties" value="{!UGI_Risk__c.Accounts_receivable_related_parties__c}"/> 
+                <apex:outputField title="Inventories-APU" value="{!UGI_Risk__c.Inventories_apu__c}"/> 
+                <apex:outputField title="Deferred income taxes-APU" value="{!UGI_Risk__c.Deferred_income_taxes_APU__c}"/> 
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Assessment" columns="2"> 
+                <apex:outputField title="Risk Status" value="{!UGI_Risk__c.Risk_Status__c}"/> 
+                <apex:outputField title="Quarterly Review Status Track" value="{!UGI_Risk__c.Quarterly_Review_Status_Track__c}"/> 
+                <apex:outputField title="Current Likelihood Level" value="{!UGI_Risk__c.Current_Likelihood_Level__c}"/> 
+                <apex:outputField title="Quarterly Review With Changes" value="{!UGI_Risk__c.Quarterly_Review_With_Changes__c}"/>
+                <apex:outputField title="Current Impact Level" value="{!UGI_Risk__c.Current_Impact_Level__c}"/> 
+                <apex:outputField title="Quarterly Review No Changes" value="{!UGI_Risk__c.Quarterly_Review_No_Changes__c}"/> 
+                <apex:outputField title="Control Effectiveness Level" value="{!UGI_Risk__c.Control_Effectiveness_Level__c}"/> 
+                <apex:outputField title="Comments" value="{!UGI_Risk__c.Comments__c}"/>  
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        
+        <apex:pageBlock id="SERC" title="UGI Risk" rendered="{!IF(UGI_Risk__c.RecordTypeId == '012M00000000lzxIAA',true,IF(UGI_Risk__c.RecordTypeId == '012M00000000lzx',true,false))}"> 
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Edit" action="{!edit}"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection title="Information" columns="2"> 
+                <apex:outputField title="ID" value="{!UGI_Risk__c.Name}"/> 
+                <apex:outputField title="Name" value="{!UGI_Risk__c.Name__c}"/> 
+                <apex:outputField title="Risk Source" value="{!UGI_Risk__c.Risk_Source__c}"/> 
+                <apex:outputField title="Risk Category" value="{!UGI_Risk__c.Risk_Category__c}"/> 
+                <apex:outputField title="Subsidiary" value="{!UGI_Risk__c.Subsidiary__c}"/> 
+                <apex:outputField title="Ranking" value="{!UGI_Risk__c.Ranking__c}"/> 
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Assessment" columns="2"> 
+                <apex:outputField title="Risk Status" value="{!UGI_Risk__c.Risk_Status__c}"/> 
+                <apex:outputField title="Quarterly Review Status Track" value="{!UGI_Risk__c.Quarterly_Review_Status_Track__c}"/> 
+                <apex:outputField title="Current Likelihood Level" value="{!UGI_Risk__c.Current_Likelihood_Level__c}"/> 
+                <apex:outputField title="Quarterly Review With Changes" value="{!UGI_Risk__c.Quarterly_Review_With_Changes__c}"/>
+                <apex:outputField title="Current Impact Level" value="{!UGI_Risk__c.Current_Impact_Level__c}"/> 
+                <apex:outputField title="Quarterly Review No Changes" value="{!UGI_Risk__c.Quarterly_Review_No_Changes__c}"/> 
+                <apex:outputField title="Control Effectiveness Level" value="{!UGI_Risk__c.Control_Effectiveness_Level__c}"/> 
+                <apex:outputField title="Comments" value="{!UGI_Risk__c.Comments__c}"/>  
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+    <apex:relatedList list="KRI_Relationship1__r"/>
+    <apex:relatedList list="KPI_Relationship__r"/>
+    <apex:relatedList list="UGI_Risk_Process__r"/>
+    <apex:relatedList list="UGI_Risk_Mitigation__r"/>
+    <apex:relatedList subject="{!UGI_Risk__c}" list="CombinedAttachments" />
+    <apex:pageBlock title="Risk History">
+        <apex:pageBlockTable value="{!RiskHistories}" var="History" >
+            <apex:column headerValue="Date" value="{!History.riskHistory.CreatedDate}"/>
+            <apex:column headerValue="User"> <apex:outputLink value="/{!History.riskHistory.CreatedBy.Id}"> {!History.riskHistory.CreatedBy.Name} </apex:outputLink></apex:column>
+            <apex:column headerValue="Action"><apex:outputText escape="false" value="{!History.action}"/></apex:column>
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+</apex:page>

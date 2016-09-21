@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <content>GovernanceTab</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>true</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Date_Governance_Enacted__c</fullName>
+        <externalId>false</externalId>
+        <label>Date Governance Enacted</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Date_Next_Review__c</fullName>
+        <externalId>false</externalId>
+        <label>Date Next Review</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Degree_Of_Governance_Required__c</fullName>
+        <defaultValue>1</defaultValue>
+        <externalId>false</externalId>
+        <label>Degree Of Governance Required</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Explanation_for_under_100__c</fullName>
+        <externalId>false</externalId>
+        <label>Explanation for under 100%</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Geographic_Constraints__c</fullName>
+        <externalId>false</externalId>
+        <label>Geographic Constraints</label>
+        <picklist>
+            <picklistValues>
+                <fullName>North America</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>South America</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>USA</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Europe</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Australia</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Africa</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Asia</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Governance_Description__c</fullName>
+        <externalId>false</externalId>
+        <label>Governance Description</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Governance_ID__c</fullName>
+        <externalId>false</externalId>
+        <label>Governance ID</label>
+        <length>15</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Governance_Owner__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Person who owns the Governance record</description>
+        <externalId>false</externalId>
+        <label>Governance Owner</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Governances</relationshipLabel>
+        <relationshipName>Governances</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Governance_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Governance Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Best Practice</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Contractual Obligation</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Internal Policy</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Regulation</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Impacts_of_Non_compliance__c</fullName>
+        <externalId>false</externalId>
+        <label>Impacts of Non-compliance</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Fines</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Breach of Contract</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Reputation Loss</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Delay</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Inefficiencies</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Increased Costs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Internal_or_External__c</fullName>
+        <externalId>false</externalId>
+        <label>Internal or External</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Internal</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>External</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Milestone_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Milestone Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Milestone__c</fullName>
+        <externalId>false</externalId>
+        <label>Milestone</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Parent_Governance__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Parent Governance</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>Governance__c.Parent_or_Subsidiary_Governance__c</field>
+                <operation>equals</operation>
+                <value>Parent</value>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>Governance__c</referenceTo>
+        <relationshipLabel>Subsidiary Governance</relationshipLabel>
+        <relationshipName>Governance</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Parent_or_Subsidiary_Governance__c</fullName>
+        <externalId>false</externalId>
+        <label>Parent or Subsidiary Governance</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Parent</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Subsidiary</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Regulation_Status__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Select current status of this regulation</inlineHelpText>
+        <label>Regulation Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Proposed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Pending</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>In Review</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Final</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Published</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <label>Governance</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Governance_Owner__c</columns>
+        <columns>Milestone__c</columns>
+        <columns>Parent_or_Subsidiary_Governance__c</columns>
+        <columns>Degree_Of_Governance_Required__c</columns>
+        <columns>Governance_Description__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <label>Governance Name</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Governance</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>Governance_Type__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Governance_Owner__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Governance_Description__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Parent_or_Subsidiary_Governance__c</customTabListAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+    <validationRules>
+        <fullName>Degree_Required_Max_is_100_percent</fullName>
+        <active>true</active>
+        <description>Degree Required Must be 100% or Less.</description>
+        <errorConditionFormula>Degree_Of_Governance_Required__c  &gt;= 100 ||  Degree_Of_Governance_Required__c   &lt; 0</errorConditionFormula>
+        <errorDisplayField>Degree_Of_Governance_Required__c</errorDisplayField>
+        <errorMessage>Degree Required Must be Between 100% and 0%</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>If_Subsidiary_than_Must_have_Parent</fullName>
+        <active>true</active>
+        <description>If Subsidiary is selected you must have a Parent Governance</description>
+        <errorConditionFormula>IF(ISPICKVAL( Parent_or_Subsidiary_Governance__c , &quot;Subsidiary&quot;) &amp;&amp;  ISBLANK(Parent_Governance__c ), TRUE,FALSE)</errorConditionFormula>
+        <errorDisplayField>Parent_or_Subsidiary_Governance__c</errorDisplayField>
+        <errorMessage>If Subsidiary is selected you must have a Parent Governance</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Less_than_100_Required</fullName>
+        <active>true</active>
+        <description>If the Degree Required is less than 100% you must provide an explanation.</description>
+        <errorConditionFormula>If( Degree_Of_Governance_Required__c  &lt; 1.0 ,  ISBLANK( Explanation_for_under_100__c), False)</errorConditionFormula>
+        <errorDisplayField>Explanation_for_under_100__c</errorDisplayField>
+        <errorMessage>If the Degree Required is less than 100% you must provide an explanation.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Parent_Governance_Cannot_have_Parent</fullName>
+        <active>true</active>
+        <description>If you select Parent Governance than you can not have a lookup to another Parent Governance</description>
+        <errorConditionFormula>IF(ISPICKVAL( Parent_or_Subsidiary_Governance__c ,&quot;Parent&quot;) &amp;&amp; NOT(ISBLANK( Parent_Governance__c )),TRUE,FALSE)</errorConditionFormula>
+        <errorDisplayField>Parent_Governance__c</errorDisplayField>
+        <errorMessage>If you select Parent Governance than you can not have a lookup to another Parent Governance</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Review_Date_Must_be_After_Enact_Date</fullName>
+        <active>true</active>
+        <description>Date of Next Review Must come After the Date Enacted.</description>
+        <errorConditionFormula>Date_Next_Review__c   &lt;   Date_Governance_Enacted__c</errorConditionFormula>
+        <errorDisplayField>Date_Next_Review__c</errorDisplayField>
+        <errorMessage>Date of Next Review Must come After the Date Enacted.</errorMessage>
+    </validationRules>
+</CustomObject>

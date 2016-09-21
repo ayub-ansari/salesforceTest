@@ -1,0 +1,15 @@
+<apex:page id="thePage" controller="HeatmapFullController" sidebar="false" showHeader="false" tabstyle="Risk_Heat_Map__tab">
+
+<apex:include pageName="{!heatmapPageName}"/>
+
+<!--
+<apex:variable value="{!$Setup.rkgrc__HeatMapSettings__c.rkgrc__HeatMapDimensions__c}" var="dim"/>
+
+    <apex:include pageName="HeatMap5x5" rendered="{!if(dim=5,true,false)}"/>
+    <apex:include pageName="HeatMap10x10" rendered="{!if(dim=10,true,false)}"/>
+    <apex:include pageName="HeatMap3x3" rendered="{!if(dim=3,true,false)}"/> 
+    -->
+    <!--failsafe-->
+    <!-- <apex:include pageName="HeatMap5x5" rendered="{!if((dim!=5 && dim !=10 && dim!=3),true,false)}"/> -->
+
+</apex:page>

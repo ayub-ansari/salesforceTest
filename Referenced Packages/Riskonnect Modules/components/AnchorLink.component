@@ -1,0 +1,14 @@
+<!-- MDU -->
+<apex:component access="global" layout="none">
+    <apex:attribute name="label" type="String" access="global" required="true" description="..." />
+    <apex:attribute name="href" type="String" access="global" required="true" description="..." />
+    <apex:attribute name="target" type="String" access="global" default="_blank" description="..." />
+    <apex:attribute name="onclick" type="String" access="global" description="..." />
+    
+    <a href="{!href}" target="{!target}" style="text-decoration:none" onclick="{!onclick}">
+        <span style="white-space:nowrap;">
+            <img src="{!$Resource.rightBlueArrow}" class="actionLinkArrow" />
+            <span class="actionFunctionLink" style="text-decoration:underline;">{!label}</span>
+        </span>
+    </a>
+</apex:component>

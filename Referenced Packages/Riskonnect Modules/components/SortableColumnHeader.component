@@ -1,0 +1,27 @@
+<!-- Mike Ulveling 
+     Version 1.02 -- Made the script idempotent, rather than attempting to remove it after first run -->
+<apex:component access="global" layout="none">
+    <apex:attribute access="global" name="colState" type="rkl.ColumnState" description="Encapsulates ColumnDef info and sort-state" />
+    <apex:attribute access="global" name="rerender" type="String" required="true" description="Comma-delimited list of Visualforce Ids to rerender upon return from a sort action" />
+    <apex:attribute access="global" name="onBeforeSort" type="String" description="Javascript to execute immediately before the sort-action" />
+    
+    <span id="{!colState.UID}" class="sortableColumnHeader {!IF(colState.isAsc, 'ASC', IF(colState.isDesc, 'DESC', ''))}">
+        <a>
+            <apex:outputPanel styleClass="label">{!colState.label}</apex:outputPanel>
+            <apex:image value="data:image/gif;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" style="background:transparent url({!$Resource.rkl__sortArrows_sprite}) no-repeat 0 top;" />
+            <apex:outputPanel rendered="{!AND(colState.sortOrdinal > 0, colState.collectionHasMultiSort)}" styleClass="sortOrdinal" style="color:{!colState.sortOrdinalColor}">{!colState.sortOrdinal}</apex:outputPanel>
+        </a>
+    </span>
+    <!-- Bind to the click event via jQuery, to avoid problematic IE memory leaks on rerenders.
+             Note that the namespace'd unbind makes this script idempotent. -->
+    <script type="text/javascript">
+        (function ($) {
+            var $sortLink = $('#{!colState.UID} a'),
+                sortKey = '{!JSENCODE(colState.keyText)}';
+            $sortLink.unbind('.sortColHeader').bind('click.sortColHeader', function () {
+                {!onBeforeSort};
+                {!colState.sortActionName}('{!JSENCODE(colState.keyText)}', '{!rerender}');
+            });
+        })(jQuery);
+    </script>
+</apex:component>

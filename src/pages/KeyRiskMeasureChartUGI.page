@@ -1,0 +1,36 @@
+<apex:page standardController="Key_Risk_Metric__c" extensions="KeyRiskMeasureChartController2">
+    
+    <script type="text/javascript" src="//www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Evaluation Date', 'Upper Limit', 'Actual', 'Lower Limit']
+            <apex:repeat value="{!chartData}" var="data">            
+                <apex:outputText value="{!data}"/>            
+            </apex:repeat>
+        ]);
+
+        var options = {
+            title: 'Key Risk Measure',
+            legend: {position: 'bottom'},
+            colors: ['purple','green','blue','orange']
+            <apex:outputText rendered="{!if(Key_Risk_Metric__c.Measured_Unit__c != null && Key_Risk_Metric__c.Measured_Unit__c != '', true, false)}" >
+                , vAxis: {title: '{!Key_Risk_Metric__c.Measured_Unit__c}', {!if(Key_Risk_Metric__c.Measured_Unit__c = 'Ratio%', "format:'#%'", if(Key_Risk_Metric__c.Measured_Unit__c = 'Number',"format:'###,###,###'","format:'$###,###,###'"))} }
+            </apex:outputText>
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+    </script>
+    
+    <apex:outputPanel id="withData" rendered="{!if(chartData.size > 0, true, false)}">
+        <div id="chart_div" style="width: 600px; height: 200px;"></div>
+    </apex:outputPanel>
+    
+    <apex:outputPanel id="noData" rendered="{!if(chartData.size > 0, false, true)}">
+        No Key Risk measure data available.
+    </apex:outputPanel>
+</apex:page>

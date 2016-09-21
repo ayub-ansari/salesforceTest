@@ -1,0 +1,12 @@
+<apex:page StandardController="Model__c" extensions="ModelAssessmentReportController">
+	<apex:sectionHeader title="Model Assessment Report"/>
+	<apex:form >
+		<apex:pageBlock >
+			<apex:pageBlockSection columns="3">
+				<apex:inputField required="true" label="Date" value="{!con.Birthdate}"/>
+				<apex:inputField required="true" label="Prepared By" value="{!con.FirstName}"/>
+			</apex:pageBlockSection>
+			<center><apex:commandButton value="Generate PDF" action="{!generatePdf}"/></center>
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

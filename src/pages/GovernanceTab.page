@@ -1,0 +1,64 @@
+<apex:page standardController="Governance__c" showHeader="true"  tabStyle="Governance__c" showChat="false"  >
+    <apex:stylesheet value="/sCSS/21.0/sprites/1297816277000/Theme3/default/gc/versioning.css" />   
+
+   <style>
+      .activeTab {background-color: white; color:black; font-weight:bold; font-size:9pt;
+         background-image:none}
+      .inactiveTab { background-color: #f0f3f7; color:black; font-weight:normal; font-size:9pt;
+         background-image:none}
+      .barPanel{background-color: #f0f3f7; color:Black; font-weight:bold; font-size:10pt;
+         background-image:none}
+   </style>
+
+   <apex:tabPanel switchType="client" selectedTab="tabdetails" id="RiskTabPanel" tabClass="activeTab" inactiveTabClass="inactiveTab">
+   
+      <apex:tab label="Details" name="GovernanceDetails" id="tabdetails" style="background-color: white; font-size:9pt;">
+         <apex:detail showChatter="false" inlineEdit="true" relatedList="false" title="true"/>
+      </apex:tab>
+      
+      <apex:tab label="Notes and Attachments"  name="NotesAndAttachments" id="tabNoteAtt" style="background-color: white; font-size:9pt;">
+         <apex:relatedList subject="{!Governance__c}"  list="NotesAndAttachments" />
+      </apex:tab>
+
+      <apex:tab label="Activities" name="Activities" id="tabAct" style="background-color: white; font-size:9pt;">
+             <apex:relatedList subject="{!Governance__c}" list="OpenActivities" />
+             <apex:relatedList subject="{!Governance__c}" list="ActivityHistories" />
+      </apex:tab>
+
+      <apex:tab label="Relationships" name="Relationships" id="tabRel" style="background-color: white; font-size:9pt;">
+      <apex:tabPanel switchType="client" selectedTab="tabdetails" id="RisksTabPanel" tabClass="activeTab" inactiveTabClass="inactiveTab">
+         
+          <apex:tab label="Risks" name="Governance_Risks_Associations" id="tabAssGov" style="background-color: white; font-size:9pt;">
+             <apex:relatedList subject="{!Governance__c}" list="Governance_Risks_Associations__r" />
+          </apex:tab>
+     
+          <apex:tab label="Indicators" name="Governance_Indicators_Association" id="tabGovInd" style="background-color: white; font-size:9pt;">
+             <apex:relatedList subject="{!Governance__c}" list="Governance_Indicators_Associations__r" />
+          </apex:tab>
+    
+          <apex:tab label="Objectives" name="Governance_Objectives_Association" id="tabAssObjectives" style="background-color: white; font-size:9pt;">
+             <apex:relatedList subject="{!Governance__c}" list="Governance_Objectives_Associations__r" />
+          </apex:tab>      
+                
+          <apex:tab label="Compliance" name="Governance_Compliance_Association" id="tabGovernanceCompliance" style="background-color: white; font-size:9pt;">
+             <apex:relatedList subject="{!Governance__c}" list="Governance_Compliance_Associations__r" />
+          </apex:tab>    
+          
+          <apex:tab label="Violations" name="Violations" id="tabViolations" style="background-color: white; font-size:9pt;">
+             <apex:relatedList subject="{!Governance__c}" list="Violations__r" />
+          </apex:tab> 
+          
+          <apex:tab label="Products" name="Product_Governance_Associations" id="tabAssProd" style="background-color: white; font-size:9pt;">
+             <apex:relatedList subject="{!Governance__c}" list="Product_Governance_Associations__r" />
+          </apex:tab>
+
+      </apex:tabPanel>
+      </apex:tab>
+      
+      <apex:tab label="Chatter"  name="Chatter" id="Chatter" style="background-color: white; font-size:9pt;">
+         <chatter:feedWithFollowers entityId="{!Governance__c.id}"/>
+      </apex:tab>
+      
+
+   </apex:tabPanel>
+</apex:page>

@@ -1,0 +1,64 @@
+<apex:page standardController="Process__c" showHeader="true"  tabStyle="Process__c" showChat="false"  >
+    <apex:stylesheet value="/sCSS/21.0/sprites/1297816277000/Theme3/default/gc/versioning.css" />   
+
+   <style>
+      .activeTab {background-color: white; color:black; font-weight:bold; font-size:9pt;
+         background-image:none}
+      .inactiveTab { background-color: #f0f3f7; color:black; font-weight:normal; font-size:9pt;
+         background-image:none}
+      .barPanel{background-color: #f0f3f7; color:Black; font-weight:bold; font-size:10pt;
+         background-image:none}
+   </style>
+
+   <apex:tabPanel switchType="client" selectedTab="tabdetails" id="ProcessTabPanel" tabClass="activeTab" inactiveTabClass="inactiveTab">
+   
+      <apex:tab label="Details" name="ProcessDetails" id="tabdetails" style="background-color: white; font-size:9pt;">
+         <apex:detail showChatter="false" inlineEdit="true" relatedList="false" title="true"/>
+      </apex:tab>
+      
+      <apex:tab label="Notes and Attachments"  name="NotesAndAttachments" id="tabNoteAtt" style="background-color: white; font-size:9pt;">
+         <apex:relatedList subject="{!Process__c}"  list="NotesAndAttachments" />
+      </apex:tab>
+
+      <apex:tab label="Activities" name="Activities" id="tabAct" style="background-color: white; font-size:9pt;">
+             <apex:relatedList subject="{!Process__c}" list="OpenActivities" />
+             <apex:relatedList subject="{!Process__c}" list="ActivityHistories" />
+      </apex:tab>
+
+      <apex:tab label="Relationships" name="Relationships" id="tabRel" style="background-color: white; font-size:9pt;">
+      <apex:tabPanel switchType="client" selectedTab="tabdetails" id="RisksTabPanel" tabClass="activeTab" inactiveTabClass="inactiveTab">
+             
+          <apex:tab label="Indicator" name="Process_Indicator_Associations" id="tabAssProc">
+             <apex:relatedList subject="{!Process__c}" list="Indicator_Process_Associations__r" />
+          </apex:tab>
+          
+          <apex:tab label="Compliance" name="Process_Compliance_Associations" id="tabAssComp">
+             <apex:relatedList subject="{!Process__c}" list="Process_Compliance_Associations__r" />
+          </apex:tab>
+    
+          <apex:tab label="Objective" name="Process_Objective_Associations" id="tabAssObj">
+             <apex:relatedList subject="{!Process__c}" list="Objective_Process_Associations__r" />
+          </apex:tab>
+    
+          <apex:tab label="Risk" name="Process_Risk_Associations" id="tabAssRisk">
+             <apex:relatedList subject="{!Process__c}" list="Risk_Process_Associations__r" />
+          </apex:tab>
+          
+          <apex:tab label="Locations" name="Location_Process_Associations" id="tabAssLocs">
+             <apex:relatedList subject="{!Process__c}" list="Location_Process_Associations__r" />
+          </apex:tab>
+
+          <apex:tab label="Vendor Locations" name="Process_Vendor_Location_Associations" id="tabAssVendorLocs">
+             <apex:relatedList subject="{!Process__c}" list="Process_Vendor_Location_Associations__r" />
+          </apex:tab>
+      
+      </apex:tabPanel>
+      </apex:tab>
+      
+      <apex:tab label="Chatter"  name="Chatter" id="Chatter" style="background-color: white; font-size:9pt;">
+         <chatter:feedWithFollowers entityId="{!Process__c.id}"/>
+      </apex:tab>
+      
+
+   </apex:tabPanel>
+</apex:page>

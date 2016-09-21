@@ -1,0 +1,44 @@
+<apex:page controller="printPreviewController" showHeader="false" sidebar="false">
+    <apex:image id="theImage" value="/servlet/servlet.FileDownload?file=015F0000002rxQl"/>
+    <style>
+        .btn{
+        display:none;
+        }
+        
+        a {
+        pointer-events: none;
+        cursor: default;
+        }
+        
+        .pShowMore a, a.print{
+        pointer-events: auto;
+        cursor: auto;
+        }
+        
+        a.print{
+        margin:25px 25px 0 0;
+        float:right;
+        }
+        
+        .fewerMore, .pbTitle img, .actionColumn{
+        display:none;
+        }
+        
+        .bRelatedList, .pbTitle h3 {
+        margin: 0;
+        }
+    </style>
+    <a href="javascript:window.print()" class="print">Print This Page</a>
+    <apex:detail subject="{!recordID}"/>
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    
+    <script>
+    $j = jQuery.noConflict();
+    $j(document).ready(function() {
+        $j( "td.pbTitle > img" ).css( "display", "none" );
+        $j( "td.pbTitle > h3" ).css( "margin", "0" );
+        $j( "a:contains('[Change]')" ).css( "display", "none" );
+    });
+    </script>
+</apex:page>

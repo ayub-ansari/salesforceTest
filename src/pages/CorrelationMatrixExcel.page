@@ -1,0 +1,91 @@
+<apex:page controller="CorrelationMatrixController" title="Correlation Matrix" contentType="application/vnd.ms-excel#report.xls" cache="true">
+    <head>
+        <style>
+            
+            <!--.selector {
+            transform:rotate(-45deg);
+            -ms-transform:rotate(-45deg); /* IE 9 */
+            -moz-transform:rotate(-45deg); /* Firefox */
+            -webkit-transform:rotate(-45deg); /* Safari and Chrome */
+            -o-transform:rotate(-45deg); /* Opera */
+            }-->
+            
+            .table td, .table th{
+            border:1px solid black;
+            vertical-align:middle;
+            text-align:center;
+            background-color:#F8F8F8 ;
+            }
+            
+            td.riskNames, th.riskNames{
+            background-color:#E0E0E0;
+            }
+            
+            td.green1{
+            color:black;
+            background-color: #E0FFE0;
+            }
+            
+            td.green2{
+            color:black;
+            background-color: #99FF99;
+            }
+            
+            td.green3{
+            color:black;
+            background-color: #33CC33;
+            }
+            
+            td.green4{
+            color:black;
+            background-color: #248F24;
+            }
+            
+            td.black, td.red, td.none{
+            font-size:100%;            
+            }
+            
+            td.red1{
+            color:black;
+            background-color: #FFF0E6;
+            }
+            
+            td.red2{
+            color:black;
+            background-color: #FF7373;
+            }
+            
+            td.red3{
+            color:black;
+            background-color: #FF0000;
+            }
+            
+            td.red4{
+            color:black;
+            background-color: #CC0000;
+            }
+            
+            .cmHeader {
+            font-size:24px;
+            font-weight:bold;
+            }         
+            
+            
+        </style>
+    </head>
+    <apex:outputPanel id="main" >
+        <table class="table">
+            <caption>
+                <span class="cmHeader">Correlation Matrix<apex:outputText rendered="{!if(matrix.Name != null, true, false)}" value=" - {!matrix.Type_of_Matrix__c} {!matrix.Name} created by {!matrix.CreatedBy.FirstName} {!matrix.CreatedBy.LastName} on "/><apex:outputField value="{!matrix.CreatedDate}"/></span>
+            </caption >
+            <tr>
+                <th></th>
+                <apex:repeat var="th" value="{!rlist}"><th class="skew"><apex:outputField style="width:75px;font-size:125%;" value="{!th.Name}"/></th></apex:repeat>
+            </tr>
+            <apex:repeat var="fC" value="{!rlist}"><tr>
+                <td><b><apex:outputField value="{!fC.Name}"/></b></td>
+                <apex:repeat var="sC" value="{!CorrMap[fC.id]}"><td class='{!tableStyle[sC.Risk1__c][sC.Risk1__c+sC.Risk2__c]}'><apex:outputField style="width:50px;" value="{!sC.Correlation__c}" rendered="{!IF(tableStyle[sC.Risk1__c][sC.Risk1__c+sC.Risk2__c] != 'notrendered', true, false)}"/></td></apex:repeat>
+                </tr></apex:repeat>
+        </table> 
+    </apex:outputPanel>
+</apex:page>

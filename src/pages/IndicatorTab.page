@@ -1,0 +1,68 @@
+<apex:page standardController="Indicator__c" showHeader="true"  tabStyle="Indicator__c" showChat="false"  >
+    <apex:stylesheet value="/sCSS/21.0/sprites/1297816277000/Theme3/default/gc/versioning.css" />   
+
+   <style>
+      .activeTab {background-color: white; color:black; font-weight:bold; font-size:9pt;
+         background-image:none}
+      .inactiveTab { background-color: #f0f3f7; color:black; font-weight:normal; font-size:9pt;
+         background-image:none}
+      .barPanel{background-color: #f0f3f7; color:Black; font-weight:bold; font-size:10pt;
+         background-image:none}
+   </style>
+
+   <apex:tabPanel switchType="client" selectedTab="tabdetails" id="IndicatorTabPanel" tabClass="activeTab" inactiveTabClass="inactiveTab">
+   
+      <apex:tab label="Details" name="IndicatorDetails" id="tabdetails" style="background-color: white; font-size:9pt;">
+         <apex:detail showChatter="false" inlineEdit="true" relatedList="false" title="true"/>
+      </apex:tab>
+      
+      <apex:tab label="Notes and Attachments"  name="NotesAndAttachments" id="tabNoteAtt" style="background-color: white; font-size:9pt;">
+         <apex:relatedList subject="{!Indicator__c}"  list="NotesAndAttachments" />
+      </apex:tab>
+
+      <apex:tab label="Activities" name="Activities" id="tabAct" style="background-color: white; font-size:9pt;">
+             <apex:relatedList subject="{!Indicator__c}" list="OpenActivities" />
+             <apex:relatedList subject="{!Indicator__c}" list="ActivityHistories" />
+      </apex:tab>
+
+      <apex:tab label="Relationships" name="Relationships" id="tabRel" style="background-color: white; font-size:9pt;">
+      <apex:tabPanel switchType="client" selectedTab="tabdetails" id="RisksTabPanel" tabClass="activeTab" inactiveTabClass="inactiveTab">
+         
+          <apex:tab label="Controls" name="Control_Indicator_Associations" id="tabAssCont">
+             <apex:relatedList subject="{!Indicator__c}" list="Control_Indicator_Associations__r" />
+          </apex:tab>
+          
+          <apex:tab label="Governance" name="Governance_Indicator_Associations" id="tabAssGov">
+             <apex:relatedList subject="{!Indicator__c}" list="Governance_Indicators_Associations__r" />
+          </apex:tab>
+          
+          <apex:tab label="Committee" name="Committee_Indicator_Associations" id="tabAssComm">
+             <apex:relatedList subject="{!Indicator__c}" list="Indicator_Committee_Associations__r" />
+          </apex:tab>
+          
+          <apex:tab label="GL" name="GL_Indicator_Associations" id="tabAssGL">
+             <apex:relatedList subject="{!Indicator__c}" list="Indicator_GL_Associations__r" />
+          </apex:tab>
+          
+          <apex:tab label="Process" name="Process_Indicator_Associations" id="tabAssProc">
+             <apex:relatedList subject="{!Indicator__c}" list="Indicator_Process_Associations__r" />
+          </apex:tab>
+          
+          <apex:tab label="Project" name="Project_Indicator_Associations" id="tabAssProj">
+             <apex:relatedList subject="{!Indicator__c}" list="Project_Indicators_Associations__r" />
+          </apex:tab>
+          
+          <apex:tab label="Risk" name="Risk_Indicator_Associations" id="tabAssRisk">
+             <apex:relatedList subject="{!Indicator__c}" list="Risk_Indicator_Associations__r" />
+          </apex:tab>
+      
+      </apex:tabPanel>
+      </apex:tab>
+      
+      <apex:tab label="Chatter"  name="Chatter" id="Chatter" style="background-color: white; font-size:9pt;">
+         <chatter:feedWithFollowers entityId="{!Indicator__c.id}"/>
+      </apex:tab>
+      
+
+   </apex:tabPanel>
+</apex:page>

@@ -1,0 +1,120 @@
+<!-- A generic component that can be reused for all the add and edit dialogs of pRelatedList implementors. 
+     It takes an pRelatedListAspect parameter, which combines an pRelatedList instance with an aspect type (i.e. add or edit),
+     a dialog title label, and a FieldSetCollection.
+     -->
+<apex:component layout="none" access="global">
+    <apex:attribute name="aspect" type="rkl.pRelatedListAspect" required="true" access="global" description="combines an item strategy with an action-aspect" />
+    
+    <apex:variable var="props" value="{!aspect.dialogProps}" />
+    
+    <div id="{!props.titleUpdateNodeDomId}" style="display:none">
+        <div>{!aspect.dialogTitle}</div>
+    </div>
+    <div id="{!props.scriptsDivDomId}">
+        <c:InlineDialogScripts props="{!props}" signalSubmitFailure="{!aspect.dialogSubmitFailure}" />
+    </div>  
+    
+    <apex:outputPanel layout="block" id="contents">
+        <div class="{!props.styles.Header} noBottomDec">
+            <c:PageMessage escape="false" severity="info" strength="2" summary="{!aspect.instrucsHtml}" transientState="default" />
+            <c:jControllerError />
+            <c:PageMessage escape="{!NOT(aspect.dialog.errorTitleIsHtml)}" severity="error" strength="2" title="{!aspect.dialog.errorTitle}"
+                    summary="{!aspect.dialog.completeErrorSummary}" rendered="{!aspect.dialog.hasAnyError}" transientState="submitFailure"/>
+        </div>
+        
+        <div class="{!props.Styles.Div} noTopDec">
+            <apex:outputPanel layout="block" style="margin-top:5px;margin-bottom:8px;" rendered="{!NOT(aspect.dialog.itemNotFoundError)}" >
+                <div class="{!aspect.sectionStyleClass} first" >
+                    <div class="{!aspect.sectionBodyStyleClass} oneCol" >
+                        
+                        <!-- 
+                        <apex:repeat value="{!aspect.fieldItemList}" var="f">
+                            <span class="field" required="{!f.required}" useCustomLabel="{!f.useCustomLabel}">
+                                <span class="fieldSet">f.fieldSetName</span>
+                                <span class="customLabel">$Label[f.labelName]</span>
+                                <span class="metaLabel">f.label</span>
+                                <span class="fieldInput"><apex:inputField value="{!f.holder[f.path]}" /></span>
+                            </span>
+                            
+                        </apex:repeat>
+                        -->
+                        
+                        <!-- 
+                        <apex:repeat value="{!aspect.fieldItemList}" var="f">
+                            <apex:inputField value="{!f.holder[f.path]}" />
+                        </apex:repeat>
+                        -->
+                        
+                        <apex:repeat value="{!aspect.fieldSetCollection.fieldSets}" var="fieldSet">
+                            <apex:outputPanel id="fieldSetBlock" layout="block">
+                                <apex:dataTable value="{!fieldSet.fields}" var="f" styleClass="fieldSet {!fieldSet.name} {!fieldSet.sObjType}">
+                                    <apex:column styleClass="label">
+                                        <span class="{!f.path}">
+                                            <apex:outputText value="{!IF(f.useCustomLabel,$Label[f.labelName],f.label)}" />
+                                        </span>
+                                    </apex:column>
+                                    <apex:column styleClass="data">
+                                        <div class="{!f.path}">
+                                            <c:jInputField object="{!aspect.dialog.activeItem.data}" field="{!f.path}" 
+                                                    jLabel="{!IF(f.useCustomLabel,$Label[f.labelName],f.label)}" 
+                                                    required="{!f.required}"  />
+                                        </div>
+                                    </apex:column>
+                                </apex:dataTable>
+                            </apex:outputPanel>
+                            <script type="text/javascript">
+                                // register the FieldSet elements so that e.g. a driverTree onready script can easily find various FieldSet blocks
+                                rk_register({!aspect.ecmaArgPath}, {
+                                        rerenders: {
+                                                fieldSets: {
+                                                        "{!fieldSet.name}": "{!$Component.fieldSetBlock}"
+                                                    }
+                                            }
+                                    });
+                            </script>
+                        </apex:repeat>
+                        
+                    </div>
+                </div>
+            </apex:outputPanel>
+            <apex:outputPanel layout="block" style="margin-bottom:50px;" rendered="{!aspect.dialog.itemNotFoundError}">
+                &nbsp;
+            </apex:outputPanel>
+        </div>
+        
+        <div class="{!props.styles.CommandFooter}">
+            <apex:commandButton id="dialogSave" value=" Save " rerender="none" onclick="return false;" 
+                    rendered="{!NOT(aspect.dialog.itemNotFoundError)}" />
+            <apex:commandButton id="dialogCancel" value=" Cancel " rerender="none" onclick="{!props.CloseDialogScript}return false;" 
+                    rendered="{!NOT(aspect.dialog.itemNotFoundError)}" />
+            <apex:commandButton value=" Ok " rerender="none" onclick="{!props.CloseDialogScript}return false;" 
+                    rendered="{!aspect.dialog.itemNotFoundError}" /> 
+        </div>
+    </apex:outputPanel>
+    
+    <script type="text/javascript">
+        rk_register({!aspect.ecmaArgPath}, {
+                rerenders: {
+                        inner: "{!$Component.contents}"
+                    }
+            });
+                                    
+        $(document.getElementById('{!$Component.dialogSave}')).click(
+            // !! note we've moved away from actions using global function declarations (e.g. aspect.saveActionName). actions are bound to a hidden
+            //    element via actionSupport "onfocus"; rk_register unbinds this, wraps the func to allow for dynamically calculated params/callbacks,
+            //    and places the wrapper function under the relevant aspect in rk_register with a nice name (e.g. "save"|"load"):
+            function() {
+                _uiManager.validateActiveDialog(function () {
+                    _uiManager.submitDialog({
+                            "message": "Saving...",
+                            "action": function() {
+                                // here we don't need to supply any dynamic submitProps, because the server-side remembers the itemId from the preceding editLoad action: 
+                                {!aspect.ecmaActionsPath}.save();
+                            },
+                            "shortMessage": "Saving..."
+                        })
+                });
+            });
+    </script>
+
+</apex:component>

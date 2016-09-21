@@ -1,0 +1,64 @@
+<apex:page standardController="Contact" showHeader="true"  tabStyle="Contact" showChat="false"  >
+    <apex:stylesheet value="/sCSS/21.0/sprites/1297816277000/Theme3/default/gc/versioning.css" />   
+
+   <style>
+      .activeTab {background-color: white; color:black; font-weight:bold; font-size:9pt;
+         background-image:none}
+      .inactiveTab { background-color: #f0f3f7; color:black; font-weight:normal; font-size:9pt;
+         background-image:none}
+      .barPanel{background-color: #f0f3f7; color:Black; font-weight:bold; font-size:10pt;
+         background-image:none}
+   </style>
+
+   <apex:tabPanel switchType="client" selectedTab="tabdetails" id="ControlsTabPanel" tabClass="activeTab" inactiveTabClass="inactiveTab">
+   
+      <apex:tab label="Details" name="ContactDetails" id="tabdetails" style="background-color: white; font-size:9pt;">
+         <apex:detail showChatter="false" inlineEdit="true" relatedList="false" title="true"/>
+      </apex:tab>
+      
+      <apex:tab label="Notes and Attachments"  name="NotesAndAttachments" id="tabNoteAtt" style="background-color: white; font-size:9pt;">
+         <apex:relatedList subject="{!Contact}"  list="NotesAndAttachments" />
+      </apex:tab>
+
+      <apex:tab label="Activities" name="Activities" id="tabAct" style="background-color: white; font-size:9pt;">
+             <apex:relatedList subject="{!Contact}" list="OpenActivities" />
+             <apex:relatedList subject="{!Contact}" list="ActivityHistories" />
+      </apex:tab>
+
+      <apex:tab label="Relationships" name="Relationships" id="tabRel" style="background-color: white; font-size:9pt;">
+      <apex:tabPanel switchType="client" selectedTab="tabdetails" id="RisksTabPanel" tabClass="activeTab" inactiveTabClass="inactiveTab">
+         
+          <apex:tab label="Risks" name="Risks" id="tabAssRisk">
+             <apex:relatedList subject="{!Contact}" list="Risks__r" />
+          </apex:tab>
+    
+          <apex:tab label="Controls" name="Controls" id="tabAssCont">
+             <apex:relatedList subject="{!Contact}" list="Controls__r" />
+          </apex:tab>        
+          
+          <apex:tab label="Compliance" name="Compliance" id="tabAssComp">
+             <apex:relatedList subject="{!Contact}" list="Compliance_Contact_Associations__r" />
+          </apex:tab>             
+          
+          <apex:tab label="Committees" name="Committees" id="tabAssComm">
+             <apex:relatedList subject="{!Contact}" list="Committee_Contact_Associations__r" />
+          </apex:tab>      
+          
+          <apex:tab label="Governances" name="Governances" id="tabAssGoc">
+             <apex:relatedList subject="{!Contact}" list="Governances__r" />
+          </apex:tab>    
+          
+          <apex:tab label="Locations" name="Locations" id="tabAssLoc">
+             <apex:relatedList subject="{!Contact}" list="Location_Contact_Associations__r" />
+          </apex:tab>     
+      
+      </apex:tabPanel>
+      </apex:tab>
+      
+      <apex:tab label="Chatter"  name="Chatter" id="Chatter" style="background-color: white; font-size:9pt;">
+         <chatter:feedWithFollowers entityId="{!Contact.id}"/>
+      </apex:tab>
+      
+
+   </apex:tabPanel>
+</apex:page>

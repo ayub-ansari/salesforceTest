@@ -1,0 +1,85 @@
+<apex:page sidebar="false" showHeader="false" controller="rkl.ChatterExtractPageController">
+	<head>
+        <script type="text/javascript" src="{!$Resource.jquery_1_8}"/>
+		<script type="text/javascript">
+			$.noConflict();
+			
+			var chatterFeedExtractor;
+			
+			(function($) {
+				if (typeof console === "undefined") {
+	                console = {};
+	            }
+	            if (!console.log) {
+	                console.log = function (data) {
+	                    window.alert("" + data);
+	                };
+	            }
+	            if (!console.error) {
+	                console.error = function (data) {
+	                    console.log("ERROR: " + data);
+	                }
+	            }
+	            
+	            var shouldPrint = false;
+			
+				chatterFeedExtractor = {
+					getChatterFeed: function() {
+						shouldPrint = true;
+						var id = chatterFeedExtractor.getURLParameter('id');
+						var startDate = $(document.getElementById('{!$Component.mainForm.dateRangeStart}'))[0].value;
+						var endDate = $(document.getElementById('{!$Component.mainForm.dateRangeEnd}'))[0].value;
+						console.log(startDate);
+						console.log(endDate);
+						$('#feedContainer').get(0).contentWindow.location.href = '/apex/rkl__ChatterExtractFeedContainer?id=' + id + '&startDate=' + startDate + '&endDate=' + endDate;
+						$('#feedContainer').attr('style', 'display: block; margin: 0 auto; width: 99%; height: 500px;');
+					}, 
+					
+					closeChatterFeed: function() {
+						$('#feedContainer').attr('style', 'display: none;');
+					},
+					
+					getURLParameter: function(name) {
+					    return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null;
+					},
+					
+					printChatterFeed: function() {
+						if (shouldPrint) {
+							$("#feedContainer")[0].contentWindow.print();
+						} else {
+							console.error('The Chatter feed has not loaded yet.');
+						}
+					}
+				};
+				
+				$(document).ready(function() {
+					
+				});
+			})(jQuery);
+		</script>
+	</head>
+	<apex:form id="mainForm" >
+		<form>
+			<table width="100%">
+				<tr>
+					<td style="text-align: center">
+						<input class="btn" type="button" onclick="chatterFeedExtractor.getChatterFeed();" value=" Get Chatter Feed "/>
+						<input class="btn" type="button" onclick="chatterFeedExtractor.closeChatterFeed();" value=" Close Chatter Feed "/>
+						<input class="btn" type="button" onclick="chatterFeedExtractor.printChatterFeed();" value=" Print Chatter Feed "/>
+					</td>
+				</tr>
+				<tr>
+					<td style="text-align: center">
+						<strong>Date Range Filter Start: </strong><apex:inputField value="{!dateRangeFilter.rkl__Start_Filter__c}" id="dateRangeStart"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<strong>Date Range Filter End: </strong><apex:inputField value="{!dateRangeFilter.rkl__End_Filter__c}" id="dateRangeEnd"/>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<iframe style="display:none;" id="feedContainer"/>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</apex:form>
+</apex:page>

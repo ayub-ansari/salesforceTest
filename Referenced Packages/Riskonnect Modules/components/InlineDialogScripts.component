@@ -1,0 +1,20 @@
+<!-- Mike Ulveling -->
+<apex:component access="global">
+    <apex:attribute name="props" type="rkl.IDialogProps" required="true" access="global" description="describes the configuration of this dialog instance" />
+    <apex:attribute name="focusDomId" type="String" required="false" access="global" default="" description="set this to the DOM-node id of an input element (must be focusable) within this dialog" />
+    <apex:attribute name="signalSubmitFailure" type="Boolean" access="global" description="set this to true if the dialog component is being refreshed subsequent to a save/delete failure" />
+    
+    <apex:variable var="DQ" value="{!props.doubleQuoteLiteral}" />
+    <apex:variable var="uiManagerVar" value="{!props.uiManager.varName}" />
+    <apex:variable var="dialogKey" value="{!JSENCODE(props.dialogKeyName)}" />
+    <apex:variable var="setFocusScript" value="{!uiManagerVar & '.setDialogFocusFieldDomId(' & DQ & dialogKey & DQ & ',' & DQ & JSENCODE(focusDomId) & DQ & ');'}" />
+    <apex:variable var="successScript" value="{!uiManagerVar & '.signalDialogSubmitSuccess(' & DQ & dialogKey & DQ & ');'}" />
+    <apex:variable var="failureScript" value="{!uiManagerVar & '.signalDialogSubmitFailure(' & DQ & dialogKey & DQ & ');'}" />
+    
+    <script type="text/javascript">
+        {!uiManagerVar}.setDialogTitleDomId("{!dialogKey}", "{!JSENCODE(props.titleUpdateNodeDomId)}");
+        {!IF(LEN(NULLVALUE(focusDomId, '')) > 0, setFocusScript, '')}
+        {!IF(signalSubmitFailure, failureScript, successScript)}
+        {!uiManagerVar & '.signalFreshDialogContentsReady(' & DQ & dialogKey & DQ & ');'}
+    </script>
+</apex:component>

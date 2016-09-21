@@ -1,0 +1,9 @@
+<!-- Mike Ulveling -->
+<apex:component access="global" layout="none" controller="rkl.JLabelController">
+    <apex:attribute type="SObject" name="object" access="global" assignTo="{!obj}" description="the host object" />
+    <apex:attribute type="String" name="field" access="global" assignTo="{!field}" description="the api name of the field to dereference from the host object" />
+    <span class="rk-helpButton jLabel" jLabel="{!object.id}.{!field}" jLabel-help="{!inlineHelp}">
+        <label>{!fieldLabel}</label>
+        <img class="rk-helpOrb" src="/s.gif" />
+    </span>
+</apex:component>

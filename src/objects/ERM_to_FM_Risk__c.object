@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Detailed_Structural_Stochastic_Model__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Detailed Structural Stochastic Model</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>ERM_Assessment__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>ERM Assessment</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>ERM_Program_Identified_Risks__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>ERM Program Identified Risks</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>ERM_Risks__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>ERM Risk</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>ERM_to_FM__c</fullName>
+        <externalId>false</externalId>
+        <label>ERM to FM</label>
+        <referenceTo>ERM_to_FM__c</referenceTo>
+        <relationshipLabel>ERM to FM Risks</relationshipLabel>
+        <relationshipName>ERM_to_FM_Risks</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Explanation__c</fullName>
+        <externalId>false</externalId>
+        <label>Explanation</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>FM_Risk_Factor__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(NOT(ISBLANK(Risk__c)),HYPERLINK(&apos;/&apos;+Risk__r.Id,Risk__r.Name),HYPERLINK(&apos;/&apos;+Risk_Factor__r.Id, Risk_Factor__r.Name))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>FM Risk Factor</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>FM_Specific_Risks__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>FM Specific Risk</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>FP_A_LRP__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>ECM - LRP</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>From_ERM_Risk_Assessment__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>From ERM Risk Assessment</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Model_Approach__c</fullName>
+        <externalId>false</externalId>
+        <label>Model Approach</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Detailed Structural Stochastic Model</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Residual Standard Deviation</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Simple Stochastic Model</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ERM Program Identified Risks</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Residual_Standard_Deviation__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Residual Standard Deviation</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Risk_Factor__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>FM Risk Factor</label>
+        <referenceTo>FM_Risk_Factor__c</referenceTo>
+        <relationshipLabel>ERM to FM Risks</relationshipLabel>
+        <relationshipName>ERM_to_FM_Risks</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Risk__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Risk</label>
+        <referenceTo>MLN_Risk__c</referenceTo>
+        <relationshipLabel>ERM to FM Risks</relationshipLabel>
+        <relationshipName>ERM_to_FM_Risks</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Simple_Stochastic_Model__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Simple Stochastic Model</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <label>ERM to FM Risk</label>
+    <nameField>
+        <displayFormat>EDR-{00000}</displayFormat>
+        <label>Relationship Number</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>ERM to FM Risks</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+    <validationRules>
+        <fullName>ModelApproachValidation</fullName>
+        <active>true</active>
+        <description>Only one of the following can be checked for Model Approach
+Detailed_Structural_Stochastic_Model__c
+Residual_Standard_Deviation__c
+ERM_Program_Identified_Risks__c
+Simple_Stochastic_Model__c</description>
+        <errorConditionFormula>OR(AND(Detailed_Structural_Stochastic_Model__c == true,OR(ERM_Program_Identified_Risks__c == true,Residual_Standard_Deviation__c == true,Simple_Stochastic_Model__c == true)),
+AND(ERM_Program_Identified_Risks__c == true,OR(Detailed_Structural_Stochastic_Model__c == true,Residual_Standard_Deviation__c == true,Simple_Stochastic_Model__c == true)),
+AND(Residual_Standard_Deviation__c == true,OR(Detailed_Structural_Stochastic_Model__c == true,ERM_Program_Identified_Risks__c == true,Simple_Stochastic_Model__c == true)),
+AND(Simple_Stochastic_Model__c == true,OR(Detailed_Structural_Stochastic_Model__c == true,ERM_Program_Identified_Risks__c == true,Residual_Standard_Deviation__c == true)))</errorConditionFormula>
+        <errorMessage>Only one Model Approach check box can be checked</errorMessage>
+    </validationRules>
+</CustomObject>

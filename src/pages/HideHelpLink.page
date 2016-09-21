@@ -1,0 +1,20 @@
+<!-- 
+	This page is used as a home page component to hide help link from related lists
+ -->
+<apex:page standardController="Model__c">
+	<head>
+		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+	</head>
+	<body>
+		<script type="text/javascript" language="javascript">
+			document.getElementsByClassName('help')[0].style.display='none';
+			document.getElementsByClassName('help')[1].style.display='none';
+			document.getElementsByClassName('help')[2].style.display='none';
+			document.getElementsByClassName('help')[3].style.display='none';
+			document.getElementsByClassName('help')[4].style.display='none';
+			document.getElementsByClassName('help')[5].style.display='none';
+			document.getElementsByClassName('help')[6].style.display='none';
+			document.getElementsByClassName('help')[7].style.display='none';
+		</script>
+	</body>
+</apex:page>

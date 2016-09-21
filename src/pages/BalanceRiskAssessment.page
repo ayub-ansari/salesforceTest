@@ -1,0 +1,245 @@
+<apex:page Controller="BalanceRiskAssessmentController" >
+    <apex:form id="frm">
+        <style>
+            .brdr {
+               border: 1px solid black;
+            }
+            .heading{
+                border: 1px solid black;
+                background-color : black;
+            }
+            th{
+                
+            }
+        </style>
+        
+        <center>
+            <apex:commandButton value="Save" action="{!save}"/>
+            <!--<apex:commandButton value="Add Column" action="{!addNewCol}"/>-->
+        </center>
+        <apex:pageMessages />
+        <br/>
+        <table cellspacing="0" class="brdr" width="100%">
+            <tr class="heading">
+                <td class="brdr" colspan="8" style="color:white;text-align:center;"><font size="4">Balance Risk Assessment</font></td>
+            </tr>
+            <tr>
+                <td class="brdr" style="color:white;background-color:gray;text-align:center;width:20px;">&nbsp;</td>
+                <td class="brdr" style="color:white;background-color:gray;text-align:center;" colspan="2">&nbsp;</td>
+                <td class="brdr" style="color:white;background-color:gray;text-align:center;" colspan="{!colSpan}"><b>Inherent Risk</b></td>
+                <td class="brdr" style="color:white;background-color:gray;text-align:center;"><b>Results</b></td>
+            </tr>
+            <tr>
+                <td class="brdr" style="color:white;background-color:gray;text-align:center;" rowspan="2">&nbsp;</td>
+                <th class="brdr" style="color:white;background-color:gray;" rowspan="2">Account Balance or Disclosure</th>
+                <th class="brdr" style="color:white;background-color:gray;text-align:center; width:100px;" rowspan="2">September 30, 2014</th>
+                <apex:repeat value="{!columnAttributes}" var="colW">
+                    <th class="brdr" style="background-color:gray;text-align:center;">
+                        <apex:commandLink action="{!addNewCol}">
+                            <apex:image url="{!$Resource.plus}" title="Add Column"/>
+                            <apex:param name="idx" assignTo="{!selectedIndex}" value="{!colW.idx}"/>
+                        </apex:commandLink>
+                        <apex:commandLink action="{!removeCol}">
+                            <apex:image url="{!$Resource.minus}" title="Remove Column"/>
+                            <apex:param name="idx" assignTo="{!selectedIndex}" value="{!colW.idx}"/>
+                        </apex:commandLink>
+                    </th>
+                </apex:repeat>
+                <th class="brdr" style="color:white;background-color:gray;text-align:center; width:70px;" rowspan="2">Overall<br/>Risk Score</th>
+            </tr>
+            <tr class="brdr">
+                <apex:repeat value="{!columnAttributes}" var="colW">
+                    <th class="brdr" style="color:white;background-color:gray;text-align:center; width:170px;">
+                        <apex:outputField value="{!colW.column.Column_Value__c}">
+                            <apex:inlineEditSupport event="ondblclick" changedStyleClass="myBoldClass" resetFunction="resetInlineEdit"/>
+                        </apex:outputField>
+                    </th>
+                </apex:repeat>
+            </tr>
+            <tr class="heading">
+                <td class="brdr">
+                    <apex:commandLink action="{!addAsset}">
+                        <apex:image url="{!$Resource.plus}"/>
+                    </apex:commandLink>
+                </td>
+                <td class="heading" colspan="8" style="color:white;"><b>ASSETS</b></td>
+            </tr>
+            <apex:repeat value="{!assets}" var="rw">
+                <tr class="brdr">
+                    <td class="brdr">
+                        <apex:commandLink action="{!removeAsset}"><apex:image url="{!$Resource.minus}"/>
+                            <apex:param name="rowIdx" assignTo="{!assetIdxToDel}" value="{!rw.rowIndex}"/>
+                        </apex:commandLink></td>
+                    <td class="brdr">
+                        <apex:outputField value="{!rw.risk.Name}">
+                            <apex:inlineEditSupport event="ondblclick" showOnEdit="saveBtn" changedStyleClass="myBoldClass" resetFunction="resetInlineEdit"/>
+                        </apex:outputField>
+                    </td>
+                    <td class="brdr"><div align="right">
+                        <apex:outputField value="{!rw.risk.Balance__c}">
+                             <apex:inlineEditSupport event="ondblclick" changedStyleClass="myBoldClass" resetFunction="resetInlineEdit"/>
+                        </apex:outputField>
+                    </div></td>
+                    <apex:repeat value="{!columnAttributes}" var="colW">
+                        <td class="brdr" style="background-color:{!IF(rw.risk[colW.column.Name] == 'Low','green',IF(rw.risk[colW.column.Name] == 'Medium','yellow',IF(rw.risk[colW.column.Name] == 'High','red','')))}"><center>
+                            <b><apex:outputField value="{!rw.risk[colW.column.Name]}">
+                                <apex:inlineEditSupport event="ondblclick" changedStyleClass="myBoldClass" resetFunction="resetInlineEdit"/>
+                            </apex:outputField></b>
+                        </center></td>
+                    </apex:repeat>
+                    <td class="brdr" style="background-color:{!IF(rw.risk.Overall_Risk_Score__c == 1,'green',IF(rw.risk.Overall_Risk_Score__c == 2,'#33FF33',IF(rw.risk.Overall_Risk_Score__c == 3,'yellow',IF(rw.risk.Overall_Risk_Score__c == 4,'orange',IF(rw.risk.Overall_Risk_Score__c == 5,'red','')))))}"><center>
+                        <b><apex:outputField value="{!rw.risk.Overall_Risk_Score__c}"/></b>
+                    </center></td>
+                </tr>
+            </apex:repeat>
+            <tr class="heading">
+                <td class="brdr">
+                    <apex:commandLink action="{!addLiabilities}">
+                        <apex:image url="{!$Resource.plus}"/>
+                    </apex:commandLink>
+                </td>
+                <td class="heading" colspan="8" style="color:white;"><b>LIABILITIES</b></td>
+            </tr>
+            <apex:repeat value="{!liabilities}" var="rw">
+                <tr class="brdr">
+                    <td class="brdr">
+                        <apex:commandLink action="{!removeLiabilities}"><apex:image url="{!$Resource.minus}"/>
+                            <apex:param name="rowIdx2" assignTo="{!liabilitiesIdxToDel}" value="{!rw.rowIndex}"/>
+                        </apex:commandLink>
+                    </td>
+                    <td class="brdr">
+                        <apex:outputField value="{!rw.risk.Name}">
+                            <apex:inlineEditSupport event="ondblclick" showOnEdit="saveBtn" changedStyleClass="myBoldClass" resetFunction="resetInlineEdit"/>
+                        </apex:outputField>
+                    </td>
+                    <td class="brdr"><div align="right">
+                        <apex:outputField value="{!rw.risk.Balance__c}">
+                            <apex:inlineEditSupport event="ondblclick" changedStyleClass="myBoldClass" resetFunction="resetInlineEdit"/>
+                        </apex:outputField>
+                    </div></td>
+                    <apex:repeat value="{!columnAttributes}" var="colW">
+                        <td class="brdr" style="background-color:{!IF(rw.risk[colW.column.Name] == 'Low','green',IF(rw.risk[colW.column.Name] == 'Medium','yellow',IF(rw.risk[colW.column.Name] == 'High','red','')))}"><center>
+                            <b><apex:outputField value="{!rw.risk[colW.column.Name]}">
+                                <apex:inlineEditSupport event="ondblclick" changedStyleClass="myBoldClass" resetFunction="resetInlineEdit"/>
+                            </apex:outputField></b>
+                        </center></td>
+                    </apex:repeat>
+                    <td class="brdr" style="background-color:{!IF(rw.risk.Overall_Risk_Score__c == 1,'green',IF(rw.risk.Overall_Risk_Score__c == 2,'#33FF33',IF(rw.risk.Overall_Risk_Score__c == 3,'yellow',IF(rw.risk.Overall_Risk_Score__c == 4,'orange',IF(rw.risk.Overall_Risk_Score__c == 5,'red','')))))}"><center>
+                        <b><apex:outputField value="{!rw.risk.Overall_Risk_Score__c}"/></b>
+                    </center></td>
+                </tr>
+            </apex:repeat>
+            <tr class="heading">
+                <td class="brdr">
+                    <apex:commandLink action="{!addStockholdersEquity}">
+                        <apex:image url="{!$Resource.plus}"/>
+                    </apex:commandLink>
+                </td>
+                <td class="heading" colspan="8" style="color:white;"><b>STOCKHOLDERS EQUITY</b></td>
+            </tr>
+            <apex:repeat value="{!stockholdersEquity}" var="rw">
+                <tr class="brdr">
+                    <td class="brdr">
+                        <apex:commandLink action="{!removeStockholdersEquity}"><apex:image url="{!$Resource.minus}"/>
+                            <apex:param name="rowIdx2" assignTo="{!stockholdersIdxToDel}" value="{!rw.rowIndex}"/>
+                        </apex:commandLink>
+                    </td>
+                    <td class="brdr">
+                        <apex:outputField value="{!rw.risk.Name}">
+                            <apex:inlineEditSupport event="ondblclick" showOnEdit="saveBtn" changedStyleClass="myBoldClass" resetFunction="resetInlineEdit"/>
+                        </apex:outputField>
+                    </td>
+                    <td class="brdr"><div align="right">
+                        <apex:outputField value="{!rw.risk.Balance__c}">
+                            <apex:inlineEditSupport event="ondblclick" changedStyleClass="myBoldClass" resetFunction="resetInlineEdit"/>
+                        </apex:outputField>
+                    </div></td>
+                    <apex:repeat value="{!columnAttributes}" var="colW">
+                        <td class="brdr" style="background-color:{!IF(rw.risk[colW.column.Name] == 'Low','green',IF(rw.risk[colW.column.Name] == 'Medium','yellow',IF(rw.risk[colW.column.Name] == 'High','red','')))}"><center>
+                            <b><apex:outputField value="{!rw.risk[colW.column.Name]}">
+                                <apex:inlineEditSupport event="ondblclick" changedStyleClass="myBoldClass" resetFunction="resetInlineEdit"/>
+                            </apex:outputField></b>
+                        </center></td>
+                    </apex:repeat>
+                    <td class="brdr" style="background-color:{!IF(rw.risk.Overall_Risk_Score__c == 1,'green',IF(rw.risk.Overall_Risk_Score__c == 2,'#33FF33',IF(rw.risk.Overall_Risk_Score__c == 3,'yellow',IF(rw.risk.Overall_Risk_Score__c == 4,'orange',IF(rw.risk.Overall_Risk_Score__c == 5,'red','')))))}"><center>
+                        <b><apex:outputField value="{!rw.risk.Overall_Risk_Score__c}"/></b>
+                    </center></td>
+                </tr>
+            </apex:repeat>
+            <tr class="heading">
+                <td class="brdr">
+                    <apex:commandLink action="{!addIncomeStmt}">
+                        <apex:image url="{!$Resource.plus}"/>
+                    </apex:commandLink>
+                </td>
+                <td class="heading" colspan="8" style="color:white;"><b>INCOME STATEMENT</b></td>
+            </tr>
+            <apex:repeat value="{!incomeStmt}" var="rw">
+                <tr class="brdr">
+                    <td class="brdr">
+                        <apex:commandLink action="{!removeIncomeStmt}"><apex:image url="{!$Resource.minus}"/>
+                            <apex:param name="rowIdx2" assignTo="{!incomeStmtIdxToDel}" value="{!rw.rowIndex}"/>
+                        </apex:commandLink>
+                    </td>
+                    <td class="brdr">
+                        <apex:outputField value="{!rw.risk.Name}">
+                            <apex:inlineEditSupport event="ondblclick" showOnEdit="saveBtn" changedStyleClass="myBoldClass" resetFunction="resetInlineEdit"/>
+                        </apex:outputField>
+                    </td>
+                    <td class="brdr"><div align="right">
+                        <apex:outputField value="{!rw.risk.Balance__c}">
+                            <apex:inlineEditSupport event="ondblclick" changedStyleClass="myBoldClass" resetFunction="resetInlineEdit"/>
+                        </apex:outputField>
+                    </div></td>
+                    <apex:repeat value="{!columnAttributes}" var="colW">
+                        <td class="brdr" style="background-color:{!IF(rw.risk[colW.column.Name] == 'Low','green',IF(rw.risk[colW.column.Name] == 'Medium','yellow',IF(rw.risk[colW.column.Name] == 'High','red','')))}"><center>
+                            <b><apex:outputField value="{!rw.risk[colW.column.Name]}">
+                                <apex:inlineEditSupport event="ondblclick" changedStyleClass="myBoldClass" resetFunction="resetInlineEdit"/>
+                            </apex:outputField></b>
+                        </center></td>
+                    </apex:repeat>
+                    <td class="brdr" style="background-color:{!IF(rw.risk.Overall_Risk_Score__c == 1,'green',IF(rw.risk.Overall_Risk_Score__c == 2,'#33FF33',IF(rw.risk.Overall_Risk_Score__c == 3,'yellow',IF(rw.risk.Overall_Risk_Score__c == 4,'orange',IF(rw.risk.Overall_Risk_Score__c == 5,'red','')))))}"><center>
+                        <b><apex:outputField value="{!rw.risk.Overall_Risk_Score__c}"/></b>
+                    </center></td>
+                </tr>
+            </apex:repeat>
+            <tr class="heading">
+                <td class="brdr">
+                    <apex:commandLink action="{!addDisclosure}">
+                        <apex:image url="{!$Resource.plus}"/>
+                    </apex:commandLink>
+                </td>
+                <td class="heading" colspan="8" style="color:white;"><b>DISCLOSURES</b></td>
+            </tr>
+            <apex:repeat value="{!disclosure}" var="rw">
+                <tr class="brdr">
+                    <td class="brdr">
+                        <apex:commandLink action="{!removeDisclosure}"><apex:image url="{!$Resource.minus}"/>
+                            <apex:param name="rowIdx2" assignTo="{!disclosureIdxToDel}" value="{!rw.rowIndex}"/>
+                        </apex:commandLink>
+                    </td>
+                    <td class="brdr">
+                        <apex:outputField value="{!rw.risk.Name}">
+                            <apex:inlineEditSupport event="ondblclick" showOnEdit="saveBtn" changedStyleClass="myBoldClass" resetFunction="resetInlineEdit"/>
+                        </apex:outputField>
+                    </td>
+                    <td class="brdr"><div align="right">
+                        <apex:outputField value="{!rw.risk.Balance__c}">
+                            <apex:inlineEditSupport event="ondblclick" changedStyleClass="myBoldClass" resetFunction="resetInlineEdit"/>
+                        </apex:outputField>
+                    </div></td>
+                    <apex:repeat value="{!columnAttributes}" var="colW">
+                        <td class="brdr" style="background-color:{!IF(rw.risk[colW.column.Name] == 'Low','green',IF(rw.risk[colW.column.Name] == 'Medium','yellow',IF(rw.risk[colW.column.Name] == 'High','red','')))}"><center>
+                            <b><apex:outputField value="{!rw.risk[colW.column.Name]}">
+                                <apex:inlineEditSupport event="ondblclick" changedStyleClass="myBoldClass" resetFunction="resetInlineEdit"/>
+                            </apex:outputField></b>
+                        </center></td>
+                    </apex:repeat>
+                    <td class="brdr" style="background-color:{!IF(rw.risk.Overall_Risk_Score__c == 1,'green',IF(rw.risk.Overall_Risk_Score__c == 2,'#33FF33',IF(rw.risk.Overall_Risk_Score__c == 3,'yellow',IF(rw.risk.Overall_Risk_Score__c == 4,'orange',IF(rw.risk.Overall_Risk_Score__c == 5,'red','')))))}"><center>
+                        <b><apex:outputField value="{!rw.risk.Overall_Risk_Score__c}"/></b>
+                    </center></td>
+                </tr>
+            </apex:repeat>
+        </table>
+    </apex:form>
+</apex:page>

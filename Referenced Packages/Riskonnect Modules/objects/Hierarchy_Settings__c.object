@@ -1,0 +1,681 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>Hierarchy</customSettingsType>
+    <customSettingsVisibility>Public</customSettingsVisibility>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>Address1__c</fullName>
+        <deprecated>false</deprecated>
+        <description>API name of the Address Line 1 field on the Hierarchy object.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>API name of the Address Line 1 field on the Hierarchy object.</inlineHelpText>
+        <label>Address1</label>
+        <length>43</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>City__c</fullName>
+        <deprecated>false</deprecated>
+        <description>API name of the City field on the Hierarchy object.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>API name of the City field on the Hierarchy object.</inlineHelpText>
+        <label>City</label>
+        <length>43</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Country__c</fullName>
+        <deprecated>false</deprecated>
+        <description>API name of the Country field on the Hierarchy object.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>API name of the Country field on the Hierarchy object.</inlineHelpText>
+        <label>Country</label>
+        <length>43</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>FirstJobStatus__c</fullName>
+        <deprecated>false</deprecated>
+        <description>API name of the First Job Status field on the Hierarchy Job Status Holder Object.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>API name of the First Job Status field on the Hierarchy Job Status Holder Object.</inlineHelpText>
+        <label>FirstJobStatus</label>
+        <length>43</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>FourthJobStatus__c</fullName>
+        <deprecated>false</deprecated>
+        <description>API name of the Fourth Job Status field on the Hierarchy Job Status Holder Object.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>API name of the Fourth Job Status field on the Hierarchy Job Status Holder Object.</inlineHelpText>
+        <label>FourthJobStatus</label>
+        <length>43</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Hierarchy_Job_Status_Holder_Object__c</fullName>
+        <deprecated>false</deprecated>
+        <description>API name of the Hierarchy Job Status Holder object.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>API name of the Hierarchy Job Status Holder object.</inlineHelpText>
+        <label>Hierarchy Job Status Holder Object</label>
+        <length>43</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Hierarchy_Object__c</fullName>
+        <deprecated>false</deprecated>
+        <description>API Name of the Hierarchy Node Object</description>
+        <externalId>false</externalId>
+        <inlineHelpText>API Name of the Hierarchy Node Object</inlineHelpText>
+        <label>Hierarchy Object</label>
+        <length>43</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Hierarchy_Tree_Builder_Buttons_Enabled__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>If enabled, the buttons that start the hierarchy rebuilding process will be shown in the TreeView component.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If enabled, the buttons that start the hierarchy rebuilding process will be shown in the TreeView component.</inlineHelpText>
+        <label>Hierarchy Tree Builder Buttons Enabled</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_Leaf__c</fullName>
+        <deprecated>false</deprecated>
+        <description>API name of the Is Leaf field on the Hierarchy object.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>API name of the Is Leaf field on the Hierarchy object.</inlineHelpText>
+        <label>Is Leaf</label>
+        <length>43</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Latitude__c</fullName>
+        <deprecated>false</deprecated>
+        <description>API name of the Latitude field on the Hierarchy object.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>API name of the Latitude field on the Hierarchy object.</inlineHelpText>
+        <label>Latitude</label>
+        <length>43</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Location10Code__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Location10Code</label>
+        <length>43</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Location10Name__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Location10Name</label>
+        <length>43</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Location10Node__c</fullName>
+        <deprecated>false</deprecated>
+        <description>API name of the Location 10 Node field on the Hierarchy object.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>API name of the Location 10 Node field on the Hierarchy object.</inlineHelpText>
+        <label>Location10Node</label>
+        <length>43</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Location1Code__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Location1Code</label>
+        <length>43</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Location1Name__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Location1Name</label>
+        <length>43</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Location1Node__c</fullName>
+        <deprecated>false</deprecated>
+        <description>API name of the Location 1 Node field on the Hierarchy object.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>API name of the Location 1 Node field on the Hierarchy object.</inlineHelpText>
+        <label>Location1Node</label>
+        <length>43</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Location2Code__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Location2Code</label>
+        <length>43</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Location2Name__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Location2Name</label>
+        <length>43</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Location2Node__c</fullName>
+        <deprecated>false</deprecated>
+        <description>API name of the Location 2 Node field on the Hierarchy object.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>API name of the Location 2 Node field on the Hierarchy object.</inlineHelpText>
+        <label>Location2Node</label>
+        <length>43</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Location3Code__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Location3Code</label>
+        <length>43</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Location3Name__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Location3Name</label>
+        <length>43</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Location3Node__c</fullName>
+        <deprecated>false</deprecated>
+        <description>API name of the Location 3 Node field on the Hierarchy object.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>API name of the Location 3 Node field on the Hierarchy object.</inlineHelpText>
+        <label>Location3Node</label>
+        <length>43</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Location4Code__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Location4Code</label>
+        <length>43</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Location4Name__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Location4Name</label>
+        <length>43</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Location4Node__c</fullName>
+        <deprecated>false</deprecated>
+        <description>API name of the Location 4 Node field on the Hierarchy object.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>API name of the Location 4 Node field on the Hierarchy object.</inlineHelpText>
+        <label>Location4Node</label>
+        <length>43</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Location5Code__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Location5Code</label>
+        <length>43</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Location5Name__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Location5Name</label>
+        <length>43</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Location5Node__c</fullName>
+        <deprecated>false</deprecated>
+        <description>API name of the Location 5 Node field on the Hierarchy object.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>API name of the Location 5 Node field on the Hierarchy object.</inlineHelpText>
+        <label>Location5Node</label>
+        <length>43</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Location6Code__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Location6Code</label>
+        <length>43</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Location6Name__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Location6Name</label>
+        <length>43</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Location6Node__c</fullName>
+        <deprecated>false</deprecated>
+        <description>API name of the Location 6 Node field on the Hierarchy object.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>API name of the Location 6 Node field on the Hierarchy object.</inlineHelpText>
+        <label>Location6Node</label>
+        <length>43</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Location7Code__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Location7Code</label>
+        <length>43</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Location7Name__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Location7Name</label>
+        <length>43</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Location7Node__c</fullName>
+        <deprecated>false</deprecated>
+        <description>API name of the Location 7 Node field on the Hierarchy object.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>API name of the Location 7 Node field on the Hierarchy object.</inlineHelpText>
+        <label>Location7Node</label>
+        <length>43</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Location8Code__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Location8Code</label>
+        <length>43</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Location8Name__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Location8Name</label>
+        <length>43</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Location8Node__c</fullName>
+        <deprecated>false</deprecated>
+        <description>API name of the Location 8 Node field on the Hierarchy object.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>API name of the Location 8 Node field on the Hierarchy object.</inlineHelpText>
+        <label>Location8Node</label>
+        <length>43</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Location9Code__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Location9Code</label>
+        <length>43</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Location9Name__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Location9Name</label>
+        <length>43</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Location9Node__c</fullName>
+        <deprecated>false</deprecated>
+        <description>API name of the Location 9 Node field on the Hierarchy object.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>API name of the Location 9 Node field on the Hierarchy object.</inlineHelpText>
+        <label>Location9Node</label>
+        <length>43</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Longitude__c</fullName>
+        <deprecated>false</deprecated>
+        <description>API name of the Longitude field on the Hierarchy object.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>API name of the Longitude field on the Hierarchy object.</inlineHelpText>
+        <label>Longitude</label>
+        <length>43</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>NodeCode__c</fullName>
+        <deprecated>false</deprecated>
+        <description>API name of the Node Code field on the Hierarchy object.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>API name of the Node Code field on the Hierarchy object.</inlineHelpText>
+        <label>NodeCode</label>
+        <length>43</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>NodeKey__c</fullName>
+        <deprecated>false</deprecated>
+        <description>API name of the Node Key field on the Hierarchy object.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>API name of the Node Key field on the Hierarchy object.</inlineHelpText>
+        <label>NodeKey</label>
+        <length>43</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>NodeLevel__c</fullName>
+        <deprecated>false</deprecated>
+        <description>API name of the Node Level field on the Hierarchy object.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>API name of the Node Level field on the Hierarchy object.</inlineHelpText>
+        <label>NodeLevel</label>
+        <length>43</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>NodeName__c</fullName>
+        <deprecated>false</deprecated>
+        <description>API name of the Node Name field on the Hierarchy object.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>API name of the Node Name field on the Hierarchy object.</inlineHelpText>
+        <label>NodeName</label>
+        <length>43</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ParentCodeFormula__c</fullName>
+        <deprecated>false</deprecated>
+        <description>API name of the Parent Code Formula field on the Hierarchy object.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>API name of the Parent Code Formula field on the Hierarchy object.</inlineHelpText>
+        <label>ParentCodeFormula</label>
+        <length>43</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ParentLevelFormula__c</fullName>
+        <deprecated>false</deprecated>
+        <description>API name of the Parent Level Formula field on the Hierarchy object.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>API name of the Parent Level Formula field on the Hierarchy object.</inlineHelpText>
+        <label>ParentLevelFormula</label>
+        <length>43</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ParentName__c</fullName>
+        <deprecated>false</deprecated>
+        <description>API name of the Parent Name field on the Hierarchy object.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>API name of the Parent Name field on the Hierarchy object.</inlineHelpText>
+        <label>ParentName</label>
+        <length>43</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ParentNodeChildRelName__c</fullName>
+        <deprecated>false</deprecated>
+        <description>API Name of the Parent Node field&apos;s child relationship name.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>API Name of the Parent Node field&apos;s child relationship name.</inlineHelpText>
+        <label>ParentNodeChildRelName</label>
+        <length>43</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ParentNodeKey__c</fullName>
+        <deprecated>false</deprecated>
+        <description>API name of the Parent Node Key field on the Hierarchy object.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>API name of the Parent Node Key field on the Hierarchy object.</inlineHelpText>
+        <label>ParentNodeKey</label>
+        <length>43</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ParentNode__c</fullName>
+        <deprecated>false</deprecated>
+        <description>API name of the Parent Node field on the Hierarchy object.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>API name of the Parent Node field on the Hierarchy object.</inlineHelpText>
+        <label>ParentNode</label>
+        <length>43</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PostalCode__c</fullName>
+        <deprecated>false</deprecated>
+        <description>API name of the Postal Code field on the Hierarchy object.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>API name of the Postal Code field on the Hierarchy object.</inlineHelpText>
+        <label>PostalCode</label>
+        <length>43</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SecondJobStatus__c</fullName>
+        <deprecated>false</deprecated>
+        <description>API name of the Second Job Status field on the Hierarchy Job Status Holder object.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>API name of the Second Job Status field on the Hierarchy Job Status Holder object.</inlineHelpText>
+        <label>SecondJobStatus</label>
+        <length>43</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>State__c</fullName>
+        <deprecated>false</deprecated>
+        <description>API name of the State field on the Hierarchy object.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>API name of the State field on the Hierarchy object.</inlineHelpText>
+        <label>State</label>
+        <length>43</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ThirdJobStatus__c</fullName>
+        <deprecated>false</deprecated>
+        <description>API name of the Third Job Status field on the Hierarchy Job Status Holder object.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>API name of the Third Job Status field on the Hierarchy Job Status Holder object.</inlineHelpText>
+        <label>ThirdJobStatus</label>
+        <length>43</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Hierarchy Settings</label>
+</CustomObject>

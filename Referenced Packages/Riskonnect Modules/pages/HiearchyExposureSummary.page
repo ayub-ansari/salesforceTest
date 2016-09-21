@@ -1,0 +1,31 @@
+<apex:page standardController="rkl__RK_Hierarchy_Node__c" extensions="rkl.HierarchyExposureSummaryController" showHeader="false"  tabStyle="rkl__RK_Hierarchy_Node__c" showChat="false"  >
+<base target="_parent" />
+
+<style type="text/css">
+    iframe {
+        width: 100%;
+        height: 100%;
+    }
+</style>
+
+
+<apex:pageBlock title="{!header}">
+	<apex:pageBlockTable value="{!SummaryValues}" var="val">
+			 <apex:column headerValue="{!field1}" rendered="{!show1}">
+     			<apex:outputField value="{!val.rkl__Exposure_Summary_1__c}"/>
+     		</apex:column>
+     		<apex:column headerValue="{!field2}" rendered="{!show2}">
+     			<apex:outputField value="{!val.rkl__Exposure_Summary_2__c}"/>
+     		</apex:column>
+     		<apex:column headerValue="{!field3}" rendered="{!show3}">
+     			<apex:outputField value="{!val.rkl__Exposure_Summary_3__c}"/>
+     		</apex:column>
+     		<apex:column headerValue="{!field4}" rendered="{!show4}">
+     			<apex:outputField value="{!val.rkl__Exposure_Summary_4__c}"/>
+     		</apex:column>
+     		<apex:column headerValue="{!field5}" rendered="{!show5}">
+     			<apex:outputField value="{!val.rkl__Exposure_Summary_5__c}"/>
+     		</apex:column>
+        </apex:pageBlockTable> 
+    </apex:pageBlock>
+</apex:page>

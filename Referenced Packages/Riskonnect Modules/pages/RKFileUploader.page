@@ -1,0 +1,49 @@
+<apex:page controller="rkl.RKFileUploader" sidebar="false" showHeader="false">
+	<apex:includeScript value="{!$Resource.rkl__jquery_1_8}" />
+
+	<style type="text/css">
+		html, body {
+			margin: 0;
+			padding: 0;
+		}
+	</style>
+
+	<script type="text/Javascript">
+		$(window).ready(function() {
+			if ({!isFileUploaded}) {
+				if ({!isValidSize}) {
+					// We pass the ID, fileName, and fileSize to the RKEmail controller and therefore
+					// we eliminate a SOQL query for these items (slight optimization).
+					window.parent.RKEmail.fileUploadCallBack('{!localId}', '{!localName}', '{!localSize}');
+				} else {
+					// Only handles invalid size errors at the moment
+					// TO-DO: Expand to DML errors on Attachment insert
+					window.parent.RKEmail.fileUploadErrorCallBack('{!invalidSize}');
+				}
+				clearControllerState();
+			}
+		});
+
+		var isFileSelected = false;
+		function checkFileName(el) {
+			isFileSelected = (el.value) ? true : false;
+		}
+
+		function doSubmit() {
+			if (isFileSelected) {
+				window.parent.RKEmail.fileUploadLoaderCallBack();
+				return true;
+			} else {
+				return false;
+			}
+		}
+	</script>
+
+	<apex:form onsubmit="return doSubmit();">
+		<apex:inputFile id="file_upload" onchange="checkFileName(this);" value="{!localBlob}" fileName="{!localName}" />
+		<apex:commandButton action="{!upload}" value="Upload" immediate="true" />
+		<apex:actionRegion >
+			<apex:actionFunction name="clearControllerState" action="{!clearControllerState}" rerender="" />
+		</apex:actionRegion>
+	</apex:form>
+</apex:page>

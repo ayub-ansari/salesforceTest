@@ -1,0 +1,110 @@
+<apex:page standardController="Risk__c" showHeader="true"  tabStyle="Risk__c" showChat="false"  >
+    <apex:stylesheet value="/sCSS/21.0/sprites/1297816277000/Theme3/default/gc/versioning.css" />   
+   
+
+   <apex:tabPanel switchType="client" selectedTab="tabdetails" id="RiskTabPanel" tabClass="activeTab" inactiveTabClass="inactiveTab">
+   
+      <apex:tab label="Details" name="RiskDetails" id="tabdetails" style="background-color: white; font-size:9pt;">
+         <apex:detail showChatter="false" inlineEdit="true" relatedList="false" title="true"/>
+         <apex:relatedList subject="{!Risk__c}" list="Risk_Indicator_Associations__r" />
+      </apex:tab>
+      
+      <apex:tab label="History" name="Risk_History" id="tabRiskHist" style="background-color: white; font-size:9pt;">
+         <apex:relatedList subject="{!Risk__c}" list="Risk_History__r" />
+         <c:GenericHistoryComponent recordLimit="50" myObject="{!Risk__c}"/>
+        <apex:outputLink value="/{!Risk__c.id}">Return to {!Risk__c.name}</apex:outputLink>
+     </apex:tab>
+
+      <apex:tab label="Correlation" name="Risk_Correlation" id="tabAssCorrelations" style="background-color: white; font-size:9pt;">
+         <apex:relatedList subject="{!Risk__c}" list="Risk_Correlations__r" />
+         <apex:relatedList subject="{!Risk__c}" list="Risk_Correlation__r" />
+      </apex:tab> 
+      
+      <apex:tab label="Root Cause" name="Root_Cause_Analysis" id="tabRoot" style="background-color: white; font-size:9pt;">
+         <apex:relatedList subject="{!Risk__c}" list="Root_Cause_Analysis__r" />
+      </apex:tab>
+      
+      <apex:tab label="Notes and Attachments"  name="NotesAndAttachments" id="tabNoteAtt" style="background-color: white; font-size:9pt;">
+         <apex:relatedList subject="{!Risk__c}"  list="NotesAndAttachments" />
+      </apex:tab>
+      
+
+      <apex:tab label="Activities" name="Activities" id="tabAct" style="background-color: white; font-size:9pt;">
+             <apex:relatedList subject="{!Risk__c}" list="OpenActivities" />
+             <apex:relatedList subject="{!Risk__c}" list="ActivityHistories" />
+      </apex:tab>
+
+
+      <apex:tab label="Relationships" name="Relationships" id="tabRel" style="background-color: white; font-size:9pt;">
+      <apex:tabPanel switchType="client" selectedTab="tabdetails" id="RisksTabPanel" tabClass="activeTab" inactiveTabClass="inactiveTab">
+         
+          <apex:tab label="Governances" name="Governance_Risks_Associations" id="tabAssGov" style="background-color: white; font-size:9pt;">
+             <apex:relatedList subject="{!Risk__c}" list="Governance_Risks_Associations__r" />
+          </apex:tab>
+     
+          <apex:tab label="Committees" name="Risk_Committee_Associations" id="tabAssComm" style="background-color: white; font-size:9pt;">
+             <apex:relatedList subject="{!Risk__c}" list="Risk_Committee_Associations__r" />
+          </apex:tab>
+    
+          <apex:tab label="Controls" name="Risk_Controls_Associations" id="tabAssControls" style="background-color: white; font-size:9pt;">
+             <apex:relatedList subject="{!Risk__c}" list="Risk_Controls_Associations__r" />
+          </apex:tab>      
+                
+          <apex:tab label="Incidents" name="Risk_Incidents_Associations" id="tabAssIncidents" style="background-color: white; font-size:9pt;">
+             <apex:relatedList subject="{!Risk__c}" list="Risk_Incidents_Associations__r" />
+          </apex:tab> 
+
+          <apex:tab label="Assumptions" name="Risk_Assumptions_Associations" id="tabAssAssumptions" style="background-color: white; font-size:9pt;">
+             <apex:relatedList subject="{!Risk__c}" list="Risk_Assumption_Associations__r" />
+          </apex:tab> 
+
+          <apex:tab label="Locations" name="Location_Risk_Associations" id="tabAssLocations" style="background-color: white; font-size:9pt;">
+             <apex:relatedList subject="{!Risk__c}" list="Location_Risk_Associations__r" />
+          </apex:tab> 
+    
+          <apex:tab label="Objectives" name="Risk_Objective_Associations" id="tabAssObjectives" style="background-color: white; font-size:9pt;">
+             <apex:relatedList subject="{!Risk__c}" list="Risk_Objective_Associations__r" />
+          </apex:tab> 
+               
+          <apex:tab label="Projects" name="Risk_Project_Associations" id="tabAssProjects" style="background-color: white; font-size:9pt;">
+             <apex:relatedList subject="{!Risk__c}" list="Risk_Project_Associations__r" />
+          </apex:tab> 
+    
+          <apex:tab label="G/L" name="Risk_GL_Associations" id="tabAssGeneralLedgers" style="background-color: white; font-size:9pt;">
+             <apex:relatedList subject="{!Risk__c}" list="Risk_GL_Associations__r" />
+          </apex:tab>                 
+      
+          <apex:tab label="Processes" name="Risk_Process_Accociations" id="tabAssProcesses" style="background-color: white; font-size:9pt;">
+             <apex:relatedList subject="{!Risk__c}" list="Risk_Process_Accociations__r" />
+          </apex:tab>                 
+    
+          <apex:tab label="Stakeholders" name="Risk_Stakeholder_Associations" id="tabAssStakeholders" style="background-color: white; font-size:9pt;">
+             <apex:relatedList subject="{!Risk__c}" list="Risk_Stakeholder_Associations__r" />
+          </apex:tab>
+    
+          <apex:tab label="Indicators" name="Risk_Indicator_Associations" id="tabAssIndicators" style="background-color: white; font-size:9pt;">
+             <apex:relatedList subject="{!Risk__c}" list="Risk_Indicator_Associations__r" />
+          </apex:tab>
+          
+          <apex:tab label="Audit" name="Audit_Risk_Associations" id="tabAssAudit" style="background-color: white; font-size:9pt;">
+             <apex:relatedList subject="{!Risk__c}" list="Audit_Risk_Associations__r" />
+          </apex:tab>
+    
+          <apex:tab label="Litigation" name="Litigation_Risk_Association" id="tabAssLit" style="background-color: white; font-size:9pt;">
+             <apex:relatedList subject="{!Risk__c}" list="Litigation_Risk_Association__r" />
+          </apex:tab>
+      
+      
+   </apex:tabPanel>
+   
+<apex:iframe src="/apex/CollapsibleRiskRelationshipTree?Id={!Risk__c.id}" scrolling="false" id="theIframe" height="300px"/>
+   
+      </apex:tab>
+      
+      <apex:tab label="Chatter"  name="Chatter" id="Chatter" style="background-color: white; font-size:9pt;">
+         <chatter:feedWithFollowers entityId="{!Risk__c.id}"/>
+      </apex:tab>
+      
+
+   </apex:tabPanel>
+</apex:page>

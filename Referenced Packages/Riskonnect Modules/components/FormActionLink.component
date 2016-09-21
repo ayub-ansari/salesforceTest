@@ -1,0 +1,10 @@
+<apex:component access="global" >
+    <apex:attribute name="actionFunction" type="String" access="global" description="The Javascript that is executed when this link is clicked." />
+    <apex:attribute name="label" type="String" access="global" description="The label of the displayed link." />
+    <apex:attribute name="arrow" type="Boolean" access="global" default="true" description="..." />
+    
+    <a onclick="{!actionFunction}">
+        <apex:image value="{!$Resource.rkl__rightBlueArrow}" styleClass="actionLinkArrow" rendered="{!arrow}" />
+        <apex:outputPanel styleClass="actionFunctionLink">{!label}</apex:outputPanel>
+    </a>
+</apex:component>

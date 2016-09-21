@@ -1,0 +1,116 @@
+<apex:page standardController="ERM_to_FM__c" extensions="ReconciliationMemoController" showHeader="false">    
+    <apex:includeScript value="{!URLFOR($Resource.assets, 'assets/js/jquery.js')}"/>
+    <style>
+        body{
+        width:100%;
+        }
+        body .bPageBlock, body #bodyCell .bResource .secondaryPalette, body .secondaryPalette.bPageBlock, body .individualPalette .secondaryPalette.bPageBlock, body .bodyDiv .genericTable, body .genericPageBlockTable, body .bodyDiv .bSubBlock, body .bComponentBlock .bPageBlock, body .bMyDashboard .bPageBlock, body.rlHoverFrame .bPageBlock, body.subjectSelectionPopup div.choicesBox, body.lookupTab .secondaryPalette.bPageBlock, body.popupTab .secondaryPalette.bPageBlock, body.UserTagStatsPage .secondaryPalette.bPageBlock {
+           background-color:white;
+        }
+        .col1, .col3, .col5{
+        background-color:#F2F2F2;
+        }
+        .col2, .col4, .col6{
+        background-color:#FAFAFA;
+        }
+        .centerHeader{
+        text-align:center;
+        }
+        
+        #newRF, #addListRF{
+        display:none;
+        }
+        
+        a{
+           pointer-events: none;
+           cursor: default;
+        }
+        
+        body .bPageBlock, body #bodyCell .bResource .secondaryPalette, body .secondaryPalette.bPageBlock, body .individualPalette .secondaryPalette.bPageBlock, body .bodyDiv .genericTable, body .genericPageBlockTable, body .bodyDiv .bSubBlock, body .bComponentBlock .bPageBlock, body .bMyDashboard .bPageBlock, body.rlHoverFrame .bPageBlock, body.subjectSelectionPopup div.choicesBox, body.lookupTab .secondaryPalette.bPageBlock, body.popupTab .secondaryPalette.bPageBlock, body.UserTagStatsPage .secondaryPalette.bPageBlock{
+        border: 0
+        }
+    </style>
+    
+    <apex:outputPanel id="main">
+        <div id="mainPanel">
+			<apex:pageBlock title="ERM to FM Reconciliation Memo">
+            	<apex:pageBlockSection columns="1">
+                    <apex:outputField value="{!ERM_to_FM__c.Name}"/>
+                    <apex:outputField value="{!ERM_to_FM__c.Memo_Date__c}"/>
+                    <apex:outputField value="{!ERM_to_FM__c.Memo_Description__c}"/>
+                    <apex:outputField value="{!ERM_to_FM__c.Memo_Created_By__c}"/>
+                    <br/>
+                </apex:pageBlockSection>
+           	        
+	            <table style="margin-left:0;">
+	                <tr>
+	                    <td style="width:150px;background-color:#99CCFF;text-align:center;font-size:14px;font-weight:bold;">Risk Factor</td>
+	                    <td style="width:256px;background-color:#B8DBFF;text-align:center;font-size:14px;font-weight:bold;">Risk Source</td>
+	                    <td style="width:520px;background-color:#D6EBFF;text-align:center;font-size:14px;font-weight:bold;">Model Approach</td>
+	                </tr>
+	            </table>
+	            <apex:pageBlockTable value="{!EList}" var="e" columnClasses="col0, col1, col2, col3, col4, col5, col6, col7, col8, col9" headerClass="centerHeader" style="width:1144px;">
+	            	<apex:column headerValue="Risk" width="150px">
+	                    <apex:outputField value="{!e.Risk__r.Name}"/>
+	                </apex:column>
+	                <apex:column headerValue="ERM Risks" width="125px" style="text-align:center">
+	                    <apex:facet name="header" >ERM Risk</apex:facet>
+	                    <apex:outputField value="{!e.ERM_Risks__c}"/>
+	                </apex:column>
+	                <apex:column headerValue="FM Specific" width="125px" style="text-align:center">
+	                    <apex:facet name="header">FM Specific<br/>Risk</apex:facet>
+	                    <apex:outputField value="{!e.FM_Specific_Risks__c}"/>
+	                </apex:column>
+	                <apex:column headerValue="Detailed Structural Stochastic Model in ECM" width="125px" style="text-align:center">
+	                    <apex:facet name="header" >Detailed Structural<br/> Stochastic Model<br/> in FM</apex:facet>
+	                    <apex:outputField value="{!e.Detailed_Structural_Stochastic_Model__c	}"/>
+	                </apex:column>
+	                <apex:column headerValue="Simple Stochastic Model in FM" width="125px" style="text-align:center">
+	                    <apex:facet name="header">Simple Stochastic<br/> Model in FM from Business</apex:facet>
+	                    <apex:outputField value="{!e.Simple_Stochastic_Model__c}"/>
+	                </apex:column>
+	                <apex:column headerValue="Risk Distribution Derived from ERM Risk Assessment" width="125px" style="text-align:center">
+	                    <apex:facet name="header">Risk Distribution<br/> Derived from ERM<br/> Risk Assessment</apex:facet>
+	                    <apex:outputField value="{!e.ERM_Program_Identified_Risks__c}"/>
+	                </apex:column>
+	                <apex:column headerValue="Reflected via Residual Standard Deviation" width="125px" style="text-align:center">
+	                    <apex:facet name="header">Reflected via Residual<br/> Standard Deviation</apex:facet>
+	                    <apex:outputField value="{!e.Residual_Standard_Deviation__c}"/>
+	                </apex:column>
+	                <apex:column headerValue="Explanation" width="200px">
+	                    <apex:outputField value="{!e.Explanation__c}" style="width:95%;"/>
+	                </apex:column>                       
+	            </apex:pageBlockTable> 
+	        </apex:pageBlock> 
+        </div>
+        
+        <script type="text/javascript">
+	        $j = jQuery.noConflict();
+	        
+	        $j(window).ready(function(){
+	            $j('th.centerHeader').css('vertical-align', 'bottom');
+	            $j('th.centerHeader').css('background-color', '#CCCCCC');
+	            $j('a').bind('click', function(e){
+	                e.preventDefault();
+	            })
+	        });
+	        
+	        $j("#addRF").click(function() {
+	            $j('#mainPanel').css('display', 'none');
+	            $j('#addListRF').css('display', 'block');
+	        });
+	        
+	        $j("#newRFButton").click(function() {
+	            $j('#newRF').css('display', 'block');
+	            $j('#mainPanel').css('display', 'none');
+	            $j('#addListRF').css('display', 'none');
+	        });
+	        
+	        $j("#cancelNewRF, #cancelAddRF").click(function() {
+	            $j('#newRF').css('display', 'none');
+	            $j('#mainPanel').css('display', 'block');
+	            $j('#addListRF').css('display', 'none');
+	        });
+        </script>  
+    </apex:outputPanel>
+</apex:page>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApexComponent xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>26.0</apiVersion>
+    <description>This component renders an apex:inputField with a consistent &quot;div class=&apos;fieldInputBlock blockifyMe [requiredInput]&apos;&quot; wrapper, to aid the 
+                 jController plugin in finding/modifying fields. Note that it also &quot;block-ifies&quot; the ridiculous span wrapper that Apex throws around custom 
+                 components, to ensure more consistent behavior in jQuery&apos;s &quot;:hidden&quot; selector, for jController. If the &quot;required&quot; attribute is passed as true, 
+                 the field will be rendered to look exactly like a standard Visualforce required field, without actually flagging it as required to the 
+                 platform. Instead, the validation logic will be enforced via jController, since the platform&apos;s logic is very inflexible -- and 
+                 jController&apos;s &quot;driverDependents&quot; functionality doesn&apos;t work with platform required fields.</description>
+    <label>jInputField</label>
+    <packageVersions>
+        <majorNumber>1</majorNumber>
+        <minorNumber>17</minorNumber>
+        <namespace>al</namespace>
+    </packageVersions>
+</ApexComponent>

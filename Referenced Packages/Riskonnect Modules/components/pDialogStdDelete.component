@@ -1,0 +1,65 @@
+<apex:component allowDML="true" access="global" >
+    <apex:attribute name="aspect" type="rkl.pRelatedListAspect" required="true" access="global" description="combines an item strategy with an action-aspect" />
+    
+    <apex:variable var="props" value="{!aspect.dialogProps}" />
+    
+    <!-- Dialog title: -->
+    <div id="{!props.titleUpdateNodeDomId}" style="display:none">
+        <div>{!aspect.dialogTitle}</div>
+    </div>
+    <!-- Dialog scripts: -->
+    <div id="{!props.scriptsDivDomId}">
+        <c:InlineDialogScripts props="{!props}" signalSubmitFailure="{!aspect.dialogSubmitFailure}" />
+    </div>  
+    <!-- Dialog contents: -->
+    <apex:outputPanel layout="block" id="contents">
+        <div class="{!props.styles.Header}">
+            <div style="margin-bottom:50px">
+                <c:PageMessage escape="false" severity="warning" strength="2" summary="{!aspect.instrucsHtml}" transientState="default" />
+                <c:PageMessage escape="{!NOT(aspect.dialog.errorTitleIsHtml)}" severity="error" strength="2" 
+                        title="{!aspect.dialog.errorTitle}" summary="{!aspect.dialog.completeErrorSummary}" transientState="submitFailure" />
+            </div>
+        </div>
+        
+        <div class="{!props.styles.CommandFooter}">
+            <span class="defaultTransient">
+                <apex:commandButton id="dialogSave" value=" Yes " rerender="none" onclick="return false;" />
+                <apex:commandButton value=" No " rerender="none" onclick="{!props.closeDialogScript}return false;" />
+            </span>
+            <span class="submitFailureTransient">
+                <apex:commandButton value=" Ok " rerender="none" onclick="{!props.closeDialogScript}return false;" />
+            </span>
+        </div>
+    </apex:outputPanel>
+    
+    <script type="text/javascript">
+        rk_register({!aspect.ecmaArgPath}, {
+                rerenders: {
+                        inner: "{!$Component.contents}"
+                    }
+            });
+    
+        $(document.getElementById('{!$Component.dialogSave}')).click(
+            // !! note that in an attempt to move away from named save functions and their usage for RelatedList actions, we don't set this function 
+            //    value into {aspect.saveActionName}, and we directly inline the submitDialog script rather than referencing {!props.SaveScript}
+            function() {
+                _uiManager.submitDialog({
+                        "message": "Saving...",
+                        "action": 
+                            function() {
+                                // here we must supply the itemId as a dynamic submitProp, because the delete dialog is open-immediate and doesn't have a
+                                // preceding load action to store an itemId server-side:
+                                {!aspect.ecmaActionsPath}.save({
+                                        parameters: {
+                                                // !! we rely upon the dialog-open script (in each RelatedList grid row's Delete link) to stash the appropriate
+                                                //    activeItemId in the global rk_register object:
+                                                itemId: rk_register.activeItemId
+                                            }
+                                    });
+                            },
+                        "shortMessage": "Saving..."
+                    })
+            });
+    </script>
+    
+</apex:component>

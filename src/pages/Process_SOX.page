@@ -1,0 +1,115 @@
+<apex:page standardController="UGI_Process__c" extensions="Process_SOX_Controller">
+    <style>
+        .heading{
+            width:80px;
+            color:white;
+            background-color:#0099CC;
+        }
+        table, th, td {
+            border: 1px solid #0099CC;
+        }
+        
+    </style>
+    <apex:form id="frm">
+        <apex:pageMessages />
+        <apex:outputPanel style="margin-left:325px;" rendered="{!showEdit}">
+            <apex:commandButton style="width:70px;" value="Add Row" action="{!addSubsidiary}" rerender="frm"/>
+            <apex:commandButton style="width:70px;" value="Save" action="{!saveSubsidiary}" rerender="frm"/>
+            <apex:commandButton style="width:70px;" value="Cancel" action="{!disableEdit}" rerender="frm"/>
+        </apex:outputPanel>
+        <!--<apex:outputPanel style="margin-left:370px;" rendered="{!Not(showEdit)}">
+            <apex:commandButton style="width:70px;" value="Edit" action="{!enableEdit}" rerender="frm"/>
+        </apex:outputPanel>
+        <br/><br/>-->
+        <!-- Non Editable section -->
+        <apex:outputPanel id="readonly" rendered="{!Not(showEdit)}">
+            <center>
+            <table cellpadding="3" cellSpacing="0">
+                <tr>
+                    <th class="heading" style="width:230px;"><center>Process</center></th>
+                    <th class="heading"><center>Overall<br/>Complexity</center></th>
+                    <th class="heading"><center>Degree of<br/>Centralization</center></th>
+                    <th class="heading"><center>Extent of<br/>Automation</center></th>
+                    <th class="heading"><center>Transaction<br/>Volume</center></th>
+                    <th class="heading"><center>History of<br/>Deficiencies</center></th>
+                    <th class="heading"><center>Degree of<br/>Process or<br/>Systems<br/>Change</center></th>
+                    <th class="heading"><center>Extent of<br/>External<br/>Party<br/>Involvement</center></th>
+                    <th class="heading"><center>System<br/>Adequacy</center></th>
+                    <th class="heading"><center>Overall<br/>Risk Score</center></th>
+                </tr>
+                <apex:repeat value="{!processWrapperList}" var="sub">
+                    <tr>
+                        <td>{!sub.subsidiary.Name}</td>
+                        <td style="background-color:{!IF(sub.subsidiary.Overall_Complexity__c == 'Low','green',If(sub.subsidiary.Overall_Complexity__c == 'Medium','yellow',IF(sub.subsidiary.Overall_Complexity__c == 'High','red','')))}">
+                            <center>{!sub.subsidiary.Overall_Complexity__c}</center>
+                        </td>
+                        <td style="background-color:{!IF(sub.subsidiary.Degree_of_Centralization__c == 'Low','green',If(sub.subsidiary.Degree_of_Centralization__c == 'Medium','yellow',IF(sub.subsidiary.Degree_of_Centralization__c == 'High','red','')))}">
+                            <center>{!sub.subsidiary.Degree_of_Centralization__c}</center>
+                        </td>
+                        <td style="background-color:{!IF(sub.subsidiary.Extent_of_Automation__c == 'Low','green',If(sub.subsidiary.Extent_of_Automation__c == 'Medium','yellow',IF(sub.subsidiary.Extent_of_Automation__c == 'High','red','')))}">
+                            <center>{!sub.subsidiary.Extent_of_Automation__c}</center>
+                        </td>
+                        <td style="background-color:{!IF(sub.subsidiary.Transaction_Volume__c == 'Low','green',If(sub.subsidiary.Transaction_Volume__c == 'Medium','yellow',IF(sub.subsidiary.Transaction_Volume__c == 'High','red','')))}">
+                            <center>{!sub.subsidiary.Transaction_Volume__c}</center>
+                        </td>
+                        <td style="background-color:{!IF(sub.subsidiary.History_of_Deficiencies__c == 'Low','green',If(sub.subsidiary.History_of_Deficiencies__c == 'Medium','yellow',IF(sub.subsidiary.History_of_Deficiencies__c == 'High','red','')))}">
+                            <center>{!sub.subsidiary.History_of_Deficiencies__c}</center>
+                        </td>
+                        <td style="background-color:{!IF(sub.subsidiary.Degree_of_Process_or_Systems_Change__c == 'Low','green',If(sub.subsidiary.Degree_of_Process_or_Systems_Change__c == 'Medium','yellow',IF(sub.subsidiary.Degree_of_Process_or_Systems_Change__c == 'High','red','')))}">
+                            <center>{!sub.subsidiary.Degree_of_Process_or_Systems_Change__c}</center>
+                        </td>
+                        <td style="background-color:{!IF(sub.subsidiary.Extent_of_External_Party_Involvement__c == 'Low','green',If(sub.subsidiary.Extent_of_External_Party_Involvement__c == 'Medium','yellow',IF(sub.subsidiary.Extent_of_External_Party_Involvement__c == 'High','red','')))}">
+                            <center>{!sub.subsidiary.Extent_of_External_Party_Involvement__c}</center>
+                        </td>
+                        <td style="background-color:{!IF(sub.subsidiary.System_Adequacy__c == 'Low','green',If(sub.subsidiary.System_Adequacy__c == 'Medium','yellow',IF(sub.subsidiary.System_Adequacy__c == 'High','red','')))}">
+                            <center>{!sub.subsidiary.System_Adequacy__c}</center>
+                        </td>
+                        <td style="background-color:{!IF(sub.subsidiary.Overall_Risk_Score__c == 1,'green',IF(sub.subsidiary.Overall_Risk_Score__c == 2,'#00CC00',If(sub.subsidiary.Overall_Risk_Score__c == 3,'yellow',IF(sub.subsidiary.Overall_Risk_Score__c == 4,'#FF9933',IF(sub.subsidiary.Overall_Risk_Score__c == 5,'red','')))))}">
+                            <center>{!sub.subsidiary.Overall_Risk_Score__c}</center>
+                        </td>
+                    </tr>
+                </apex:repeat>
+            </table>
+            </center>
+        </apex:outputPanel>
+        <!-- Editable section -->
+        <apex:outputPanel id="editable" rendered="{!showEdit}">
+            <table cellpadding="3" cellSpacing="0">
+                <tr>
+                    <th class="heading" style="width:20px;"><center>&nbsp;</center></th>
+                    <th class="heading" style="width:200px;"><center>Process</center></th>
+                    <th class="heading"><center>Overall<br/>Complexity</center></th>
+                    <th class="heading"><center>Degree of<br/>Centralization</center></th>
+                    <th class="heading"><center>Extent of<br/>Automation</center></th>
+                    <th class="heading"><center>Transaction<br/>Volume</center></th>
+                    <th class="heading"><center>History of<br/>Deficiencies</center></th>
+                    <th class="heading"><center>Degree of<br/>Process or<br/>Systems<br/>Change</center></th>
+                    <th class="heading"><center>Extent of<br/>External<br/>Party<br/>Involvement</center></th>
+                    <th class="heading"><center>System<br/>Adequacy</center></th>
+                    <!-- <th class="heading"><center>Overall<br/>Risk Score</center></th> -->
+                </tr>
+                <apex:repeat value="{!processWrapperList}" var="sub">
+                    <tr>
+                        <td>
+                            <center>
+                                <apex:commandLink value="Del" action="{!removeSubsidiary}" rerender="editable">
+                                    <apex:param name="p1" value="{!sub.index}" assignTo="{!deleteIdx}"/>
+                                </apex:commandLink>
+                            </center>
+                        </td>
+                        <td><apex:inputField value="{!sub.subsidiary.Name}" style="width:200px;"/></td>
+                        <td><apex:inputField value="{!sub.subsidiary.Overall_Complexity__c}" style="width:80px;"/></td>
+                        <td><apex:inputField value="{!sub.subsidiary.Degree_of_Centralization__c}" style="width:80px;"/></td>
+                        <td><apex:inputField value="{!sub.subsidiary.Extent_of_Automation__c}" style="width:80px;"/></td>
+                        <td><apex:inputField value="{!sub.subsidiary.Transaction_Volume__c}" style="width:80px;"/></td>
+                        <td><apex:inputField value="{!sub.subsidiary.History_of_Deficiencies__c}" style="width:80px;"/></td>
+                        <td><apex:inputField value="{!sub.subsidiary.Degree_of_Process_or_Systems_Change__c}" style="width:80px;"/></td>
+                        <td><apex:inputField value="{!sub.subsidiary.Extent_of_External_Party_Involvement__c}" style="width:80px;"/></td>
+                        <td><apex:inputField value="{!sub.subsidiary.System_Adequacy__c}" style="width:80px;"/></td>
+                        <!-- <td><apex:inputField value="{!sub.subsidiary.Overall_Risk_Score__c}" style="width:80px;"/></td> -->
+                    </tr>
+                </apex:repeat>
+            </table>
+        </apex:outputPanel>
+    </apex:form>
+</apex:page>

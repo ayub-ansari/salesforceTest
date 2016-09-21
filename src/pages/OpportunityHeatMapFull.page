@@ -1,0 +1,12 @@
+<apex:page id="thePage" sidebar="false" showHeader="false" tabstyle="Opty_Heat_Map__tab">
+
+<apex:variable value="{!$Setup.HeatMapSettings__c.HeatMapDimensions__c}" var="dim"/>
+
+    <apex:include pageName="OpportunityHeatMap5x5" rendered="{!if(dim=5,true,false)}"/>
+    <apex:include pageName="OpportunityHeatMap10x10" rendered="{!if(dim=10,true,false)}"/>
+    <apex:include pageName="OpportunityHeatMap3x3" rendered="{!if(dim=3,true,false)}"/>
+    <!--failsafe-->
+    <apex:include pageName="OpportunityHeatMap5x5" rendered="{!if((dim!=5 && dim !=10 && dim!=3),true,false)}"/>
+
+
+</apex:page>

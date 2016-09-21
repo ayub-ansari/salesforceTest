@@ -1,0 +1,8 @@
+<apex:component allowDML="true" access="global">
+	<apex:attribute name="props" type="rkl.IDialogProps" required="true" access="global" description="describes the configuration of this dialog instance" />
+	<div id="{!props.outerDivDomId}">
+		<div id="{!props.innerDivDomId}" class="{!props.styles.OuterBar}" dialogKey="{!props.dialogKey}" doNotDragDescendents="true">
+			<div class="{!props.styles.OuterBaz}" dialogKey="{!props.dialogKey}"><apex:componentBody /></div>
+		</div>
+    </div>
+</apex:component>

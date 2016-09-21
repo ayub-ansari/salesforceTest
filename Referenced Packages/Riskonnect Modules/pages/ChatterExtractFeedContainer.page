@@ -1,0 +1,67 @@
+<apex:page controller="rkl.ChatterExtractFeedContainerController" showHeader="false" sidebar="false">
+	<style>
+		body {
+			 overflow-x: hidden;
+		}
+		
+		.h2 {
+			font-family: Arial,Helvetica,sans-serif;
+			font-weight: bold;
+		}
+
+		.commentDiv {
+			position: relative;
+			padding: 5px;
+			border-bottom: 1px solid #C6CBCF;
+			border-left: 1px solid #DEE5EA;
+			background-color: #EFF7FA;
+			width: 93%;
+			left: 5%;
+		}
+		
+		.commentDivContent {
+			position: relative;
+		}
+		
+		.postDiv {
+			position: relative;
+			padding: 10px;
+			width: 98%;
+			border-top: 2px solid #E6E6E6;
+		}
+		
+		.postDivContent {
+			position: relative;
+		}
+		
+		.timeOfPostComment {
+			position: absolute;
+			right: 2%;
+			top: -5%;
+		}
+		
+		.timeOfPostFeed {
+			position:absolute;
+			right: 2%;
+			top: -5%;
+		}
+		
+		.errorMessage {
+			font-size: 25pt;
+			color: red;
+		}
+		
+		.nameHeading {
+			text-align:center;
+			font-size: 20pt;
+			background-color: #D4DADC;
+		}
+		
+		.userPhoto {
+			height: 22px;
+			width: 22px;
+		}
+	</style>
+	
+	<apex:dynamicComponent componentValue="{!thePanel}"/>
+</apex:page>

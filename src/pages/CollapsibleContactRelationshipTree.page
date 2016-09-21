@@ -1,0 +1,299 @@
+<apex:page standardcontroller="Contact" showheader="false" sidebar="false">
+    <html>
+        <head>
+        <meta charset="utf-8"/>
+        
+        
+        <style>
+        
+            .node {
+              cursor: pointer;
+            }
+            
+            .node circle {
+              fill: #fff;
+              stroke: steelblue;
+              stroke-width: 1.5px;
+            }
+            
+            .node text {
+              font: 10px sans-serif;
+              font-weight: bold;
+              text-decoration: none;
+            }
+            
+            
+            .node a:visited {
+                text-decoration: none;
+            }
+            
+            .node a:active {
+                text-decoration: none;
+            }
+            
+            .node a:link {
+                text-decoration: none;
+            }
+            
+            .node a:hover {
+                text-decoration: underline;
+            }
+            
+            .link {
+                fill: none;
+                stroke: #ccc;
+                stroke-width: 1.5px;
+            }
+            
+            #expandBtn
+            {
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                margin: 3px 3px 3px 3px;
+                top: 2px;
+                position: absolute;
+            }
+            
+            #collapseBtn
+            {
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                margin: 3px 3px 3px 3px;
+                top: 2px;
+                position: absolute;
+                left: 80px;
+            }
+        </style>
+        
+        <apex:includeScript value="{!$Resource.D3JSRelationshipTrees}"/>
+
+        </head>
+        
+        <body>
+            <apex:form >    
+                <div id="expandBtn" class="btn" unselectable="on">Expand All</div>
+                <div id="collapseBtn" class="btn" unselectable="on">Collapse All</div>  
+                <div id="chart">
+                </div>
+            </apex:form>
+        <script src="{!$Resource.jQuery1_9_1Min}"></script>
+        <script src="/soap/ajax/26.0/connection.js"></script>
+        <script src="/soap/ajax/26.0/apex.js"></script>
+        <script type="text/javascript">
+        
+            sforce.connection.sessionId = "{!GETSESSIONID()}";
+            
+            var jsonNotLoadable = sforce.apex.execute("ContactAssociationJSONToolkit","toJSON",{contactID:"{!Contact.id}"});
+            
+            var jsonToLoad = jQuery.parseJSON(jsonNotLoadable);
+            
+            $("#expandBtn").click(function()
+            {
+                root.children.forEach(expand);
+                update(root);
+                console.log("Expand All Clicked");
+            });
+            
+            $("#collapseBtn").click(function()
+            {
+                root.children.forEach(collapse);
+                update(root);
+                console.log("Collapse All Clicked");
+            });
+            
+            var margin = {top: 20, right: 120, bottom: 20, left: 120},
+                width = 960 - margin.right - margin.left,
+                height = 380 - margin.top - margin.bottom;
+                
+            var i = 0,
+                duration = 750,
+                root;
+            
+            var tree = d3.layout.tree()
+                .size([height, width]);
+            
+            var diagonal = d3.svg.diagonal()
+                .projection(function(d) { return [d.y, d.x]; });
+            
+            var svg = d3.select("#chart").append("svg")
+                .attr("width", width + margin.right + margin.left)
+                .attr("height", height + margin.top + margin.bottom)
+                .append("g")
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+            
+            json = jsonToLoad;
+            json.x0 = height / 2;
+            json.y0 = 0;
+            update(root = json);
+            
+            function collapse(d)
+            {
+                if (d.children)
+                {
+                    d._children = d.children;
+                    d._children.forEach(collapse);
+                    d.children = null;
+                }
+            }
+            
+            function expand(d)
+            {
+                if (d._children)
+                {
+                    d.children = d._children;
+                    d.children.forEach(expand);
+                    d._children = null;
+                }
+            }
+            root.children.forEach(collapse);
+            update(root);
+            
+            d3.select(self.frameElement).style("height", "400px");
+            
+            function update(source) {
+            
+              // Compute the new tree layout.
+              var nodes = tree.nodes(root).reverse(),
+                  links = tree.links(nodes);
+            
+              // Normalize for fixed-depth.
+              nodes.forEach(function(d) { d.y = d.depth * 180; });
+            
+              // Update the nodes…
+              var node = svg.selectAll("g.node")
+                  .data(nodes, function(d) { return d.id || (d.id = ++i); });
+            
+              // Enter any new nodes at the parent's previous position.
+              var nodeEnter = node.enter().append("g")
+                  .attr("class", "node")
+                  .attr("transform", function(d) { return "translate(" + source.y0 + "," + source.x0 + ")"; })
+                  .on("click", click);
+                  
+                    nodeEnter.append("circle")
+                  .attr("r", 1e-6)
+                  .style("fill", function(d) { 
+                                                //console.log(d.children);
+                                                //console.log(d._children);
+                                                if ((d.children == null || d.children.length == 0) && (d._children == null || d._children.length == 0))
+                                                {
+                                                    return "#fff";
+                                                }
+                                                else
+                                                {
+                                                    return "lightsteelblue";
+                                                }
+                                                });
+                  
+                  nodeEnter.append("a")
+                  .attr("xlink:href", function(d) { if (!d.noLink)
+                                                    {
+                                                        return "\/" + d.objectID;
+                                                    }
+                                                    else
+                                                    {
+                                                        return null;
+                                                    }})
+                  .attr("target", function(d) { if (!d.noLink)
+                                                    {
+                                                        return "_blank";
+                                                    }
+                                                    else
+                                                    {
+                                                        return null;
+                                                    }})
+                  .append("text")
+                  .attr("x", function(d) { return d.children || d._children ? -10 : 10; })
+                  .attr("dy", ".35em")
+                  .attr("text-anchor", function(d) { return d.children || d._children ? "end" : "start"; })
+                  .text(function(d) { return d.name; })
+                  .style("fill-opacity", 1e-6);
+            
+              // Transition nodes to their new position.
+              var nodeUpdate = node.transition()
+                  .duration(duration)
+                  .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; });
+            
+            nodeUpdate.select("circle")
+                  .attr("r", 4.5)
+                  .style("fill", function(d) { 
+                                                //console.log(d.children);
+                                                //console.log(d._children);
+                                                if ((d.children == null || d.children.length == 0) && (d._children == null || d._children.length == 0))
+                                                {
+                                                    return "#fff";
+                                                }
+                                                else
+                                                {
+                                                    return "lightsteelblue";
+                                                }
+                                            });
+            
+            nodeUpdate.select("circle")
+                  .attr("r", 4.5);
+            
+              nodeUpdate.select("text")
+                  .style("fill-opacity", 1);
+            
+              // Transition exiting nodes to the parent's new position.
+              var nodeExit = node.exit().transition()
+                  .duration(duration)
+                  .attr("transform", function(d) { return "translate(" + source.y + "," + source.x + ")"; })
+                  .remove();
+            
+              nodeExit.select("circle")
+                  .attr("r", 1e-6);
+            
+              nodeExit.select("text")
+                  .style("fill-opacity", 1e-6);
+            
+              // Update the links…
+              var link = svg.selectAll("path.link")
+                  .data(links, function(d) { return d.target.id; });
+            
+              // Enter any new links at the parent's previous position.
+              link.enter().insert("path", "g")
+                  .attr("class", "link")
+                  .attr("d", function(d) {
+                    var o = {x: source.x0, y: source.y0};
+                    return diagonal({source: o, target: o});
+                  });
+            
+              // Transition links to their new position.
+              link.transition()
+                  .duration(duration)
+                  .attr("d", diagonal);
+            
+              // Transition exiting nodes to the parent's new position.
+              link.exit().transition()
+                  .duration(duration)
+                  .attr("d", function(d) {
+                    var o = {x: source.x, y: source.y};
+                    return diagonal({source: o, target: o});
+                  })
+                  .remove();
+            
+              // Stash the old positions for transition.
+              nodes.forEach(function(d) {
+                d.x0 = d.x;
+                d.y0 = d.y;
+              });
+            }
+            
+            // Toggle children on click.
+            function click(d) {
+              if (d.children) {
+                d._children = d.children;
+                d.children = null;
+              } else {
+                d.children = d._children;
+                d._children = null;
+              }
+              update(d);
+            }
+            
+            </script>
+            </body>
+        </html>
+</apex:page>

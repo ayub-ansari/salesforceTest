@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Indicator_Record_Type__c</fullName>
+        <externalId>false</externalId>
+        <formula>Indicator__r.RecordType_Name__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Indicator Record Type</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Indicator__c</fullName>
+        <externalId>false</externalId>
+        <label>Indicator</label>
+        <referenceTo>Indicator__c</referenceTo>
+        <relationshipLabel>Associated Risks</relationshipLabel>
+        <relationshipName>Risk_Indicator_Associations</relationshipName>
+        <relationshipOrder>1</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>KPI_Lower_Threshold_Currency__c</fullName>
+        <externalId>false</externalId>
+        <label>KPI Lower Threshold Currency</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>KPI_Lower_Threshold_Number__c</fullName>
+        <externalId>false</externalId>
+        <label>KPI Lower Threshold Number</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>KPI_Lower_Threshold_Percent__c</fullName>
+        <externalId>false</externalId>
+        <label>KPI Lower Threshold Percent</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>KPI_Upper_Threshold_Currency__c</fullName>
+        <externalId>false</externalId>
+        <label>KPI Upper Threshold Currency</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>KPI_Upper_Threshold_Number__c</fullName>
+        <description>Upper limit of KPI that if exceeded generates an alert on the Related Risk record</description>
+        <externalId>false</externalId>
+        <label>KPI Upper Threshold Number</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>KPI_Upper_Threshold_Percent__c</fullName>
+        <externalId>false</externalId>
+        <label>KPI Upper Threshold Percent</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Risk_Owner_Email__c</fullName>
+        <externalId>false</externalId>
+        <formula>Risk__r.Risk_Owner__r.Email</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Risk Owner Email</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Risk__c</fullName>
+        <externalId>false</externalId>
+        <label>Risk</label>
+        <referenceTo>Risk__c</referenceTo>
+        <relationshipLabel>Associated Indicators</relationshipLabel>
+        <relationshipName>Risk_Indicator_Associations</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <externalId>false</externalId>
+        <formula>CASE(Indicator__r.RecordType_Name__c,
+&quot;KPI - Currency&quot;, IF(  Indicator__r.Values_Currency__c &lt; KPI_Lower_Threshold_Currency__c , IMAGE(&quot;/img/samples/light_green.gif&quot;, &quot;Green&quot;),IF( Indicator__r.Values_Currency__c &gt; KPI_Upper_Threshold_Currency__c, IMAGE(&quot;/img/samples/light_red.gif&quot;, &quot;Red&quot;), IMAGE(&quot;/img/samples/light_yellow.gif&quot;, &quot;Yellow&quot;)) ),
+&quot;KRI - Currency&quot;,IF(  Indicator__r.Values_Currency__c &lt; KPI_Lower_Threshold_Currency__c , IMAGE(&quot;/img/samples/light_green.gif&quot;, &quot;Green&quot;),IF( Indicator__r.Values_Currency__c &gt; KPI_Upper_Threshold_Currency__c, IMAGE(&quot;/img/samples/light_red.gif&quot;, &quot;Red&quot;), IMAGE(&quot;/img/samples/light_yellow.gif&quot;, &quot;Yellow&quot;)) ),
+&quot;KPI - Number&quot;, IF(  Indicator__r.Values_Number__c &lt; KPI_Lower_Threshold_Number__c , IMAGE(&quot;/img/samples/light_green.gif&quot;, &quot;Green&quot;),IF( Indicator__r.Values_Number__c &gt; KPI_Upper_Threshold_Number__c, IMAGE(&quot;/img/samples/light_red.gif&quot;, &quot;Red&quot;), IMAGE(&quot;/img/samples/light_yellow.gif&quot;, &quot;Yellow&quot;)) ),
+&quot;KRI - Number&quot;, IF(  Indicator__r.Values_Number__c &lt; KPI_Lower_Threshold_Number__c , IMAGE(&quot;/img/samples/light_green.gif&quot;, &quot;Green&quot;),IF( Indicator__r.Values_Number__c &gt; KPI_Upper_Threshold_Number__c, IMAGE(&quot;/img/samples/light_red.gif&quot;, &quot;Red&quot;), IMAGE(&quot;/img/samples/light_yellow.gif&quot;, &quot;Yellow&quot;)) ),
+&quot;KPI - Percent&quot;, IF(  Indicator__r.Values_Percent__c &lt; KPI_Lower_Threshold_Percent__c , IMAGE(&quot;/img/samples/light_green.gif&quot;, &quot;Green&quot;),IF( Indicator__r.Values_Percent__c &gt; KPI_Upper_Threshold_Percent__c, IMAGE(&quot;/img/samples/light_red.gif&quot;, &quot;Red&quot;), IMAGE(&quot;/img/samples/light_yellow.gif&quot;, &quot;Yellow&quot;)) ),
+&quot;KRI - Percent&quot;, IF(  Indicator__r.Values_Percent__c &lt; KPI_Lower_Threshold_Percent__c , IMAGE(&quot;/img/samples/light_green.gif&quot;, &quot;Green&quot;),IF( Indicator__r.Values_Percent__c &gt; KPI_Upper_Threshold_Percent__c, IMAGE(&quot;/img/samples/light_red.gif&quot;, &quot;Red&quot;), IMAGE(&quot;/img/samples/light_yellow.gif&quot;, &quot;Yellow&quot;)) ),
+&quot;KPI - Picklist&quot;, &quot;N/A&quot;,
+&quot;KRI - Picklist&quot;, &quot;N/A&quot;,
+&quot;N/A&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Status</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Thresholds__c</fullName>
+        <externalId>false</externalId>
+        <formula>CASE(Indicator__r.RecordType_Name__c,
+&quot;KPI - Currency&quot;, TEXT( KPI_Lower_Threshold_Currency__c )&amp;&quot; - &quot;&amp;TEXT( KPI_Upper_Threshold_Currency__c ),
+&quot;KRI - Currency&quot;, TEXT( KPI_Lower_Threshold_Currency__c )&amp;&quot; - &quot;&amp;TEXT( KPI_Upper_Threshold_Currency__c ),
+&quot;KPI - Number&quot;, TEXT( KPI_Lower_Threshold_Number__c )&amp;&quot; - &quot;&amp;TEXT( KPI_Upper_Threshold_Number__c ),
+&quot;KRI - Number&quot;, TEXT( KPI_Lower_Threshold_Number__c )&amp;&quot; - &quot;&amp;TEXT( KPI_Upper_Threshold_Number__c ),
+&quot;KPI - Percent&quot;, TEXT( KPI_Lower_Threshold_Percent__c )&amp;&quot; - &quot;&amp;TEXT( KPI_Upper_Threshold_Percent__c ),
+&quot;KRI - Percent&quot;, TEXT( KPI_Lower_Threshold_Percent__c )&amp;&quot; - &quot;&amp;TEXT( KPI_Upper_Threshold_Percent__c ),
+&quot;KPI - Picklist&quot;, &quot;N/A&quot;,
+&quot;KRI - Picklist&quot;, &quot;N/A&quot;,
+&quot;N/A&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Thresholds</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Risk/Indicator Association</label>
+    <nameField>
+        <displayFormat>RIA{00000}</displayFormat>
+        <label>Risk/Indicator Association Number</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Risk/Indicator Associations</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

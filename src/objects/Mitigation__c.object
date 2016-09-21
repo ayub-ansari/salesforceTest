@@ -1,0 +1,867 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Milliman Mitigations custom object</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Additional_Expense__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter any Additional Expense needed for this Mitigation</inlineHelpText>
+        <label>Additional Expense</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Annual_Mitigation_Cost__c</fullName>
+        <externalId>false</externalId>
+        <formula>Internal_Labor_Cost__c + Additional_Expense__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Internal Labor Cost + Additional Expense</inlineHelpText>
+        <label>Annual Mitigation Cost</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>App_name__c</fullName>
+        <externalId>false</externalId>
+        <label>Organization Name</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Physicians Insurance A Mutual Company</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Complete__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter the assessed % value to completeness for this mitigation</inlineHelpText>
+        <label>%Complete</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Control_process_detail__c</fullName>
+        <externalId>false</externalId>
+        <label>Control Process Detail</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Cost_Detail_Explanation__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter the detail explanation for the Cost</inlineHelpText>
+        <label>Cost Detail Explanation</label>
+        <length>32768</length>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Date_Completed__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Actual date this mitigation was completed</inlineHelpText>
+        <label>Date Completed</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Due_Date__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Date this mitigation is due to be in effect</inlineHelpText>
+        <label>Due Date</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Internal_Labor_Cost__c</fullName>
+        <externalId>false</externalId>
+        <formula>Internal_Labor_Hours__c * Internal_Labor_Cost_per_Hour__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Internal Labor Hours * Internal Labor Cost per Hour</inlineHelpText>
+        <label>Internal Labor Cost</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Internal_Labor_Cost_per_Hour__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter the Internal Labor Cost per Hour for the labor required for this Mitigation</inlineHelpText>
+        <label>Internal Labor Cost per Hour</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Internal_Labor_Hours__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter the Internal Labor Hours that are needed for this Mitigation</inlineHelpText>
+        <label>Internal Labor Hours</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Mitigation_Category__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Select the category for this Mitigation</inlineHelpText>
+        <label>Mitigation Category</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Eliminate, Avoid or Withdraw from the Risk</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Reduce the Risk to an Optimal or Acceptable Level</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Share, Transfer, Outsource or Insure the Risk</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Retention of the Risk through Acceptance and Budget</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Mitigation_Description__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Description of this Mitigation</inlineHelpText>
+        <label>Mitigation Description</label>
+        <length>32768</length>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Mitigation_Owner__c</fullName>
+        <externalId>false</externalId>
+        <label>Mitigation Owner</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Mitigation_Status_Detail_Explanation__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Please enter the detail explanation for the Status</inlineHelpText>
+        <label>Mitigation Status Detail Explanation</label>
+        <length>32768</length>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Mitigation_Status__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Select the current status for this mitigation</inlineHelpText>
+        <label>Mitigation Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Under Consideration</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Deferred</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Open</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ongoing</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Completed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Mitigation_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Mitigation Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Existing control</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Action plan</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Ongoing__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Ongoing</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Organization_Category__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Select the Organization Category</inlineHelpText>
+        <label>Organization Category</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Information Services</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ventures</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Investment Mgmt.</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Health</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Holdings</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sponsor</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>The Resource Group</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Global Mission</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Smart Health</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Parent_Category__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Select the Mitigation Parent Category</inlineHelpText>
+        <label>Parent Category</label>
+        <picklist>
+            <picklistValues>
+                <fullName>External Environment/Customer/Stakeholder Mitigations</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Financial Mitigations</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Insurance Related Mitigations - Marketing Mitigations</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Insurance Related Mitigations - Underwriting Mitigations</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Internal Environment/Human Resources/Employee Mitigations</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Operational Mitigations</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Strategic Mitigations</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <label>Mitigation_</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Mitigation_Category__c</columns>
+        <columns>Mitigation_Status__c</columns>
+        <columns>Annual_Mitigation_Cost__c</columns>
+        <columns>Complete__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <listViews>
+        <fullName>Mitigations</fullName>
+        <columns>NAME</columns>
+        <columns>Mitigation_Description__c</columns>
+        <columns>Mitigation_Owner__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>Mitigation__c.Mitigation</value>
+        </filters>
+        <label>Mitigations</label>
+    </listViews>
+    <listViews>
+        <fullName>R_D</fullName>
+        <columns>NAME</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>Mitigation__c.R_D</value>
+        </filters>
+        <label>R&amp;D</label>
+    </listViews>
+    <nameField>
+        <label>Mitigation Name</label>
+        <trackHistory>true</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Mitigations</pluralLabel>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>Mitigation</fullName>
+        <active>true</active>
+        <label>Mitigation</label>
+        <picklistValues>
+            <picklist>App_name__c</picklist>
+            <values>
+                <fullName>Physicians Insurance A Mutual Company</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Mitigation_Category__c</picklist>
+            <values>
+                <fullName>Eliminate%2C Avoid or Withdraw from the Risk</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Reduce the Risk to an Optimal or Acceptable Level</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Retention of the Risk through Acceptance and Budget</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Share%2C Transfer%2C Outsource or Insure the Risk</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Mitigation_Status__c</picklist>
+            <values>
+                <fullName>Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Deferred</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Ongoing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Open</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Under Consideration</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Mitigation_Type__c</picklist>
+            <values>
+                <fullName>Action plan</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Existing control</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Organization_Category__c</picklist>
+            <values>
+                <fullName>Global Mission</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Health</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Holdings</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Information Services</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Investment Mgmt%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Smart Health</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Sponsor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>The Resource Group</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Ventures</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Parent_Category__c</picklist>
+            <values>
+                <fullName>External Environment%2FCustomer%2FStakeholder Mitigations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Financial Mitigations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Insurance Related Mitigations - Marketing Mitigations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Insurance Related Mitigations - Underwriting Mitigations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Internal Environment%2FHuman Resources%2FEmployee Mitigations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Operational Mitigations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Strategic Mitigations</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Physicians_Insurance_A_Mutual_Company</fullName>
+        <active>true</active>
+        <label>Physicians Insurance A Mutual Company</label>
+        <picklistValues>
+            <picklist>App_name__c</picklist>
+            <values>
+                <fullName>Physicians Insurance A Mutual Company</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Mitigation_Category__c</picklist>
+            <values>
+                <fullName>Eliminate%2C Avoid or Withdraw from the Risk</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Reduce the Risk to an Optimal or Acceptable Level</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Retention of the Risk through Acceptance and Budget</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Share%2C Transfer%2C Outsource or Insure the Risk</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Mitigation_Status__c</picklist>
+            <values>
+                <fullName>Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Deferred</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Ongoing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Open</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Under Consideration</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Mitigation_Type__c</picklist>
+            <values>
+                <fullName>Action plan</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Existing control</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Organization_Category__c</picklist>
+            <values>
+                <fullName>Global Mission</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Health</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Holdings</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Information Services</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Investment Mgmt%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Smart Health</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Sponsor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>The Resource Group</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Ventures</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Parent_Category__c</picklist>
+            <values>
+                <fullName>External Environment%2FCustomer%2FStakeholder Mitigations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Financial Mitigations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Insurance Related Mitigations - Marketing Mitigations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Insurance Related Mitigations - Underwriting Mitigations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Internal Environment%2FHuman Resources%2FEmployee Mitigations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Operational Mitigations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Strategic Mitigations</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>R_D</fullName>
+        <active>true</active>
+        <label>R&amp;D</label>
+        <picklistValues>
+            <picklist>App_name__c</picklist>
+            <values>
+                <fullName>Physicians Insurance A Mutual Company</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Mitigation_Category__c</picklist>
+            <values>
+                <fullName>Eliminate%2C Avoid or Withdraw from the Risk</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Reduce the Risk to an Optimal or Acceptable Level</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Retention of the Risk through Acceptance and Budget</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Share%2C Transfer%2C Outsource or Insure the Risk</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Mitigation_Status__c</picklist>
+            <values>
+                <fullName>Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Deferred</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Ongoing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Open</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Under Consideration</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Mitigation_Type__c</picklist>
+            <values>
+                <fullName>Action plan</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Existing control</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Organization_Category__c</picklist>
+            <values>
+                <fullName>Global Mission</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Health</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Holdings</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Information Services</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Investment Mgmt%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Smart Health</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Sponsor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>The Resource Group</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Ventures</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Parent_Category__c</picklist>
+            <values>
+                <fullName>External Environment%2FCustomer%2FStakeholder Mitigations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Financial Mitigations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Insurance Related Mitigations - Marketing Mitigations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Insurance Related Mitigations - Underwriting Mitigations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Internal Environment%2FHuman Resources%2FEmployee Mitigations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Operational Mitigations</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Strategic Mitigations</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts/>
+    <sharingModel>Private</sharingModel>
+    <webLinks>
+        <fullName>Printable_View</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>600</height>
+        <isResizable>true</isResizable>
+        <linkType>url</linkType>
+        <masterLabel>Printable View</masterLabel>
+        <openType>newWindow</openType>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+        <url>/apex/printPreview?recordID={!Mitigation__c.Id}</url>
+    </webLinks>
+</CustomObject>

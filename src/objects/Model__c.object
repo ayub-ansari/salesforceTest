@@ -1,0 +1,1624 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Model management framework and model inventory</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Assumptions__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Please check the box if the assumptions used for the model are relevant and reasonable.</inlineHelpText>
+        <label>Assumptions</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Calculation__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Please check the box if the calculations in the model have been independently checked and validated.</inlineHelpText>
+        <label>Calculation</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Change_Management__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Please check the box if a procedure governing how model changes are to be performed is in place. They can be attached in the Notes &amp; Attachment section below.This includes the approval process for the design, execution and testing of the change.</inlineHelpText>
+        <label>Change Management</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Comment_of_Assumption_Validation__c</fullName>
+        <externalId>false</externalId>
+        <label>Assumption Comment</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Comment_of_Calculation_Validation__c</fullName>
+        <externalId>false</externalId>
+        <label>Calculation Comment</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Comment_of_Change_Management__c</fullName>
+        <externalId>false</externalId>
+        <label>Change Management Comment</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Comment_of_Data_Validation__c</fullName>
+        <externalId>false</externalId>
+        <label>Data Comment</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Comment_of_Methodology_Validation__c</fullName>
+        <externalId>false</externalId>
+        <label>Methodology Comment</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Comment_of_Model_Architecture_Validation__c</fullName>
+        <externalId>false</externalId>
+        <label>Model Architecture Comment</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Comment_of_Model_Integrity_Validation__c</fullName>
+        <externalId>false</externalId>
+        <label>Model Integrity Comment</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Comment_of_Model_Management_Incentives__c</fullName>
+        <externalId>false</externalId>
+        <label>Model Management Comment</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Comment_of_Model_Modification_Validation__c</fullName>
+        <externalId>false</externalId>
+        <label>Model Modification Comment</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Comment_of_Model_Overrides__c</fullName>
+        <externalId>false</externalId>
+        <label>Model Overrides Comment</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Comment_of_Model_Performance_Incentives__c</fullName>
+        <externalId>false</externalId>
+        <label>Model Performance Comment</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Comment_of_Model_Procedure__c</fullName>
+        <externalId>false</externalId>
+        <label>Procedure Comment</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Comment_of_Model_Results_Validation__c</fullName>
+        <externalId>false</externalId>
+        <label>Results Comment</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Comment_of_Model_Validation_Incentives__c</fullName>
+        <externalId>false</externalId>
+        <label>Model Validation Comment</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Comment_of_Monitoring_Procedures__c</fullName>
+        <externalId>false</externalId>
+        <label>Monitoring Procedures Comment</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Comment_of_Security_Confidentiality__c</fullName>
+        <externalId>false</externalId>
+        <label>Security &amp; Confidentiality Comment</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Comment_of_Validation_Triggers__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Please describe the triggers of event-based model validation.</inlineHelpText>
+        <label>Validation Triggers Comment</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Data__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Please check the box if the data used for the model is relevant and reasonable.</inlineHelpText>
+        <label>Data</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Date_of_Last_Review__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Please indicate the date of the last independent review.</inlineHelpText>
+        <label>Date of Last Review</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Date_of_Last_Validation__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Please choose the data of the last model validation.</inlineHelpText>
+        <label>Date of Last Validation</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Defined_Purpose_and_Scope__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Please check the box if the model has a clearly defined purpose and scope.</inlineHelpText>
+        <label>Defined Purpose and Scope</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Department__c</fullName>
+        <externalId>false</externalId>
+        <label>Department</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Accounting</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Audit</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Compliance</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Finance</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>FP&amp;A</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Human Resources</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Legal</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Marketing</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Product Development</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Risk Management</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Tax</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Executive_Sponsor__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>The executive sponsor is a member of the management team that supports model oversight and can describe model limitations to the senior leadership team.</inlineHelpText>
+        <label>Executive Sponsor</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Frequency_of_Model_Validation__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Please choose the frequency of the regular model validation process.</inlineHelpText>
+        <label>Frequency of Model Validation</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Weekly</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Monthly</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Quarterly</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Semi-annually</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Annually</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Never</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Governance_Assessment_Reporting__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( 
+AND( 
+Governance_Score_2__c &gt;= 8, 
+Governance_Grade__c == &quot;A&quot; 
+), 
+&quot;Mature&quot;, 
+IF( 
+AND( 
+Governance_Score_2__c &gt;= 5.5, 
+OR( 
+Governance_Grade__c == &quot;A&quot;, 
+Governance_Grade__c == &quot;B&quot; 
+) 
+), 
+&quot;Intermediate&quot;, 
+&quot;Initial&quot; 
+) 
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Governance Assessment - Reporting</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Governance_Grade__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(AND(
+NOT(ISBLANK(Model_Owner__c)),
+IF(Defined_Purpose_and_Scope__c, True, False),
+IF(Model_User_Training__c, True, False),
+IF(Security_confidentiality__c, True, False)
+),&quot;A&quot;,
+IF(AND(
+NOT(ISBLANK(Model_Owner__c)),
+IF(Defined_Purpose_and_Scope__c, True, False)),&quot;B&quot;,&quot;C&quot;))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Governance Grade</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Governance_Score_2__c</fullName>
+        <externalId>false</externalId>
+        <formula>(Governance_Score__c / 30) * 10</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>% of POINTS (Governance)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Governance_Score__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(NOT(ISBLANK(Model_Owner__c)),7.2,0)+
+IF(Defined_Purpose_and_Scope__c,7.2,0)+
+IF(Model_User_Training__c,4.8,0)+
+IF(Security_confidentiality__c,4.8,0)+
+IF(NOT(ISBLANK(Executive_Sponsor__c)),3.6,0)+
+IF(Model_Management_Tied_to_Performance__c,2.4,0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Governance Score</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Governance_Section_Level__c</fullName>
+        <externalId>false</externalId>
+        <formula>IMAGE(
+IF(
+	AND(
+		Governance_Score_2__c &gt;= 8,
+		Governance_Grade__c == &quot;A&quot;
+	),
+	&quot;/servlet/servlet.FileDownload?file=015M0000000C3yf&quot;,
+	IF(
+		AND(
+			Governance_Score_2__c &gt;= 5.5,
+			OR(
+				Governance_Grade__c == &quot;A&quot;,
+				Governance_Grade__c == &quot;B&quot;
+			)
+		),
+	&quot;/servlet/servlet.FileDownload?file=015M0000000C3yz&quot;,
+	&quot;/servlet/servlet.FileDownload?file=015M0000000C3yu&quot;
+	)
+),&quot;&quot;
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>This assesses the model governance efforts based on the model mgmt. components in place. Initial-the starting point with little to no model mgmt. or have missing critical components; Intermediate-formal model mgmt. in place; Mature-strong model mgmt.</inlineHelpText>
+        <label>Governance Assessment</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Incident_Records__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Please check the box if records of past incidents are kept for when the model did not perform as expected.</inlineHelpText>
+        <label>Incident Records</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Independent_Model_Review__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Please indicate whether the model has been reviewed by independent third parties.</inlineHelpText>
+        <label>Independent Model Review</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Unknown</fullName>
+                <default>true</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Limitation_of_Model__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Please specify the known limitations of the model. This could help model users to mitigate the risk of model results leading to incorrect decisions.</inlineHelpText>
+        <label>Limitation of Model</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Methodology__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Check the box if the concepts and methodologies used for the model are supported by best practices or research.</inlineHelpText>
+        <label>Methodology</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Model_Architecture__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Please check the box if the model architecture has been independently tested against the intended design.</inlineHelpText>
+        <label>Model Architecture</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Model_Documentation__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Please check the box if the model&apos;s purpose, owners, validation results, and other important components are well documented.</inlineHelpText>
+        <label>Model Documentation</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Model_Integrity__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Please check the box if all relevant segments, statements, and metrics are reflected in the model.</inlineHelpText>
+        <label>Model Integrity</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Model_Management_Tied_to_Performance__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Check the box if the effective model management is a component of relevant performance reviews.</inlineHelpText>
+        <label>Model Management Tied to Incentives</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Model_Modification_Procedure__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Please check the box if the model modification requires a testing and sign off procedure.</inlineHelpText>
+        <label>Model Modification Procedure</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Model_Owner_Email__c</fullName>
+        <externalId>false</externalId>
+        <label>Model Owner Email</label>
+        <length>75</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Model_Owner__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>The model owner is the day-to-day owner of the model and person most relied upon for active model management.</inlineHelpText>
+        <label>Model Owner</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Model_Path__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Please fill in the model path.</inlineHelpText>
+        <label>Model Path</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Model_Performance_Tied_to_Incentives__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Check the box if relevant performance reviews as is used for the model management tied to incentives.</inlineHelpText>
+        <label>Model Performance Tied to Incentives</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Model_Procedure__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Please check the box if a model procedure is in place. They can be attached in the Notes &amp; Attachment section below, including timing and action steps for model runs or updates, reporting of completion, and procedures for independent assurance.</inlineHelpText>
+        <label>Model Procedure</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Model_Results_Communication__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Please check the box if there is a formal process to ensure appropriate communication of results to management.</inlineHelpText>
+        <label>Model Results Communication</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Model_Results__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Please check the box if the model results have been checked against control totals.</inlineHelpText>
+        <label>Model Results</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Model_Reviewer__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Please fill in the reviewer of the model validation process.</inlineHelpText>
+        <label>Model Reviewer</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Model_Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Model Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Development</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Production</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not Used</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Model_User_Qualifications__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Model user qualifications identifies the appropriate technical, academic, or experiential skill sets required before permissible model use.</inlineHelpText>
+        <label>Model User Qualifications</label>
+        <length>62768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Html</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Model_User_Training__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Check the box if ongoing training programs are required before permissible model use.</inlineHelpText>
+        <label>Model User Training</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Model_Validation_Tied_to_Incentives__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Check the box if relevant model validation as is used for the model management tied to incentives.</inlineHelpText>
+        <label>Model Validation Tied to Incentives</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Model_Validation_Triggers__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Please check the box if there are event based (major changes, financial results, etc.) model validation triggers.</inlineHelpText>
+        <label>Model Validation Triggers</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Monitoring_Procedure__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Please check the box if a procedure for model monitoring is in place. It can be attached in the Notes&amp;Attachment section. It identifies how a model should be monitored, factors that would influence model performance, &amp; necessary enhancements to the model.</inlineHelpText>
+        <label>Monitoring Procedure</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Other_Model_Use__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Please select the other uses of the model.</inlineHelpText>
+        <label>Other Model Use</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Capital Adequacy Assessment</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Capital Expenditures</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Demand Modeling</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Financial Planning &amp; Analysis</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Forecasting/Trend Analysis</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Investment Management</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>M&amp;A</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Optimization</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Performance Management</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Predictive Analysis</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Pricing</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Regulatory Compliance</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Regulatory Fillings</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Risk Management</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Tax</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Undefined</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Underwriting</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Valuation</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Overall_Model_Mgmt_Assessment_Img__c</fullName>
+        <externalId>false</externalId>
+        <formula>IMAGE(CASE( TEXT(Total_Section_Level__c) , 
+&apos;Mature&apos;,&quot;/servlet/servlet.FileDownload?file=015M0000000C3yf&quot;, 
+&apos;Intermediate&apos;,&quot;/servlet/servlet.FileDownload?file=015M0000000C3yz&quot;, 
+&apos;Initial&apos;,&quot;/servlet/servlet.FileDownload?file=015M0000000C3yu&quot;,&quot;/s.gif&quot;
+), &quot;&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>This provides a high-level assessment of the model mgmt. process that governs this model. Initial-the starting point with little to no model mgmt. or have missing critical components; Intermediate-formal model mgmt. in place; Mature-strong model mgmt.</inlineHelpText>
+        <label>Overall Model Mgmt. Assessment</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Overrides__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Please check the box if a formal model overrides documentation is in place. It can be attached in the Notes &amp; Attachment section below. This document disclose the override with associated approver, purpose, date, and future considerations.</inlineHelpText>
+        <label>Overrides</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Proc_Docs_Grade__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(
+	AND(
+		NOT(ISBLANK(Limitation_of_Model__c)),
+		IF(Change_Management__c, True, False),
+		IF(Overrides__c, True, False),
+		IF(Model_Documentation__c, True, False),
+		IF(Model_Results_Communication__c, True, False)
+	),&quot;A&quot;,
+	IF(
+		AND(
+			NOT(ISBLANK(Limitation_of_Model__c)),
+			IF(Model_Results_Communication__c, True, False)
+		),&quot;B&quot;,&quot;C&quot;
+	)
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Proc &amp; Docs Grade</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Proc_Docs_Score__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(NOT(ISBLANK(Limitation_of_Model__c)),6,0)+
+IF( AND(IF(Change_Management__c,True,False),IF(Overrides__c,True,False)) ,4,0)+
+IF( Model_Documentation__c ,4,0)+
+IF( Model_Results_Communication__c ,6,0)+
+IF( Supporting_Materials__c ,2.5,0)+
+IF( Incident_Records__c ,2.5,0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Proc &amp; Docs Score</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Proc_Docs_Section_Level__c</fullName>
+        <externalId>false</externalId>
+        <formula>IMAGE(
+	IF(
+		AND(
+			Procedures_Documentation_Score_2__c &gt;= 8,
+			Proc_Docs_Grade__c == &quot;A&quot;
+		),
+		&quot;/servlet/servlet.FileDownload?file=015M0000000C3yf&quot;,
+		IF(
+			AND(
+				Procedures_Documentation_Score_2__c &gt;= 5.5,
+				OR(
+					Proc_Docs_Grade__c == &quot;A&quot;,
+					Proc_Docs_Grade__c == &quot;B&quot;
+				)
+			),
+		&quot;/servlet/servlet.FileDownload?file=015M0000000C3yz&quot;,
+		&quot;/servlet/servlet.FileDownload?file=015M0000000C3yu&quot;
+		)
+	),&quot;&quot;
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>This assesses model documentation efforts based on the model mgmt. components in place. Initial-the starting point with little to no model mgmt. or have missing critical components; Intermediate-formal model mgmt. in place; Mature-strong model mgmt.</inlineHelpText>
+        <label>Procedures &amp; Documentation Assessment</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Procedures_Documentation_Ass_Report__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( 
+AND( 
+Procedures_Documentation_Score_2__c &gt;= 8, 
+Proc_Docs_Grade__c == &quot;A&quot; 
+), 
+&quot;Mature&quot;, 
+IF( 
+AND( 
+Procedures_Documentation_Score_2__c &gt;= 5.5, 
+OR( 
+Proc_Docs_Grade__c == &quot;A&quot;, 
+Proc_Docs_Grade__c == &quot;B&quot; 
+) 
+), 
+&quot;Intermediate&quot;, 
+&quot;Initial&quot; 
+) 
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Procedures &amp; Documentation Ass - Report</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Procedures_Documentation_Score_2__c</fullName>
+        <externalId>false</externalId>
+        <formula>( Proc_Docs_Score__c / 25) * 10</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>% of POINTS (Proc &amp; Docs)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Purpose_of_Model__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Please specify the intended purpose of the model as that shapes how all of the model development was aligned.</inlineHelpText>
+        <label>Purpose of Model</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Review_Results__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Please specify the results of the last independent review.</inlineHelpText>
+        <label>Review Results</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Reviewer_Name__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Please specify the name of the independent review party.</inlineHelpText>
+        <label>Reviewer Name</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Reviewer_Qualifications_Trainings__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Please check the box if there are required qualifications &amp; training for reviewers of the model.</inlineHelpText>
+        <label>Reviewer Qualifications &amp; Trainings</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Reviewer_Qualifications__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Please specify the qualifications required for the independent model reviewer.</inlineHelpText>
+        <label>Reviewer Qualifications</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Scope_of_Model__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Please specify the intended scope of the model. This includes the business segments considered, elements to be forecast, specific uses of model results, etc.</inlineHelpText>
+        <label>Scope of Model</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Security_confidentiality__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Please check the box if a model security &amp; confidentiality procedure is in place. It can be attached in the Notes &amp; Attachment section.</inlineHelpText>
+        <label>Security &amp; Confidentiality</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Segment__c</fullName>
+        <externalId>false</externalId>
+        <label>Segment</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Corporate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Segment 1</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Segment 2</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Segment 3</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Source_of_Development__c</fullName>
+        <externalId>false</externalId>
+        <label>Source of Development</label>
+        <picklist>
+            <picklistValues>
+                <fullName>In House</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Third Party Vendor</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Supporting_Materials__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Please check the box if the supporting materials (best practices, research, etc.) are archived and available for review.</inlineHelpText>
+        <label>Supporting Materials</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Total_Grade__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(AND(
+NOT(ISBLANK(Model_Owner__c)),
+IF(Defined_Purpose_and_Scope__c, True, False),
+IF(Model_User_Training__c, True, False),
+IF(Security_confidentiality__c, True, False),
+
+IF(Data__c, True, False),
+IF(Assumptions__c, True, False),
+IF(Methodology__c, True, False),
+IF(Calculation__c, True, False),
+IF(Model_Architecture__c, True, False),
+IF(Model_Results__c, True, False),
+IF(ISPICKVAL(Independent_Model_Review__c,&quot;Yes&quot;), True, False),
+
+IF(Change_Management__c, True, False),
+IF(Overrides__c, True, False),
+IF(Model_Documentation__c, True, False),
+IF(Model_Results_Communication__c, True, False)
+),&quot;A&quot;,
+IF(AND(
+NOT(ISBLANK(Model_Owner__c)),
+IF(Defined_Purpose_and_Scope__c, True, False),
+
+IF(Data__c, True, False),
+IF(Assumptions__c, True, False),
+IF(Methodology__c, True, False),
+IF(Calculation__c, True, False),
+
+IF(Model_Results_Communication__c, True, False)
+),&quot;B&quot;,&quot;C&quot;))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Total Grade</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Total_Score_2__c</fullName>
+        <description>Total_Score/Total_Possible*10</description>
+        <externalId>false</externalId>
+        <formula>(Total_Score__c / 100) * 10</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>% of POINTS (Total)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Total_Score__c</fullName>
+        <externalId>false</externalId>
+        <formula>Governance_Score__c + Validation_Score__c + Proc_Docs_Score__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Total Score</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Total_Section_Level__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>This provides a high-level assessment of the model mgmt. process that governs this model. Beginner-the starting point with little to no model mgmt. or have missing critical components; Intermediate-formal model mgmt. in place; Advanced-strong model mgmt.</inlineHelpText>
+        <label>Overall Model Mgmt. Assessment</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Intermediate</fullName>
+                <color>#FFCC66</color>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Initial</fullName>
+                <color>#FF6666</color>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mature</fullName>
+                <color>#33CC00</color>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Use_of_Model__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Please specify the primary use of the model.</inlineHelpText>
+        <label>Primary Model Use</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Capital Adequacy Assessment</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Capital Expenditures</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Demand Modeling</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Financial Planning &amp; Analysis</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Forecasting/Trend Analysis</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Investment Management</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>M&amp;A</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Optimization</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Performance Management</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Predictive Analysis</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Pricing</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Regulatory Compliance</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Regulatory Fillings</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Risk Management</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Tax</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Undefined</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Underwriting</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Valuation</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Validation_Assessment_Reporting__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( 
+AND( 
+Validation_Score_2__c &gt;= 8, 
+Validation_Grade__c == &quot;A&quot; 
+), 
+&quot;Mature&quot;, 
+IF( 
+AND( 
+Validation_Score_2__c &gt;= 5.5, 
+OR( 
+Validation_Grade__c == &quot;A&quot;, 
+Validation_Grade__c == &quot;B&quot; 
+) 
+), 
+&quot;Intermediate&quot;, 
+&quot;Initial&quot; 
+) 
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Validation Assessment - Reporting</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Validation_Grade__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(AND(
+IF(Data__c, True, False),
+IF(Assumptions__c, True, False),
+IF(Methodology__c, True, False),
+IF(Calculation__c, True, False),
+IF(Model_Architecture__c, True, False),
+IF(Model_Results__c, True, False),
+IF(ISPICKVAL(Independent_Model_Review__c,&quot;Yes&quot;), True, False)
+),&quot;A&quot;,
+IF(AND(
+IF(Data__c, True, False),
+IF(Assumptions__c, True, False),
+IF(Methodology__c, True, False),
+IF(Calculation__c, True, False)
+),&quot;B&quot;,&quot;C&quot;))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Validation Grade</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Validation_Score_2__c</fullName>
+        <externalId>false</externalId>
+        <formula>(Validation_Score__c / 45) * 10</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>% of POINTS (Validation)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Validation_Score__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( Data__c ,6.3,0)+
+IF( Assumptions__c ,6.3,0)+
+IF( Methodology__c ,6.3,0)+
+IF( Calculation__c ,6.3,0)+
+IF( Model_Architecture__c ,3.6,0)+
+IF( Model_Results__c ,3.6,0)+
+IF( ISPICKVAL(Independent_Model_Review__c,&quot;Yes&quot;) ,3.6,0)+
+IF( Model_Integrity__c ,1.5,0)+
+IF( Reviewer_Qualifications_Trainings__c ,2.7,0)+
+IF( Monitoring_Procedure__c ,1.5,0)+
+IF( Model_Validation_Triggers__c ,1.8,0)+
+IF( Model_Modification_Procedure__c ,1.5,0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Validation Score</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Validation_Section_Level__c</fullName>
+        <externalId>false</externalId>
+        <formula>IMAGE(
+	IF(
+		AND(
+			Validation_Score_2__c &gt;= 8,
+			Validation_Grade__c == &quot;A&quot;
+		),
+		&quot;/servlet/servlet.FileDownload?file=015M0000000C3yf&quot;,
+		IF(
+			AND(
+				Validation_Score_2__c &gt;= 5.5,
+				OR(
+					Validation_Grade__c == &quot;A&quot;,
+					Validation_Grade__c == &quot;B&quot;
+				)
+			),
+		&quot;/servlet/servlet.FileDownload?file=015M0000000C3yz&quot;,
+		&quot;/servlet/servlet.FileDownload?file=015M0000000C3yu&quot;
+		)
+	),&quot;&quot;
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>This assesses the model validation efforts based on the model mgmt. components in place. Initial-the starting point with little to no model mgmt. or have missing critical components; Intermediate-formal model mgmt. in place; Mature-strong model mgmt.</inlineHelpText>
+        <label>Validation Assessment</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Year_of_Model_Developed__c</fullName>
+        <externalId>false</externalId>
+        <label>Year Model Developed</label>
+        <picklist>
+            <picklistValues>
+                <fullName>2015</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2014</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2013</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2012</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2011</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2010</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2009</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2008</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2007</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2005</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2004</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2003</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2002</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2001</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2000</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Prior to 2000</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>N/A</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <label>Model</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Use_of_Model__c</columns>
+        <columns>Department__c</columns>
+        <columns>Model_Status__c</columns>
+        <columns>Total_Section_Level__c</columns>
+        <columns>Date_of_Last_Review__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <label>Model</label>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Models</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+    <webLinks>
+        <fullName>Collapse_Expand</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Collapse/Expand</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>if( document.getElementsByClassName(&apos;pbSubsection&apos;)[1].style.display == &apos;&apos; || document.getElementsByClassName(&apos;pbSubsection&apos;)[1].style.display == &apos;block&apos; ||
+	document.getElementsByClassName(&apos;pbSubsection&apos;)[2].style.display == &apos;&apos; || document.getElementsByClassName(&apos;pbSubsection&apos;)[2].style.display == &apos;block&apos; ||
+	document.getElementsByClassName(&apos;pbSubsection&apos;)[3].style.display == &apos;&apos; || document.getElementsByClassName(&apos;pbSubsection&apos;)[3].style.display == &apos;block&apos; ||
+	document.getElementsByClassName(&apos;pbSubsection&apos;)[4].style.display == &apos;&apos; || document.getElementsByClassName(&apos;pbSubsection&apos;)[4].style.display == &apos;block&apos; ||
+	document.getElementsByClassName(&apos;pbSubsection&apos;)[5].style.display == &apos;&apos; || document.getElementsByClassName(&apos;pbSubsection&apos;)[5].style.display == &apos;block&apos; ||
+	document.getElementsByClassName(&apos;pbSubsection&apos;)[6].style.display == &apos;&apos; || document.getElementsByClassName(&apos;pbSubsection&apos;)[6].style.display == &apos;block&apos; ||
+	document.getElementsByClassName(&apos;pbSubsection&apos;)[7].style.display == &apos;&apos; || document.getElementsByClassName(&apos;pbSubsection&apos;)[7].style.display == &apos;block&apos;
+){
+	document.getElementsByClassName(&apos;pbSubsection&apos;)[1].style.display = &apos;none&apos;;
+	document.getElementById(&apos;img_01BM0000001m465&apos;).className=&apos;showListButton&apos;;
+	
+	document.getElementsByClassName(&apos;pbSubsection&apos;)[2].style.display = &apos;none&apos;;
+	document.getElementById(&apos;img_01BM0000001m466&apos;).className=&apos;showListButton&apos;;
+	
+	document.getElementsByClassName(&apos;pbSubsection&apos;)[3].style.display = &apos;none&apos;;
+	document.getElementById(&apos;img_01BM0000001m4ER&apos;).className=&apos;showListButton&apos;;
+	
+	document.getElementsByClassName(&apos;pbSubsection&apos;)[4].style.display = &apos;none&apos;;
+	document.getElementById(&apos;img_01BM0000001m4ES&apos;).className=&apos;showListButton&apos;;
+	
+	document.getElementsByClassName(&apos;pbSubsection&apos;)[5].style.display = &apos;none&apos;;
+	document.getElementById(&apos;img_01BM0000001mC3j&apos;).className=&apos;showListButton&apos;;
+	
+	document.getElementsByClassName(&apos;pbSubsection&apos;)[6].style.display = &apos;none&apos;;
+	document.getElementById(&apos;img_01BM0000001mCCN&apos;).className=&apos;showListButton&apos;;
+	
+	document.getElementsByClassName(&apos;pbSubsection&apos;)[7].style.display = &apos;none&apos;;
+	document.getElementById(&apos;img_01BM0000001mHXJ&apos;).className=&apos;showListButton&apos;;
+}else{
+	document.getElementsByClassName(&apos;pbSubsection&apos;)[1].style.display = &apos;block&apos;;
+	document.getElementById(&apos;img_01BM0000001m465&apos;).className=&apos;hideListButton&apos;;
+
+	document.getElementsByClassName(&apos;pbSubsection&apos;)[2].style.display = &apos;block&apos;;
+	document.getElementById(&apos;img_01BM0000001m466&apos;).className=&apos;hideListButton&apos;;
+
+	document.getElementsByClassName(&apos;pbSubsection&apos;)[3].style.display = &apos;block&apos;;
+	document.getElementById(&apos;img_01BM0000001m4ER&apos;).className=&apos;hideListButton&apos;;
+
+	document.getElementsByClassName(&apos;pbSubsection&apos;)[4].style.display = &apos;block&apos;;
+	document.getElementById(&apos;img_01BM0000001m4ES&apos;).className=&apos;hideListButton&apos;;
+
+	document.getElementsByClassName(&apos;pbSubsection&apos;)[5].style.display = &apos;block&apos;;
+	document.getElementById(&apos;img_01BM0000001mC3j&apos;).className=&apos;hideListButton&apos;;
+
+	document.getElementsByClassName(&apos;pbSubsection&apos;)[6].style.display = &apos;block&apos;;
+	document.getElementById(&apos;img_01BM0000001mCCN&apos;).className=&apos;hideListButton&apos;;
+
+	document.getElementsByClassName(&apos;pbSubsection&apos;)[7].style.display = &apos;block&apos;;
+	document.getElementById(&apos;img_01BM0000001mHXJ&apos;).className=&apos;hideListButton&apos;;
+}
+document.getElementsByClassName(&apos;help&apos;)[0].style.display=&apos;none&apos;;
+document.getElementsByClassName(&apos;help&apos;)[1].style.display=&apos;none&apos;;
+document.getElementsByClassName(&apos;help&apos;)[2].style.display=&apos;none&apos;;
+document.getElementsByClassName(&apos;help&apos;)[3].style.display=&apos;none&apos;;
+document.getElementsByClassName(&apos;help&apos;)[4].style.display=&apos;none&apos;;
+document.getElementsByClassName(&apos;help&apos;)[5].style.display=&apos;none&apos;;
+document.getElementsByClassName(&apos;help&apos;)[6].style.display=&apos;none&apos;;
+document.getElementsByClassName(&apos;help&apos;)[7].style.display=&apos;none&apos;;</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Generate_PDF</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Generate PDF</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>window.open(&quot;/apex/ModelAssessmentReport?id={!Model__c.Id}&quot;,&quot;_blank&quot;);</url>
+    </webLinks>
+</CustomObject>

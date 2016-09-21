@@ -1,0 +1,352 @@
+<!-- Mike Ulveling -->
+<apex:component access="global" allowDml="true">
+    <apex:attribute name="relList" type="rkl.pRelatedList" required="true" description="." access="global" />
+    
+    <!-- !! Note that for some reason Visualforce breaks down when an actionRegion is encapsulated around each dialog. In general,
+            it seems to have major bugs/issues with its handling of actionRegions inside of custom components. However, it seems to handle
+            a single top-level actionRegion in a custom component. Move the actionRegion outside of the component definition if this too
+            becomes problematic -->
+    <apex:actionRegion >
+    
+    <!-- we allow componentBody scripts, e.g. for setting up the "loaded" queue -->
+    <apex:componentBody />
+    
+    <!-- Add -->
+    <apex:outputPanel id="a" layout="block" rendered="{!NOT(ISNULL(relList.addAspect))}">
+        <apex:variable var="addProps" value="{!relList.addAspect.dialog.props}" />
+        <div id="{!addProps.outerDivDomId}">
+            <div id="{!addProps.innerDivDomId}" class="{!addProps.styles.OuterBar}" dialogKey="{!addProps.dialogKey}" doNotDragDescendents="true">
+                <div class="{!addProps.styles.OuterBaz}" dialogKey="{!addProps.dialogKey}">
+                    <span style="display:none">
+                        <apex:outputPanel id="addSave">
+                            <apex:actionSupport event="onfocus" action="{!relList.invokeAddSave}" 
+                                    rerender="{!relList.curryRerender}"/>
+                        </apex:outputPanel>
+                        <script type="text/javascript">
+                              rk_register({!relList.addAspect.ecmaArgPath}, {
+                                      clobber: "rerenders actions",
+                                      rerenders: {
+                                              top: "{!$Component.a}"
+                                          },
+                                      actions: {
+                                              save: {
+                                                  binding: "{!$Component.addSave}",
+                                                  parameters: {
+                                                          // addSave rerender is a bit tricky: we must rerender the grid in addition to this dialog:
+                                                          curryRerender: function(relList, aspect) {
+                                                                  return aspect.rerenders.top + "," + relList.grid.rerenders.top;
+                                                              }
+                                                      },
+                                                  oncomplete: function () {
+                                                          _uiManager.fireDialogSubmitFinished();
+                                                      }
+                                              }
+                                          }
+                                  });
+                        </script>
+                    </span>
+                    
+                    <c:pDialogStdAddEdit aspect="{!relList.addAspect}" /> 
+                    <script type="text/javascript">
+                        (function() {
+                            var dialogKey = "{!relList.addDialog.key}",
+                                dialogMgr = _uiManager.getDialogManagerByKey(dialogKey);
+                            dialogMgr.unbind(".relatedList").bind("contentReady.relatedList",
+                                function() {
+                                    {!relList.addAspect.ecmaAspectPath}.fireQueue("dialogReady", dialogMgr);
+                                });
+                            {!relList.addAspect.ecmaAspectPath}.fireQueue("loaded");
+                        })();
+                    </script>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 
+        <c:InlineDialogWrapper id="addDialog" props="{!relList.addDialogProps}">
+            <span style="display:none">
+                <apex:outputPanel id="saveBinding">
+                    <apex:actionSupport event="onfocus" action="{!relList.invokeAddSave}" 
+                            rerender="{!relList.curryRerender}"/>
+                </apex:outputPanel>
+                <script type="text/javascript">
+                      rk_register({!relList.addAspect.ecmaArgPath}, {
+                              clobber: "rerenders actions",
+                              rerenders: {
+                                      top: "{!$Component.addDialog}"
+                                  },
+                              actions: {
+                                      save: {
+                                          binding: "{!$Component.saveBinding}",
+                                          parameters: {
+                                                  // addSave rerender is a bit tricky: we must rerender the grid in addition to this dialog:
+                                                  curryRerender: function(relList, aspect) {
+                                                          return aspect.rerenders.top + "," + relList.grid.rerenders.top;
+                                                      }
+                                              },
+                                          oncomplete: function () {
+                                                  _uiManager.fireDialogSubmitFinished();
+                                              }
+                                      }
+                                  }
+                          });
+                </script>
+            </span>
+            
+            <c:DialogStdAddEdit aspect="{!relList.addAspect}" /> 
+            <script type="text/javascript">
+                (function() {
+                    var dialogKey = "{!relList.addDialog.key}",
+                        dialogMgr = _uiManager.getDialogManagerByKey(dialogKey);
+                    dialogMgr.unbind(".relatedList").bind("contentReady.relatedList",
+                        function() {
+                            {!relList.addAspect.ecmaAspectPath}.fireQueue("dialogReady", dialogMgr);
+                        });
+                    {!relList.addAspect.ecmaAspectPath}.fireQueue("loaded");
+                })();
+            </script>
+        </c:InlineDialogWrapper>
+        -->
+    </apex:outputPanel>
+    
+    <!-- Edit -->
+    <apex:outputPanel id="e" layout="block" rendered="{!NOT(ISNULL(relList.editAspect))}">
+        <apex:variable var="editProps" value="{!relList.editAspect.dialog.props}" />
+        <div id="{!editProps.outerDivDomId}">
+            <div id="{!editProps.innerDivDomId}" class="{!editProps.styles.OuterBar}" dialogKey="{!editProps.dialogKey}" doNotDragDescendents="true">
+                <div class="{!editProps.styles.OuterBaz}" dialogKey="{!editProps.dialogKey}">
+                    <span style="display:none">
+                        <apex:outputPanel id="editLoad">
+                            <apex:actionSupport event="onfocus" action="{!relList.invokeEditLoad}" 
+                                    rerender="{!relList.curryRerender}"/>
+                        </apex:outputPanel>
+                        <apex:outputPanel id="editSave">
+                            <apex:actionSupport event="onfocus" action="{!relList.invokeEditSave}" 
+                                    rerender="{!relList.curryRerender}"/>
+                        </apex:outputPanel>
+                        
+                        <script type="text/javascript">
+                            rk_register({!relList.editAspect.ecmaArgPath}, {
+                                clobber: "rerenders actions",
+                                rerenders: {
+                                    top: "{!$Component.e}"
+                                },
+                                actions: {
+                                    load: {
+                                            binding: "{!$Component.editLoad}",
+                                            parameters: {
+                                                    curryRerender: "{!$Component.e}"
+                                                },
+                                            oncomplete: function () {
+                                                    _uiManager.fireDialogContentsLoaded();
+                                                }
+                                        },
+                                    save: {
+                                            binding: "{!$Component.editSave}",
+                                            parameters: {
+                                                    // editSave rerender is a bit tricky: we must rerender the grid in addition to this dialog:
+                                                    curryRerender: function(relList, aspect) {
+                                                            return aspect.rerenders.top + "," + relList.grid.rerenders.top;
+                                                        }
+                                                },
+                                            oncomplete: function () {
+                                                    _uiManager.fireDialogSubmitFinished();
+                                                }
+                                        }
+                                }
+                            });
+                            
+                            //console.log({!relList.editAspect.ecmaObjPath});
+                            //console.log("{!$Component.editSave}");
+                        </script>
+                    </span>
+                    
+                    <c:pDialogStdAddEdit aspect="{!relList.editAspect}" />
+                        <script type="text/javascript">
+                            (function() {
+                                var dialogKey = "{!relList.editDialog.key}",
+                                    dialogMgr = _uiManager.getDialogManagerByKey(dialogKey);
+                                dialogMgr.unbind(".relatedList").bind("contentReady.relatedList",
+                                    function() {
+                                        {!relList.editAspect.ecmaAspectPath}.fireQueue("dialogReady", dialogMgr);
+                                    });
+                                {!relList.editAspect.ecmaAspectPath}.fireQueue("loaded");
+                            })();
+                        </script>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 
+    <apex:outputPanel layout="none" rendered="{!NOT(ISNULL(relList.editAspect))}">
+        <c:InlineDialogWrapper id="editDialog" props="{!relList.editDialogProps}">
+            <span style="display:none">
+                <apex:outputPanel id="loadBinding">
+                    <apex:actionSupport event="onfocus" action="{!relList.invokeEditLoad}" 
+                            rerender="{!relList.curryRerender}"/>
+                </apex:outputPanel>
+                <apex:outputPanel id="saveBinding">
+                    <apex:actionSupport event="onfocus" action="{!relList.invokeEditSave}" 
+                            rerender="{!relList.curryRerender}"/>
+                </apex:outputPanel>
+                
+                <script type="text/javascript">
+                    var scriptId = "{!now() + 1}";
+                    if (!_uiManager[scriptId]) {
+                        rk_register({!relList.editAspect.ecmaArgPath}, {
+                            clobber: "rerenders actions",
+                            rerenders: {
+                                top: "{!$Component.editDialog}"
+                            },
+                            actions: {
+                                load: {
+                                        binding: "{!$Component.loadBinding}",
+                                        parameters: {
+                                                curryRerender: "{!$Component.editDialog}"
+                                            },
+                                        oncomplete: function () {
+                                                _uiManager.fireDialogContentsLoaded();
+                                            }
+                                    },
+                                save: {
+                                        binding: "{!$Component.saveBinding}",
+                                        parameters: {
+                                                // editSave rerender is a bit tricky: we must rerender the grid in addition to this dialog:
+                                                curryRerender: function(relList, aspect) {
+                                                        return aspect.rerenders.top + "," + relList.grid.rerenders.top;
+                                                    }
+                                            },
+                                        oncomplete: function () {
+                                                _uiManager.fireDialogSubmitFinished();
+                                            }
+                                    }
+                            }
+                        });
+                        
+                        _uiManager[scriptId] = 1;
+                        console.log({!relList.editAspect.ecmaObjPath});
+                    }
+                    
+                </script>
+            </span>
+            
+            <c:DialogStdAddEdit aspect="{!relList.editAspect}" />
+            <script type="text/javascript">
+                (function() {
+                    var dialogKey = "{!relList.editDialog.key}",
+                        dialogMgr = _uiManager.getDialogManagerByKey(dialogKey);
+                    dialogMgr.unbind(".relatedList").bind("contentReady.relatedList",
+                        function() {
+                            {!relList.editAspect.ecmaAspectPath}.fireQueue("dialogReady", dialogMgr);
+                        });
+                    {!relList.editAspect.ecmaAspectPath}.fireQueue("loaded");
+                })();
+            </script>
+        </c:InlineDialogWrapper>
+        -->
+        
+    </apex:outputPanel>
+    
+    <!-- Delete -->
+    <apex:outputPanel id="d" layout="block" rendered="{!NOT(ISNULL(relList.deleteAspect))}">
+        <apex:variable var="delProps" value="{!relList.deleteAspect.dialog.props}" />
+        <div id="{!delProps.outerDivDomId}">
+            <div id="{!delProps.innerDivDomId}" class="{!delProps.styles.OuterBar}" dialogKey="{!delProps.dialogKey}" doNotDragDescendents="true">
+                <div class="{!delProps.styles.OuterBaz}" dialogKey="{!delProps.dialogKey}">
+                    <span style="display:none">
+                        <apex:outputPanel id="delSave">
+                            <apex:actionSupport event="onfocus" action="{!relList.invokeDeleteSave}" 
+                                    rerender="{!relList.curryRerender}"/>
+                        </apex:outputPanel>
+                        <script type="text/javascript">
+                            rk_register({!relList.deleteAspect.ecmaArgPath}, {
+                                    clobber: "rerenders actions",
+                                    rerenders: {
+                                            top: "{!$Component.d}"
+                                        },
+                                    actions: {
+                                            save: {
+                                                binding: "{!$Component.delSave}",
+                                                parameters: {
+                                                        // deleteSave rerender is a bit tricky: we must rerender the grid in addition to this dialog:
+                                                        curryRerender: function(relList, aspect) {
+                                                                return aspect.rerenders.top + "," + relList.grid.rerenders.top;
+                                                            }
+                                                    },
+                                                oncomplete: function () {
+                                                        _uiManager.fireDialogSubmitFinished();
+                                                    }
+                                            }
+                                        }
+                                });
+                        </script>
+                        
+                    </span>
+                    
+                    <c:pDialogStdDelete aspect="{!relList.deleteAspect}" />
+                    <script type="text/javascript">
+                        (function() {
+                            var dialogKey = "{!relList.deleteDialog.key}",
+                                dialogMgr = _uiManager.getDialogManagerByKey(dialogKey);
+                            dialogMgr.unbind(".relatedList").bind("contentReady.relatedList",
+                                function() {
+                                    {!relList.deleteAspect.ecmaAspectPath}.fireQueue("dialogReady", dialogMgr);
+                                });
+                            {!relList.deleteAspect.ecmaAspectPath}.fireQueue("loaded");
+                        })();
+                    </script>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 
+        <c:InlineDialogWrapper id="deleteDialog" props="{!relList.deleteDialogProps}">
+            <span style="display:none">
+                <apex:outputPanel id="saveBinding">
+                    <apex:actionSupport event="onfocus" action="{!relList.invokeDeleteSave}" 
+                            rerender="{!relList.curryRerender}"/>
+                </apex:outputPanel>
+                <script type="text/javascript">
+                    rk_register({!relList.deleteAspect.ecmaArgPath}, {
+                            clobber: "rerenders actions",
+                            rerenders: {
+                                    top: "{!$Component.deleteDialog}"
+                                },
+                            actions: {
+                                    save: {
+                                        binding: "{!$Component.saveBinding}",
+                                        parameters: {
+                                                // deleteSave rerender is a bit tricky: we must rerender the grid in addition to this dialog:
+                                                curryRerender: function(relList, aspect) {
+                                                        return aspect.rerenders.top + "," + relList.grid.rerenders.top;
+                                                    }
+                                            },
+                                        oncomplete: function () {
+                                                _uiManager.fireDialogSubmitFinished();
+                                            }
+                                    }
+                                }
+                        });
+                </script>
+                
+            </span>
+            
+            <c:DialogStdDelete aspect="{!relList.deleteAspect}" />
+            <script type="text/javascript">
+                (function() {
+                    var dialogKey = "{!relList.deleteDialog.key}",
+                        dialogMgr = _uiManager.getDialogManagerByKey(dialogKey);
+                    dialogMgr.unbind(".relatedList").bind("contentReady.relatedList",
+                        function() {
+                            {!relList.deleteAspect.ecmaAspectPath}.fireQueue("dialogReady", dialogMgr);
+                        });
+                    {!relList.deleteAspect.ecmaAspectPath}.fireQueue("loaded");
+                })();
+            </script>
+        </c:InlineDialogWrapper>
+        -->
+    </apex:outputPanel>
+    
+    </apex:actionRegion>
+    
+</apex:component>

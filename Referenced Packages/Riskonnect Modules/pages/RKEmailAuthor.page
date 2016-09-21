@@ -1,0 +1,355 @@
+<apex:page controller="rkl.RKEmailAuthorController">
+	<apex:includeScript value="{!$Resource.rkl__jquery_1_8}" />
+	<apex:includeScript value="{!$Resource.rkl__RKEmailAuthorJS}" />
+	<apex:includeScript value="{!URLFOR($Resource.rkl__RKEmailAuthor_jQueryUI_Theme, 'base/ui/jquery.ui.core.js')}" />
+	<apex:includeScript value="{!URLFOR($Resource.rkl__RKEmailAuthor_jQueryUI_Theme, 'base/ui/jquery.ui.widget.js')}" />
+	<apex:includeScript value="{!URLFOR($Resource.rkl__RKEmailAuthor_jQueryUI_Theme, 'base/ui/jquery.ui.accordion.js')}" />
+
+	<!-- Bootstrap WYSIHTML5 include stuff -->
+	<apex:stylesheet value="{!$Resource.rkl__bootstrap_wysihtml5_css}" />
+	<apex:stylesheet value="{!$Resource.rkl__bootstrap_css}" />
+	<!-- END Bootstrap WYSIHTML include stuff -->
+
+	<apex:stylesheet value="{!URLFOR($Resource.rkl__RKEmailAuthor_jQueryUI_Theme, 'base/themes/rk-email-author-custom-theme/jquery.ui.all.css')}" />
+	<apex:stylesheet value="{!$Resource.rkl__RKEmailAuthorCSS}" />
+	
+	<apex:form >
+		<apex:sectionHeader title="Task" subtitle="Send an Email"/>
+		<apex:pageMessages escape="false" />
+		<apex:pageBlock >
+			<apex:pageBlockButtons >
+				<apex:commandButton onclick="RKEmail.getBody();" action="{!send}" value="Send" />
+				<apex:actionRegion >
+					<apex:commandButton onclick="RKEmail.startGetRecipients(); return false;" value="Add Contacts" />
+					<apex:actionFunction name="getRecipients" action="{!recipientQuery}" oncomplete="RKEmail.openRecipientsDialog();" rerender="recipient_list" />
+				</apex:actionRegion>
+				<apex:actionRegion >
+					<apex:commandButton onclick="RKEmail.startGetEmailFolders(); return false;" value="Select Template" />
+					<apex:actionFunction name="getEmailFolders" action="{!emailFolderQuery}" oncomplete="RKEmail.openEmailTemplatesDialog();" rerender="email_templates" />
+				</apex:actionRegion>
+				<apex:actionRegion >
+					<apex:commandButton onclick="RKEmail.startGetAttachments(); return false;" value="Attachments" />
+					<apex:actionFunction name="getAttachments" action="{!attachmentsQuery}" oncomplete="RKEmail.openAttachmentDialog();" rerender="attachment_set, select_page_controls" />
+				</apex:actionRegion>
+				<apex:commandButton immediate="true" action="{!returnToParentObject}" value="Cancel" />
+			</apex:pageBlockButtons>
+
+			<apex:pageBlockSection columns="1" title="Test" collapsible="false">
+				<apex:facet name="header">
+					<apex:outputLabel value="Edit Email" />
+				</apex:facet>
+			
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Email Format" for="emailFormat" />
+					<apex:outputPanel id="mode_block">
+						<apex:outputPanel rendered="{!IF(htmlEditor == true, true, false)}">
+							<strong>HTML</strong> [ <apex:commandLink onclick="RKEmail.warningDialog(RKEmail.MODE.TEXT); return false;" value="Switch to Text-Only" /> ]
+							<apex:actionFunction action="{!switchToTextMode}" name="switchToTextModeJS" immediate="true" />
+						</apex:outputPanel>
+						<apex:outputPanel rendered="{!IF(htmlEditor == false, true, false)}">
+							<strong>Text-Only</strong> [ <apex:commandLink onclick="RKEmail.warningDialog(RKEmail.MODE.HTML); return false;" value="Switch to HTML" /> ]
+							<apex:actionFunction action="{!switchToHTMLMode}" name="switchToHTMLModeJS" immediate="true" />
+						</apex:outputPanel>
+					</apex:outputPanel>
+				</apex:pageBlockSectionItem>
+			
+				<apex:pageBlockSectionItem >
+				 	<apex:outputLabel value="To" for="emailToLookup" />
+                    <apex:inputField id="contactTo" value="{!rkEmail.lookup.ContactId}" required="false" />
+				</apex:pageBlockSectionItem>
+
+				<!-- <apex:pageBlockSectionItem >
+					<apex:outputLabel value="Related To" for="relatedTo" />
+				</apex:pageBlockSectionItem> -->
+
+				<apex:pageBlockSectionItem >
+					<span>Additional To</span>
+					<apex:inputTextArea id="emailAdditionalTo" cols="75" rows="3" value="{!rkEmail.to}" />
+				</apex:pageBlockSectionItem>
+				
+				<apex:pageBlockSectionItem >
+					<span>CC</span>
+					<apex:inputTextArea id="emailCC" cols="75" rows="3" value="{!rkEmail.cc}" />
+				</apex:pageBlockSectionItem>
+				
+				<apex:pageBlockSectionItem >
+					<span>BCC</span>
+					<apex:inputTextArea id="emailBCC" cols="75" rows="3" value="{!rkEmail.bcc}" />
+				</apex:pageBlockSectionItem>
+
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Subject" for="emailSubject"/>
+					<apex:inputField id="subject" required="true" style="width: 531px; border: 1px solid #888; margin-left: 2px;" value="{!rkEmail.cont.LastName}" />
+				</apex:pageBlockSectionItem>
+
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Body" for="emailBody" />
+					<apex:outputPanel >
+						<apex:inputTextArea styleClass="textarea" value="{!rkEmail.body}" style="width: 529px; height: 200px; margin-left: 2px;"/>
+						<input type="hidden" name="body_string" value="" />
+						<input type="hidden" name="body_text_only" value="" />
+					</apex:outputPanel>
+				</apex:pageBlockSectionItem>
+			</apex:pageBlockSection>
+
+			<!-- table of currently selected email attachments -->
+			<apex:outputPanel layout="block" id="selected_attachments" styleClass="selectedAttachments">
+				<apex:pageBlockSection rendered="{!hasSelectedAttachments}" columns="1" collapsible="false" >
+					<apex:facet name="header">
+						<apex:outputLabel value="Email Attachments" />
+					</apex:facet>
+					<apex:dataTable value="{!selectedAttachments}" var="attachment" styleClass="attachmentTable">
+						<apex:column >
+							<apex:facet name="header">Name</apex:facet>
+							<apex:outputText value="{!attachment.fName}" />
+						</apex:column>
+						<apex:column >
+							<apex:facet name="header">Description</apex:facet>
+							<apex:outputText value="{!attachment.fDescription}" />
+						</apex:column>
+						<apex:column >
+							<apex:facet name="header">Created Date</apex:facet>
+							<apex:outputText value="{0, date, M/d/yyyy}">
+								<apex:param value="{!attachment.fCreatedDate}" />
+							</apex:outputText>
+						</apex:column>
+						<apex:column >
+							<apex:facet name="header">Size</apex:facet>
+							<apex:outputText value="{!CEILING(attachment.fSize / 1000)} KB" />
+						</apex:column>
+					</apex:dataTable>
+				</apex:pageBlockSection>
+			</apex:outputPanel>
+
+		</apex:pageBlock>
+
+		<!-- email attachment dialog window -->
+		<div id="attachmentsWrapper" class="dialogWrapper">
+			<div id="attachment_overlay"></div>
+			<div id="attachment_overlay_loader" class="attachment_dialog">
+				<p>uploading</p>
+            	<img src="{!$Resource.ajax_loader_gif}" />
+			</div>
+			<div id="attachment_error" class="attachment_dialog">
+				<img src="{!$Resource.RKEmailAuthor_Error}" />
+				<p><strong>Error:</strong> File of size <span id="invalidSize" /> bytes exceeds the maximum limit of 5,242,880 bytes (5MB).</p>
+				<apex:commandButton value="Close" onclick="RKEmail.closeFileUploadErrorDialog(); return false;" />
+			</div>
+
+			<div class="attachmentSizeManagerWrapper">
+				<table class="attachmentSizeManagerTable">
+					<tr>
+						<td class="leftCell">0 MB</td>
+						<td><div class="attachmentSizeManager"><div id="attachmentSize"><!-- <span id="attachmentSizeValue"></span> --></div></div></td>
+						<td class="rightCell">10 MB</td>
+					</tr>
+				</table>
+			</div>
+
+			<div class="localAttachStyle">
+				<p>Upload Local Attachment</p>
+				<iframe id="rk_file_uploader" src="/apex/RKFileUploader?id={!objectId}" scrolling="false" height="35" width="400"></iframe>
+			</div>
+
+			<h3>Choose Attachments</h3>
+			<apex:outputPanel id="select_page_controls">
+				<apex:outputPanel rendered="{!needPageControls}">
+				<!-- TODO : To generify client-side pagination, we need to move the page_controls div to a VF component -->
+					<div id="page_controls">
+						<img class="inactive" onclick="emailPaginator.changePage(this, emailPaginator.action.FIRST);" src="{!URLFOR($Resource.RKPageControls, 'first-page.png')}" />
+						<img class="inactive" onclick="emailPaginator.changePage(this, emailPaginator.action.PREV);" src="{!URLFOR($Resource.RKPageControls, 'next-left.png')}" />
+						<span id="pageNum">1</span>
+						<img onclick="emailPaginator.changePage(this, emailPaginator.action.NEXT);" src="{!URLFOR($Resource.RKPageControls, 'next-right.png')}" />
+						<img onclick="emailPaginator.changePage(this, emailPaginator.action.LAST);" src="{!URLFOR($Resource.RKPageControls, 'last-page.png')}" />
+					</div>
+				</apex:outputPanel>
+			</apex:outputPanel>
+			<!-- select attachment table shell -->
+			<div id="select_attachments">
+				<table class="attachmentTable">
+					<tr>
+						<th style="width: 18px;"></th>
+						<th style="width: 150px;">Name</th>
+						<th>Description</th>
+						<th style="width: 75px; text-align: center;">Created Date</th>
+						<th style="text-align: center;">Size</th>
+					</tr>
+				</table>
+			</div>
+			<apex:actionRegion >
+				<apex:commandButton onclick="RKEmail.startSelectedAttachments(); return false;" value="Save" />
+				<apex:actionFunction name="getSelectedAttachments" action="{!processSelectedAttachments}" oncomplete="RKEmail.closeAttachmentDialogLoader();" rerender="selected_attachments">
+					<apex:param id="selectedAttachmentIds" name="selectedAttachmentIds" value="" />
+				</apex:actionFunction>
+			</apex:actionRegion>
+				<apex:commandButton value="Cancel" onclick="RKEmail.closeAttachmentDialog(); return false;" />
+		</div>
+
+		<!-- email template dialog window -->
+		<div id="templateWrapper" class="dialogWrapper">
+			<h3>Choose Template:</h3>
+			<apex:outputPanel id="email_templates">
+				<script type="text/javascript">
+					RKEmail.jsonFolders = '{!jsonFolders}';
+				</script>
+				<div id="templateData"></div>
+			</apex:outputPanel>
+				<apex:commandButton value="Cancel" onclick="RKEmail.closeDialogWindow('templateWrapper'); return false;" />
+		</div>
+
+		<!-- ajax loader dialog -->
+		<div id="ajaxDialog" class="dialogWrapper">
+			<p id="ajaxDialogMsg"></p>
+			<img src="{!$Resource.ajax_loader_gif}" />
+		</div>
+
+		<!-- error dialog when any error occurs -->
+		<div id="errorDialog" class="dialogWrapper errorDialog">
+			<img src="{!$Resource.RKEmailAuthor_Error}" />
+			<p><strong>Error:</strong> <span id="errorDialogMsg" /></p>
+			<apex:commandButton value="Close" onclick="RKEmail.closeDialogWindow('errorDialog'); return false;" />
+		</div>
+
+		<!-- dialog window for notifying the user of email body loss on mode change -->
+		<div id="warningDialog" class="dialogWrapper warningDialog">
+			<img src="{!$Resource.RKEmailAuthor_Warning}" />
+			<p><strong>Warning:</strong> All email body information will be lost. Would you like to proceed?</p>
+			<apex:commandButton value="Yes" onclick="RKEmail.modeChange(); return false;" />
+			<apex:commandButton value="No" onclick="RKEmail.closeDialogWindow('warningDialog'); return false;" />
+		</div>		
+
+		<!-- global vars that reference controller data -->
+		<div>
+			<apex:outputPanel id="email_html">
+				<script type="text/javascript">
+					RKEmail.emailTemplateOutput = '{!emailTemplate}';				// template body
+					RKEmail.emailSubjectOutput = '{!emailTemplateSubject}';			// template subject
+					RKEmail.hasTemplateError = {!hasTemplateError};					// did we encounter a template error
+					RKEmail.templateErrorMsg = '{!templateErrorMsg}';				// template error message
+					RKEmail.templateType = '{!emailTemplateType}';					// template type (i.e. HTML or TEXT)
+					RKEmail.selectedAttachmentIds = '{!selectedAttachmentIds}';		// comma-delimited list of selected attachment ids
+				</script>
+			</apex:outputPanel>
+		</div>
+
+		<div id="overlay"></div>
+
+		<!-- hidden table that contains the set of all attachment records related to the parent object -->
+		<apex:outputPanel id="attachment_set" style="display: none;">
+			<apex:dataTable value="{!attachments}" var="attachment" styleClass="attachmentTable">
+				<apex:column >
+					<apex:inputHidden value="{!attachment.fId}" />
+					<apex:inputCheckbox onclick="RKEmail.checkAllocation(this);" required="false" />
+				</apex:column>
+				<apex:column >
+					<apex:facet name="header">Name</apex:facet>
+					<apex:outputText value="{!attachment.fName}" />
+					<!-- BK : We can look into an AJAX preview mode that loads the src of an image tag dynamically -->
+					<!-- <span><a href="/servlet/servlet.FileDownload?file={!attachment.fId}">o</a></span> -->
+				</apex:column>
+				<apex:column >
+					<apex:facet name="header">Description</apex:facet>
+					<apex:outputText value="{!attachment.fDescription}" />
+				</apex:column>
+				<apex:column styleClass="tdDate">
+					<apex:facet name="header">Created Date</apex:facet>
+					<apex:outputText value="{0, date, M/d/yyyy}">
+						<apex:param value="{!attachment.fCreatedDate}" />
+					</apex:outputText>
+				</apex:column>
+				<apex:column styleClass="tdSize">
+					<apex:facet name="header">Size</apex:facet>
+					<apex:outputText value="{!CEILING(attachment.fSize / 1000)} KB" />
+				</apex:column>
+			</apex:dataTable>
+		</apex:outputPanel>
+
+		<!-- action function for passing selected email template info to the controller -->
+		<apex:actionRegion >
+			<apex:actionFunction name="getSelectedTemplate" action="{!selectTemplate}" oncomplete="RKEmail.processSelectedTemplate();" rerender="email_html, mode_block">
+				<apex:param id="selectedTemplateId" name="selectedTemplateId" value="" />
+				<apex:param id="selectedTemplateType" name="selectedTemplateType" value="" />
+			</apex:actionFunction>
+		</apex:actionRegion>
+
+		<!-- action function for passing local attachment info to the controller for processing -->
+		<apex:actionRegion >
+			<apex:actionFunction name="processLocalAttachment" action="{!processLocalAttachment}" oncomplete="RKEmail.closeFileUploadDialog();" rerender="attachment_set, email_html">
+				<apex:param name="localId" value="" />
+				<apex:param name="localName" value="" />
+				<apex:param name="localSize" value="" />
+			</apex:actionFunction>
+		</apex:actionRegion>
+
+		<!-- recipient wrapper -->
+		<div id="recipientsWrapper" class="dialogWrapper">
+			<table class="recipientsTable">
+				<tr>
+					<td rowspan="3">
+						<apex:outputPanel id="recipient_list">
+							<p>Contacts</p>
+							<apex:selectList id="emailList" multiselect="true" size="18">
+								<apex:selectOptions value="{!allContacts}" />
+							</apex:selectList>
+						</apex:outputPanel>
+					</td>
+					<td><apex:commandButton onclick="RKEmail.Recipient.addRecipient(RKEmail.Recipient.LIST.ADD); return false;" value=">>" />
+						<apex:commandButton onclick="RKEmail.Recipient.delRecipient(RKEmail.Recipient.LIST.ADD); return false;" value="<<" />
+					</td>
+					<td>
+						<p>To</p>
+						<apex:selectList id="addList" multiSelect="true" size="5">
+							<apex:selectOption itemValue="!none!" itemLabel="--None--" />
+						</apex:selectList>
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+						<apex:commandButton onclick="RKEmail.Recipient.addRecipient(RKEmail.Recipient.LIST.CC); return false;" value=">>" />
+						<apex:commandButton onclick="RKEmail.Recipient.delRecipient(RKEmail.Recipient.LIST.CC); return false;" value="<<" />
+					</td>
+					<td>
+						<p>CC</p>
+						<apex:selectList id="copyList" multiSelect="true" size="5">
+							<apex:selectOption itemValue="!none!" itemLabel="--None--" />	
+						</apex:selectList>
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+						<apex:commandButton onclick="RKEmail.Recipient.addRecipient(RKEmail.Recipient.LIST.BCC); return false;" value=">>" />
+						<apex:commandButton onclick="RKEmail.Recipient.delRecipient(RKEmail.Recipient.LIST.BCC); return false;" value="<<" />
+					</td>
+					<td>
+						<p>BCC</p>
+						<apex:selectList id="bccList" multiSelect="true" size="5">
+							<apex:selectOption itemValue="!none!" itemLabel="--None--" />
+						</apex:selectList>
+					</td>
+				</tr>
+			</table>
+			<apex:commandButton onclick="RKEmail.Recipient.populateAddresses(); return false;" value="Save" />
+			<apex:commandButton value="Cancel" onclick="RKEmail.closeDialogWindow('recipientsWrapper'); return false;" />
+		</div>
+
+	</apex:form>
+
+	<apex:includeScript value="{!$Resource.rkl__wysihtml5_js_modified}" />
+	<apex:includeScript value="{!$Resource.rkl__bootstrap_js}" />
+	<apex:includeScript value="{!$Resource.rkl__bootstrap_wysihtml5_js}" />
+
+	<script>
+		if ({!htmlEditor}) {
+			$('.textarea').wysihtml5();
+			RKEmail.editor = $('.textarea').data('wysihtml5').editor;
+		}
+
+		$(window).load(function() {
+			if (RKEmail.editor != null) {
+				RKEmail.setFrame();
+			}
+		});
+	</script>
+</apex:page>

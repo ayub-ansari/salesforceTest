@@ -1,0 +1,99 @@
+<apex:page standardController="Controls__c" showHeader="true"  tabStyle="Controls__c" showChat="false"  >
+    <apex:stylesheet value="/sCSS/21.0/sprites/1297816277000/Theme3/default/gc/versioning.css" />   
+
+   <style>
+      .activeTab {background-color: white; color:black; font-weight:bold; font-size:9pt;
+         background-image:none}
+      .inactiveTab { background-color: #f0f3f7; color:black; font-weight:normal; font-size:9pt;
+         background-image:none}
+      .barPanel{background-color: #f0f3f7; color:Black; font-weight:bold; font-size:10pt;
+         background-image:none}
+   </style>
+
+   <apex:tabPanel switchType="client" selectedTab="tabdetails" id="ControlsTabPanel" tabClass="activeTab" inactiveTabClass="inactiveTab">
+   
+      <apex:tab label="Details" name="ControlsDetails" id="tabdetails" style="background-color: white; font-size:9pt;">
+         <apex:detail showChatter="false" inlineEdit="true" relatedList="false" title="true"/>
+      </apex:tab>
+
+      <apex:tab label="History" name="Control_History" id="tabControlHist" style="background-color: white; font-size:9pt;">
+            <apex:pageBlock title="Field Edit History">
+                <apex:dataTable value="{!Controls__c.histories}" var="ControlHistory" width="100%" title="Edit History" cellpadding="5px" rules="rows">
+                     <apex:column >
+                          <apex:facet name="header">Date</apex:facet>
+                          <apex:outputText value="{0,date,MM/dd/yyyy HH:mm }">
+                               <apex:param value="{!ControlHistory.createddate}" />
+                          </apex:outputText>
+                     </apex:column>
+                     <apex:column >
+                          <apex:facet name="header">Field</apex:facet>
+                          <apex:outputText value="{!IF(CONTAINS(ControlHistory.field,'__c'),LEFT(ControlHistory.field, LEN(ControlHistory.field) -3),ControlHistory.field)}"/>
+                     </apex:column>                  
+                     <apex:column >
+                          <apex:facet name="header">Edited By</apex:facet>
+                          <apex:outputText value="{!ControlHistory.createdby.name}"/>
+                     </apex:column>
+                     <apex:column >
+                          <apex:facet name="header">Old Value</apex:facet>
+                          <apex:outputText value="{!ControlHistory.oldvalue}"/>
+                     </apex:column>
+                     <apex:column >
+                          <apex:facet name="header">New Value</apex:facet>
+                          <apex:outputText value="{!ControlHistory.newvalue}"/>
+                     </apex:column>
+                </apex:datatable> 
+            </apex:pageBlock>
+            
+            
+        <apex:outputLink value="/{!Controls__c.id}">Return to {!Controls__c.name}</apex:outputLink>
+     </apex:tab>
+
+
+      <apex:tab label="Notes and Attachments"  name="NotesAndAttachments" id="tabNoteAtt" style="background-color: white; font-size:9pt;">
+         <apex:relatedList subject="{!Controls__c}"  list="NotesAndAttachments" />
+      </apex:tab>
+
+      <apex:tab label="Activities" name="Activities" id="tabAct" style="background-color: white; font-size:9pt;">
+             <apex:relatedList subject="{!Controls__c}" list="OpenActivities" />
+             <apex:relatedList subject="{!Controls__c}" list="ActivityHistories" />
+      </apex:tab>
+
+      <apex:tab label="Relationships" name="Relationships" id="tabRel" style="background-color: white; font-size:9pt;">
+      <apex:tabPanel switchType="client" selectedTab="tabdetails" id="RisksTabPanel" tabClass="activeTab" inactiveTabClass="inactiveTab">
+         
+          <apex:tab label="Risks" name="Risk_Controls_Associations" id="tabAssRisk">
+             <apex:relatedList subject="{!Controls__c}" list="Risk_Controls_Associations__r" />
+          </apex:tab>
+    
+          <apex:tab label="Committees" name="Control_Committe_Associations" id="tabAssComm">
+             <apex:relatedList subject="{!Controls__c}" list="Control_Committee_Associations__r" />
+          </apex:tab>               
+    
+          <apex:tab label="Compliance" name="Control_Compliance_Associations" id="tabAssComp">
+             <apex:relatedList subject="{!Controls__c}" list="Control_Compliance_Associations__r" />
+          </apex:tab>
+          
+          <apex:tab label="Indicators" name="Control_Indicator_Associations" id="tabAssInd">
+             <apex:relatedList subject="{!Controls__c}" list="Control_Indicator_Associations__r" />
+          </apex:tab>
+          
+          <apex:tab label="Vendors" name="Control_Vendor_Associations" id="tabAssSupp">
+             <apex:relatedList subject="{!Controls__c}" list="Control_Vendor_Associations__r" />
+          </apex:tab>
+    
+          <apex:tab label="Audits" name="Control_Audit_Associations" id="tabAssAudit">
+             <apex:relatedList subject="{!Controls__c}" list="Audit_Control_Associations__r" />
+          </apex:tab>
+          
+
+      
+      </apex:tabPanel>
+      </apex:tab>
+      
+      <apex:tab label="Chatter"  name="Chatter" id="Chatter" style="background-color: white; font-size:9pt;">
+         <chatter:feedWithFollowers entityId="{!Controls__c.id}"/>
+      </apex:tab>
+
+   </apex:tabPanel>
+
+</apex:page>

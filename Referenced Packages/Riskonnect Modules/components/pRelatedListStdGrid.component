@@ -1,0 +1,159 @@
+<!-- Mike Ulveling -->
+<apex:component layout="block">
+    <apex:attribute name="relList" type="rkl.pRelatedList" required="true" description="." />
+    <apex:attribute name="addLinkLabel" type="String" required="true" description="." />
+    
+    <apex:attribute name="path" type="String" required="false" default="#root" description="full path to the direct parent cnode" />
+    <apex:attribute name="ident" type="String" required="false" default="" description="identifies this specific related list among others" />
+    <apex:attribute name="gridIdent" type="String" required="false" default="" description="identifies this specific grid among multiples that may occur for the same related list" />
+    
+    <apex:actionRegion >
+    
+    <!-- instantiates the cnode instance and writes its reference into $cnode.last -->
+    <script type="text/javascript">
+        $cnode({!path}, 'relatedList {!ident}', 'grid {!gridIdent}');
+    </script>
+    
+    <!-- we allow componentBody scripts, e.g. for setting up the "loaded" queue -->
+    <apex:componentBody />
+
+    <apex:outputPanel id="grid" layout="block"
+        style="padding: 3px 2px 3px 8px;">
+
+        <apex:outputPanel layout="block" style="padding:0 0 5px 3px;">
+            <c:FormActionLink label="{!addLinkLabel}"
+                actionFunction="{!relList.addOpenScript}" />
+        </apex:outputPanel>
+
+        <span style="display: none">
+            <apex:outputPanel id="sort">
+                <apex:actionSupport event="onfocus" action="{!relList.sort}" rerender="{!relList.curryRerender}" />
+            </apex:outputPanel>
+            <script type="text/javascript">
+                // define the core element and action aspects of this component-type's API:
+                $cnode({!path}, 'relatedList {!ident}', 'grid {!gridIdent}', { 
+                        reset: "elements actions",
+                        
+                        // component writers are responsible for defining the element aspects of a component type:
+                        elements: {
+                            // properties that have string values starting with "j_id<digit>" are interpreted as a DOM-id and are resolved to a DOM
+                            // node (via document.getElementById) in the cnode API's getElements() result:
+                            grid: "{!$Component.grid}",
+                            dataLoader: "{!$Component.dataLoader}",
+                        },
+                        
+                        // component writers are also responsible for defining the action aspects of a component type:
+                        actions: {
+                            // TODO: grid results should also define the following actions: refresh, setPage, setPageSize
+                            sort: {
+                                
+                                // actions expect an "onfocus"-type apex:actionSupport binding element; $cnode will pluck the action function from
+                                // the onfocus prop and wraps it in a special ECMAScript function that provides our desired action API:
+                                binding: "{!$Component.sort}",
+                                
+                                // the component user could override these callbacks at the time of action invocation, but this is not best-practice:
+                                //   1. component writers should define the before and oncomplete callbacks for each action; the implementation
+                                //      should trigger a $cnode event (to be defined and documented by the component writer)
+                                //   2. component users should attach their custom handlers -- to the various $cnode events defined for that
+                                //      component type -- by acquiring a reference to the cnode instance and binding via on/off/onOff/etc. 
+                                before:
+                                    function() {
+                                        cnode.triggerBoth("beforeAction", "sort");
+                                    },
+                                oncomplete:
+                                    function() {
+                                        cnode.triggerBoth("afterAction", "sort");
+                                    },
+                                
+                                // the component writer can define an action's parameters before the point of invocation. invokers of the action may
+                                // optionally override these parameters and/or supply additional parameters of their own. a parameter value may be a
+                                // function, in which case it will be called -- and thus resolved to its final value -- at time of action invocation
+                                parameters: {
+                                    // this demonstrates that you can compute an action's rerender via script. this is very powerful; some component
+                                    // types will want to search for elements of associated components to add to the rerenders -- e.g. an edit
+                                    // dialog's save action should rerender both the dialog contents (its "grid" element), and any associated search
+                                    // grids' dataLoaders (the "dataLoader" element). external callers of an action may optionally mixin additional
+                                    // rerenders, at the time of invocation, by providing a parameter named "additionalRerender".
+                                    curryRerender:
+                                        function() {
+                                            // note that we now specify rerenders by their *complete* generated DOM-id; this is far more precise
+                                            // than having the platform infer the full namespace path (which it often fails at), it works across
+                                            // components (no matter where they are in the DOM, even if the've been moved), and there is no reason 
+                                            // not to do so now that we can collect and maintain the relevant generated DOM-id's in the elements
+                                            // collection of a cnode's Api object:
+                                            return cnode.getComponentApi().elements.grid;
+                                        }
+                                }
+                            }
+                        }
+                    });
+            </script>
+        </span>
+        
+        <apex:outputPanel id="dataLoader" layout="block">
+            <apex:dynamicComponent componentValue="{!relList.grid.dataTable}" />
+
+            <!-- script to bind the appropriate actions to column header links (sort grid by that column) and Edit links (open an edit dialog for that 
+                 row's record). this is done in script because we depend on Vforce generated DOM Id's to be passed around between components, and doing
+                 so purely in Visualforce is far too restricting -->
+            <script type="text/javascript">
+                (function() {
+                    // this grid's cnode:
+                    var cnode = $cnode({!path}, 'relatedList {!ident}', 'grid {!gridIdent}'),
+                        $dataTable = $(document.getElementById("{!$Component.dataLoader}"));
+                
+                    $dataTable.find("th a[rk-sort-key]").each(
+                        function() {
+                            var $a = $(this);
+                            $a.off(".rk_sort").on("click.rk_sort", 
+                                function() {
+                                    cnode.getComponentApi().actions.sort({
+                                        parameters: {
+                                            sortKey: $a.attr("rk-sort-key"),
+                                        }
+                                    });
+                                });
+                        });
+                        
+                    $dataTable.find("td.col-rowActions a.rk-load-edit").each(
+                        function() {
+                            var $a = $(this),
+                                itemId = $a.closest("td").find("[rk-item-id]").attr("rk-item-id");
+                            $a.prop("onclick", null).off(".rk_edit").on("click.rk_edit", 
+                                function() {
+                                    _uiManager.openDialog("{!JSENCODE(relList.editDialog.key)}", 
+                                        {
+                                            "message": "Loading...",
+                                            "action":
+                                                function() {
+                                                    // find the editDialog cnode that's associated with this grid:
+                                                    cnode.children(".editDialog").getComponentApi().actions.load({
+                                                        parameters: {
+                                                            itemId: itemId
+                                                        }
+                                                    });
+                                                },
+                                            "shortMessage": "Loading..."
+                                        });
+                                });
+                        });
+                        
+                    if ({!relList.gridChanged})
+                        _uiManager.scrollTo($dataTable);
+                    
+                    $cnode({!path}, "relatedList {!ident}", "grid {!gridIdent}")
+                        .triggerBoth("dataLoad", $dataTable.children("table").first());
+                    
+                })();
+            </script>
+        </apex:outputPanel>
+    </apex:outputPanel>
+    
+    <!-- signal that we've finished the parsing and initial scripting setup (i.e. gridLayout shell) of this component -->
+    <script type="text/javascript">
+        $cnode({!path}, "relatedList {!ident}", "grid {!gridIdent}")
+            .triggerBoth("parse");
+    </script>
+    
+    </apex:actionRegion>
+</apex:component>

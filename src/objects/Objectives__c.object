@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <content>ObjectivesTab</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>The Objectives of the entity. This should contain all the significant objectives the organization wants to achieve. The Risks to these objectives will be linked so that the Objective Owner is aware of the potential to not achieve the objectives and to be able to take action.</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>true</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Critical_Success_Factors__c</fullName>
+        <description>What needs to occur to ensure this objective is achieved?</description>
+        <externalId>false</externalId>
+        <inlineHelpText>What needs to occur to ensure this objective is achieved?</inlineHelpText>
+        <label>Critical Success Factors</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Emergency_Plans_Attached__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>If there are emergency plans prepared to address specific objectives, then a copy of the plan attached.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Check this box if Emergency plans have been attached to this record.</inlineHelpText>
+        <label>Emergency Plans Attached</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Extent_Objective_Under_Threat__c</fullName>
+        <description>Measure of the extent to which this objective is under threat - i.e. may not be achieved as expected. this is the Objective Owner&apos;s assessment and may be used in reports</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter a % value for 0 to 100, - the higher the %, the more likely it is that the Objective will not be met.</inlineHelpText>
+        <label>Extent Objective Under Threat</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Objective_Description__c</fullName>
+        <description>Describe the Objective, including key components and milestones</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter as much detail about the Objective as possible</inlineHelpText>
+        <label>Objective Description</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Objective_ID__c</fullName>
+        <caseSensitive>true</caseSensitive>
+        <description>Enables the use of an Objective ID for reporting</description>
+        <externalId>false</externalId>
+        <label>Objective ID</label>
+        <length>55</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Objective_Owner__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Person who has ultimate responsibility for achieving this Objective. May be a delegate.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Select a person from the Contact list.</inlineHelpText>
+        <label>Objective Owner</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Objectives</relationshipLabel>
+        <relationshipName>Objectives</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Objective_Target_Date__c</fullName>
+        <description>If the Objective has a significant milestone, such as &quot;Become #1 by June 30, 2015&quot; then this field should be completed</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Use this field to record the most significant milestone for this Objective - if there is one. Some Objectives will have no specific milestones.</inlineHelpText>
+        <label>Objective Target Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>X10_K_Objective__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>If an Objective is stated in the most recent 10-K or similar document (i.e. Annual Report to Investors), then the check box should be selected. This will be used in reporting and dashboards</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If reported in 10-K or similar annual reports, select this box.</inlineHelpText>
+        <label>10-K Objective</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <label>Objectives</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <label>Objectives Name</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Objectives</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>Objective_Description__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Objective_Owner__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>X10_K_Objective__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Critical_Success_Factors__c</customTabListAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+</CustomObject>

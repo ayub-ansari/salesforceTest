@@ -1,0 +1,16 @@
+<apex:page controller="rkl.RollupExposureFieldController">
+<h1>Manually Trigger Recalculation of Exposure Roll-ups</h1>
+
+<br/><br/>
+ 
+Click the button below to start a manual update of all the hierarchy nodes. 
+
+<br/><br/>
+ 
+<apex:form >
+	<apex:commandButton action="{!run}" value="Update Now" id="theButton"/>
+	<apex:outputText id="error" value="{!error}" style="font-weight: bold; color: red"/> 
+    <br/><br/>
+    <c:batchJobs id="jobs" numberOfJobs="5"/>
+</apex:form> 
+</apex:page>

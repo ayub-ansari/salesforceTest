@@ -1,0 +1,14 @@
+<!--  Mike Ulveling
+      Version: 1.01
+      This is designed to work with the jController plugin -- if you wish to use the latter, then use this to wrap all your HTML-level input elements -->
+<apex:component layout="none" access="global">
+    <apex:attribute name="required" type="Boolean" required="true" access="global" description="whether the field is required" />
+    <apex:attribute name="jLabel" type="String" required="true" access="global" description="the label to display for this field (jController) upon a validation error" />
+    <apex:attribute name="blockClass" type="String" default="" access="global" description="" />
+    <apex:attribute name="blockStyle" type="String" default="" access="global" description="" />
+    <apex:attribute name="inline" type="Boolean" default="false" access="global" description="render as an inline or block-level DOM node?" />
+    <div class="fieldInputBlock {!IF(required, ' requiredInput', '')} {!blockClass}" jFieldLabel="{!jLabel}" style="{!IF(inline, 'display:inline-block;', '')}{!blockStyle}">
+        <apex:outputPanel layout="none" rendered="{!required}"><div class="requiredBlock" /></apex:outputPanel>
+        <apex:componentBody />
+    </div>
+</apex:component>
