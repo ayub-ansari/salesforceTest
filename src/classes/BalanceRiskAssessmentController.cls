@@ -1,5 +1,5 @@
 public class BalanceRiskAssessmentController {
-
+    /*ayub commented it*/
     public BalanceRiskAssessmentController(ApexPages.StandardController controller) {
 
     }
